@@ -58,10 +58,19 @@ class Valve:
         Returns the current port of a given valve.
         """
 #        return self.current_port
-	command = f'{self.valve_no}?8'
+	command = f'/{self.valve_no}?8'     #command to query port position of valve at valve_no (or valve_num)
 	read_count = 0
-	while read_count < 10:
-		self.valve.write(command)
-
-
+	while read_count < 10:              #read info for at most 10 times
+		self.valve.write(command)       #write query command
+		time.sleep(1)
+		pos = self.valve.read_bytes(4)  #read 4 bytes from com port
+		if pos != b'/0B\r':             # b'/0B\r' means read nothing, correct will be in format b'/0@x', x is the position
+			self.current_port = int(bytes.decode(pos)[-1])  #convert byte to string then convert the last digit (the position) to int
+			self.valve.close()
+			return self.current_port    #return the position reading
+		else:
+			read_count = read_count + 1 #add counting number
+	print('Query port failed!')
+	self.valve.close()
+	return None                         #shall we return None or something eles?
 
