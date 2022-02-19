@@ -57,7 +57,11 @@ class Valve:
         """
         Returns the current port of a given valve.
         """
-        return self.current_port
+#        return self.current_port
+	command = f'{self.valve_no}?8'
+	read_count = 0
+	while read_count < 10:
+		self.valve.write(command)
 
 
 
