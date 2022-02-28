@@ -16,23 +16,24 @@ class PumpModule:
     num_pumps: The total number of pumps the module contains
 
     === Representation Invariants ===
-    - #todo: Limit num_pumps to 8 here?
+
 
     """
-    def __init__(self, num_pumps: int):
+    num_pumps: int = 8
+
+    def __init__(self):
         """
         Initializes the pump module, which contains all pumps.
 
         Precondition: module must be open to communication
         """
-        self.num_pumps = num_pumps
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
             raise Exception("Communication failed.")
-        self.pumps = [Pump(i, self.controller) for i in range(1, num_pumps + 1)]
+        self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
     def get_status_list(self):
-        return [self.pumps[i].pump_status for i in range(0, self.num_pumps + 1)]
+        return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
 
     def close(self):
         """
@@ -53,8 +54,7 @@ class Pump:
     - pump_status must be either False (inactive) or True (active)
 
     """
-
-    waste_port = 5
+    waste_port: int = 5
 
     def __init__(self, pump_num: int, controller: SyringePumpDef, pump_port: int = waste_port, pump_status: bool = False):
         self.pump_num = pump_num
@@ -64,17 +64,17 @@ class Pump:
         if self.controller.DiscoverModule(pump_num):
             self.controller.priming()
         else:
-            raise Exception("Module failed to be discovered.")
+            raise Exception(f"Module {self.pump_num} failed to be discovered.")
 
-    def _set_pump_status(self, new_pump_status: int):
+    def _set_pump_status(self, new_pump_status: bool):
         """
-        Sets the value of self.pump_status to pump_status, where pump_status is 0 or 1
+        Sets the value of self.pump_status to pump_status, where pump_status is True or False.
         """
         self.pump_status = new_pump_status
 
     def _set_current_port(self, new_pump_port: int):
         """
-        Sets the value of self.current_port to pump_port
+        Sets the value of self.current_port to new_pump_port
         """
         self.pump_port = new_pump_port
 
@@ -83,15 +83,15 @@ class Pump:
         Initializes a given pump at start of exp. This must be done at the start. Do NOT reinitialize
         (call only once).
         """
-        waste_port = 5
-        if self.controller.Initialize(self.pump_num, waste_port):
+        # waste_port = 5
+        if self.controller.Initialize(self.pump_num, self.waste_port):
             self._set_pump_status(True)
             print(f"Pump {self.pump_num} is initialized.")
         else:
             self._set_pump_status(False)
             raise Exception(f"Pump number {self.pump_num} failed to initialize.")
 
-    def move(self, new_port, topspeed, volume, wait_ready = True): #lowercase
+    def move(self, new_port, topspeed, volume, wait_ready: bool = True): #lowercase
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
         position of the syringe corresponding to the volume volume at the speed topspeed.
@@ -99,7 +99,7 @@ class Pump:
         Precondition: Pump must be active, ie pump_status == True
         """
         if self.pump_status:
-            self._move_port(new_port) #is it good to have same variable names here?
+            self._move_port(new_port)
             self._move_piston(topspeed, volume, wait_ready)
             print(f"Pump is ready to dispense {volume} mL to port {new_port}.") #unsure if it actually dispenses
         else:
@@ -125,10 +125,20 @@ class Pump:
         """
         if self.pump_status:
             self.controller.Speed(self.pump_num, topspeed)
-            position = volume*307200
+            position = volume * 307200
             self.controller.MoveToPosition(self.pump_num, position, wait_ready)
         else:
             raise Exception("Pump is not active.")
+
+    def dispense(self, src_port: int, dst_port: int, ...): #same args as Pump.move()
+        """docstring"""
+        # self.move(src_port, ..., volume = volume, ...)
+        # self.move(dst_port, ..., volume = 0, ...)
+
+    def rinse(self, soln_port, ...):
+        """Rinse the syringe from sol to waste_port."""
+        # self.dispense(soln_port, waste_port, ...)
+
 
 
 
