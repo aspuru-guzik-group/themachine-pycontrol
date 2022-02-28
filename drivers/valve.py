@@ -1,76 +1,108 @@
 import visa
 import time
-com_list = [10,7,11,10,5,9,8]
+from typing import Union
+
+COM_LIST = [10, 7, 11, 10, 5, 9, 8]
 rm = visa.ResourceManager()
+
+# todo: use a decorator to wrap all functions with open and close valve
+
+
+class ValveModule:
+    """
+    Describes a module, each of which contains four valves.
+
+    === Public Attributes ===
+    module_num: Identifies the given module by a number 1-6
+
+    === Private Attributes ===
+
+    === Representation Invariants ===
+    - module_num is between 1 and 6 inclusive
+
+
+    """
+    def __init__(self, module_num: int):
+        """
+        Initialize a valve module.
+
+        """
+        self.module_num = module_num - 1
+        com_no = COM_LIST[module_num]
+        self.com_port = f'ASRL{com_no}::INSTR' #are this and valves private?
+        self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
 
 
 class Valve:
     """
-    Description
+    Describes one of the four valves on each valve module.
+    Valves should only be instantiated through the ValveModule class.
 
     === Public Attributes ===
-    valve_module: Describes the module in which a given valve is located
-    valve_no: Identifies the valve number of a given valve in a module
+    valve_num: Identifies the valve number of a given valve in a module
+    module_num: Identifies the module to which the valve belongs
+    current_port: Identifies the current port a valve is open to
+
+    === Private Attributes ===
 
     == Representation Invariants ===
-    - valve_module must be a number between 0-5 inclusive
-    - valve_no must be a number between 1-4 inclusive
+    - valve_module must be a number between 1-6 inclusive
+    - valve_num must be a number between 1-4 inclusive
+    - valve_port is between 1 and 8 inclusive
     """
 
-    def __init__(self, valve_module, valve_no, valve, current_port) -> None:
+    def __init__(self, valve_num: int, module_num: int, current_port: int = 8):
         """
-        Initialize a new valve.
-
+        Initialize a new valve. Default port is port 8.
         """
-        valve_module: int
-        valve_no: int
-        valve: rm
-        current_port: int
+        self.valve_num = valve_num
+        self.module_num = module_num
+        self._set_current_port(current_port)
+        com_no = COM_LIST[module_num]
+        self.com_port_cmd = f'ASRL{com_no}::INSTR'
+    
+    def _set_current_port(self, valve_port: int):
+        """
+        Sets the value of self.current_port to valve_port.
+        """
+        self.current_port: int = valve_port
 
-        com_no = com_list[valve_module]
-        com_port = f'ASRL{com_no}::INSTR'
-        self.valve = rm.open_resource(com_port)
-        self.valve = valve
-        self.valve_module = valve_module
-        self.valve_no = valve_no
-        self.current_port = current_port
+    def get_current_port(self) -> Union[None, int]:
+        """
+        Returns the current valve position or port number.
+        """
+        valve = rm.open_resource(self.com_port_cmd)
+        command = f'/{self.valve_num}?8'
+        for i in range(10):
+            valve.write(command)
+            time.sleep(1)
+            returned_bytes: bytes = valve.read_bytes(4)
+            returned_pos: int = int(bytes.decode(returned_bytes)[-1])
+            if returned_bytes != b'/0B\r':  
+                self._set_current_port(returned_pos)
+                valve.close()
+                return returned_pos
+        valve.close()
+        raise Exception("Query port failed!")
 
-    def move(self, valve_port):
+    def move(self, valve_port: int):
         """
         Moves a given valve to a selected port.
 
         Precondition: Valve port is between 1 and 8 inclusive
-
         """
-        valve_port: int
+        valve = rm.open_resource(self.com_port_cmd)
+        assert valve_port in range(1, 9)
+        command = f'/{self.valve_num}o{valve_port}R'
+        for _ in range(10):
+            valve.write(command)
+            time.sleep(2)
+            if self.get_current_port() == valve_port:
+                print(
+                    f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}.")
+                valve.close()
+                return True #dont need now w exceptions? but will continue otherwise, assertion in else better?
+        valve.close()
+        raise Exception("Moving valve failed.")
 
-        command = f'/{self.valve_no}o{valve_port}R'
-        valve_port = self.current_port
-        self.valve.write(command)
-        time.sleep(2)
-        self.valve.write(command)
-        time.sleep(2)
-        self.valve.close()
-        print(f"Valve {self.valve_no} in module {self.valve_module }has been moved to port {self.current_port}.")
-
-    def locate(self):
-        """
-        Returns the current port of a given valve.
-        """
-#        return self.current_port
-	command = f'/{self.valve_no}?8'     #command to query port position of valve at valve_no (or valve_num)
-	read_count = 0
-	while read_count < 10:              #read info for at most 10 times
-		self.valve.write(command)       #write query command
-		time.sleep(1)
-		pos = self.valve.read_bytes(4)  #read 4 bytes from com port
-		if pos != b'/0B\r':             # b'/0B\r' means read nothing, correct will be in format b'/0@x', x is the position
-			self.current_port = int(bytes.decode(pos)[-1])  #convert byte to string then convert the last digit (the position) to int
-			self.valve.close()
-			return self.current_port    #return the position reading
-		else:
-			read_count = read_count + 1 #add counting number
-	print('Query port failed!')
-	self.valve.close()
-	return None                         #shall we return None or something eles?
 
