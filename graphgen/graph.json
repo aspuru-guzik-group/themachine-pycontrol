@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "type": "valvem_odule",
+      "label": "valve_module",
+      "id": "valve_module",
+      "class": "ValveModule",
+      "name": "valve_module_1"
+    },
+    {
+      "type": "valve",
+      "label": "valve",
+      "id": "valve",
+      "class": "Valve",
+      "name": "valve_1"
+    },
+    {
+      "type": "pump_module",
+      "label": "pump_module",
+      "id": "pump_module",
+      "class": "PumpModule",
+      "name": "pump_module_1"
+    },
+    {
+      "type": "pump",
+      "label": "pump",
+      "id": "pump",
+      "class": "Pump",
+      "name": "pump_1"
+    },
+    {
+      "type": "hotplate",
+      "label": "hotplate",
+      "id": "hotplate",
+      "class": "Hotplate",
+      "name": "hotplate_1"
+    },
+    {
+      "type": "relay_module",
+      "label": "relay_module",
+      "id": "relay_module",
+      "class": "RelayModule",
+      "name": "relay_module_1"
+    },
+    {
+      "type": "relay",
+      "label": "relay",
+      "id": "relay",
+      "class": "Relay",
+      "name": "relay_1"
+    },
+    {
+      "type": "stock_vial",
+      "label": "stock_vial",
+      "id": "stock_vial",
+      "class": "StockVial",
+      "name": "stock_vial_1"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_vial",
+      "id": "rxn_vial",
+      "class": "ReactionVial",
+      "name": "rxn_vial_1"
+    },
+    {
+      "type": "waste",
+      "label": "waste",
+      "id": "waste",
+      "class": "Waste",
+      "name": "waste_1"
+    }
+  ],
+  "links": [
+    {
+      "source": "valve_1",
+      "target": "rxn_vial_1"
+    }
+  ]
+}
