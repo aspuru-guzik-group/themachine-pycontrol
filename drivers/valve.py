@@ -14,6 +14,7 @@ class ValveModule:
 
     === Public Attributes ===
     module_num: Identifies the given module by a number 1-6
+    valves:
 
     === Private Attributes ===
 
@@ -29,7 +30,7 @@ class ValveModule:
         """
         self.module_num = module_num - 1
         com_no = COM_LIST[module_num]
-        self.com_port = f'ASRL{com_no}::INSTR' #are this and valves private?
+        #self.com_port = f'ASRL{com_no}::INSTR' #are this and valves private?
         self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
 
 
@@ -101,8 +102,8 @@ class Valve:
                 print(
                     f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}.")
                 valve.close()
-                return True #dont need now w exceptions? but will continue otherwise, assertion in else better?
+                return
         valve.close()
-        raise Exception("Moving valve failed.")
+        raise Exception(f"Moving valve {self.valve_num} to port {valve_port} failed.")
 
 

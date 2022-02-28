@@ -1,12 +1,13 @@
 import sys
+from pathlib import Path
 import clr
-clr.AddReference(r"C:\Users\AAG Group\Dropbox (Aspuru-Guzik Lab)\TheMachine\Python Code\drivers\KEMPumpDLL")
-#print(os.getcwd())
-#DLL_Address = os.getcwd()+'\KEMPumpDLL'
-#clr.AddReference(DLL_Address)
+
+
+cwd: Path = Path.cwd()
+dll: Path = cwd / "KEMPumpDLL.dll"
+#clr.AddReference(r'C:\Users\Anji\Desktop\Learning Python\themachine-pycontrol\drivers\KEMPumpDLL.dll')#str(dll))
 
 from KEMPumpDLL import SyringePumpDef
-
 
 class PumpModule:
     """
@@ -14,6 +15,8 @@ class PumpModule:
 
     === Public Attributes ===
     num_pumps: The total number of pumps the module contains
+    controller:
+    pumps:
 
     === Representation Invariants ===
 
