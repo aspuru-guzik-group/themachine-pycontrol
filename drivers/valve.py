@@ -58,7 +58,7 @@ class Valve:
 
     def __init__(self, valve_num: int, module_num: int, current_port: int = 8):
         """
-        Initialize a new valve. Default port is port 8.
+        Initialize a new controller. Default port is port 8.
         """
         self.valve_num = valve_num
         self.module_num = module_num
@@ -76,18 +76,18 @@ class Valve:
         """
         Returns the current valve position or port number.
         """
-        valve = rm.open_resource(self.com_port_cmd)
+        controller = rm.open_resource(self.com_port_cmd)
         command = f'/{self.valve_num}?8'
         for i in range(10):
-            valve.write(command)
+            controller.write(command)
             time.sleep(1)
-            returned_bytes: bytes = valve.read_bytes(4)
+            returned_bytes: bytes = controller.read_bytes(4)
             returned_pos: int = int(bytes.decode(returned_bytes)[-1])
             if returned_bytes != b'/0B\r':  
                 self._set_current_port(returned_pos)
-                valve.close()
+                controller.close()
                 return returned_pos
-        valve.close()
+        controller.close()
         raise Exception("Query port failed!")
 
     def move(self, valve_port: int):
@@ -96,18 +96,18 @@ class Valve:
 
         Precondition: Valve port is between 1 and 8 inclusive
         """
-        valve = rm.open_resource(self.com_port_cmd)
+        controller = rm.open_resource(self.com_port_cmd)
         assert valve_port in range(1, 9)
         command = f'/{self.valve_num}o{valve_port}R'
         for _ in range(10):
-            valve.write(command)
+            controller.write(command)
             time.sleep(2)
             if self.get_current_port() == valve_port:
                 print(
                     f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}.")
-                valve.close()
+                controller.close()
                 return
-        valve.close()
+        controller.close()
         raise Exception(f"Moving valve {self.valve_num} to port {valve_port} failed.")
 
 

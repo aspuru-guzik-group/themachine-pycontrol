@@ -29,8 +29,8 @@ class Hotplate:
         """
         # connect to desired COM port device and open remote control
         #TODO: read com_num value from COM_LIST (see valve.py)
-        com_port = f'ASRL{com_num}::INSTR'
-        self.hotplate = rm.open_resource(com_port)
+        com_port: str = f'ASRL{com_num}::INSTR'
+        self.controller: Resource = rm.open_resource(com_port)
         self.heat_switch: bool = False
         self.stir_switch: bool = False
         self.temp: int = 20
@@ -52,21 +52,21 @@ class Hotplate:
         if self.heat_switch:
             # set temp
             self.temp = new_temp # replace
-            self.hotplate.write(f'OUT_SP_1 {new_temp}')
+            self.controller.write(f'OUT_SP_1 {new_temp}')
             time.sleep(1)
             # start heating
-            self.hotplate.write('START_1')
+            self.controller.write('START_1')
             time.sleep(1)
             print(f"Hotplate is now heating to {new_temp}.")
         else:
             # stop heating
-            self.hotplate.write('STOP_1')
+            self.controller.write('STOP_1')
             time.sleep(1)
             print("Hotplate is no longer heating.")
 
     #TODO: Create funcs that _set (and _get?) heat and stir statuses, as well as temp and rpm. Replace as appropriate.
 
-    def stir(self, stir_switch_status=False,new_rpm=0):
+    def stir(self, stir_switch_status=False, new_rpm=0):
         #TODO: Correct type hinting.
         """
         Sets the rpm the hotplate should stir at if stir_switch is true ("on").
@@ -83,15 +83,15 @@ class Hotplate:
         if self.stir_switch:
             # set rpm
             self.rpm = new_rpm # replace
-            self.hotplate.write(f'OUT_SP_4 {new_rpm}')
+            self.controller.write(f'OUT_SP_4 {new_rpm}')
             time.sleep(1)
             # start stirring
-            self.hotplate.write('START_4')
+            self.controller.write('START_4')
             time.sleep(1)
             print(f"The hotplate is now stirring at {new_rpm} rpm")
         else:
             # stop stirring
-            self.hotplate.write('STOP_4')
+            self.controller.write('STOP_4')
             time.sleep(1)
             print("The hotplate has stopped stirring.")
 
@@ -103,18 +103,18 @@ class Hotplate:
         """
         if tare_switch:
             # reset taring value
-            self.hotplate.write('STOP_90')
-            self.hotplate.write('START_90')
+            self.controller.write('STOP_90')
+            self.controller.write('START_90')
             time.sleep(10)
-            self.hotplate.write('STATUS_90')
-            print(self.hotplate.read())
+            self.controller.write('STATUS_90')
+            print(self.controller.read())
             print("The hotplate has been tared.")
             return 0
         else:
             # check stability
             for i in range(0, 6):
-                self.hotplate.write('STATUS_90')
-                hotplate_reading = self.hotplate.read()
+                self.controller.write('STATUS_90')
+                hotplate_reading = self.controller.read()
                 hotplate_reading = hotplate_reading.strip()
                 if hotplate_reading == '1041 90':
                     #    print('y')
@@ -124,14 +124,14 @@ class Hotplate:
                     time.sleep(10)
                 # out put error here?
             # measure weight
-            self.hotplate.write('IN_PV_90')
+            self.controller.write('IN_PV_90')
             time.sleep(1)
-            weight = self.hotplate.read()
+            weight = self.controller.read()
             print(f"A weight of {weight} has been obtained.")
             return weight
 
 
 #close control, do NOT shut down hotplate!!!
     def hotplate_close(self):
-        self.hotplate.close()
+        self.controller.close()
 
