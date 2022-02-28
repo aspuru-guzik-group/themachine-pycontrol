@@ -1,14 +1,9 @@
-from visa import ResourceManager as rm
+from visa import ResourceManager
 import time
 
 
-#communicate to devices and list them
-# rm = visa.ResourceManager()
-
-#output COM ports connected
-res = rm.list_resources()
-print(res)
-
+COM_LIST = [4, 6]
+rm = ResourceManager()
 
 
 class Hotplate:
@@ -28,26 +23,20 @@ class Hotplate:
     - rpm must be <1700 rpm
     """
 
-    def __init__(self, com_no, heat_switch=False, stir_switch=False, temp=20, rpm=0, hotplate) -> None:
+    def __init__(self, hotplate_num: int): # Change to hotplate_num
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
-        com_no: int
-        heat_switch: bool
-        stir_switch: bool
-        temp: float
-        rpm: int
-
         # connect to desired COM port device and open remote control
-        COM_Port = f'ASRL{com_no}::INSTR'
-        self.hotplate = rm.open_resource(COM_Port)
-        self.hotplate = hotplate
-        self.heat_switch = heat_switch
-        self.stir_switch = stir_switch
-        self.temp = temp
-        self.rpm = rpm
+        #TODO: read com_num value from COM_LIST (see valve.py)
+        com_port = f'ASRL{com_num}::INSTR'
+        self.hotplate = rm.open_resource(com_port)
+        self.heat_switch: bool = False
+        self.stir_switch: bool = False
+        self.temp: int = 20
+        self.rpm: int = 0
 
-    def heat(self, heat_switch_status=False, new_temp=20) -> None:
+    def heat(self, heat_switch_status: bool = False, new_temp: int = 20):
         """
         Sets the temperature the hotplate should heat up to if heat_switch is True (or "on").
         If it is off, the hotplate stops heating.
@@ -56,12 +45,13 @@ class Hotplate:
         point of material
 
         """
-        heat_switch_status: bool
-        new_temp: float
-        self.heat_switch = heat_switch_status
+
+        # TODO: Add assertions for temp.
+
+        self.heat_switch = heat_switch_status # replace
         if self.heat_switch:
             # set temp
-            self.temp = new_temp
+            self.temp = new_temp # replace
             self.hotplate.write(f'OUT_SP_1 {new_temp}')
             time.sleep(1)
             # start heating
@@ -74,15 +64,10 @@ class Hotplate:
             time.sleep(1)
             print("Hotplate is no longer heating.")
 
-    def read_temp(self):
-        """
-        Returns temperature of hotplate
+    #TODO: Create funcs that _set (and _get?) heat and stir statuses, as well as temp and rpm. Replace as appropriate.
 
-        """
-        print(f"The hotplate is currently {self.temp} degrees Celsius.")
-        return self.temp
-
-    def stir(self, stir_switch_status=False,new_rpm=0) -> None:
+    def stir(self, stir_switch_status=False,new_rpm=0):
+        #TODO: Correct type hinting.
         """
         Sets the rpm the hotplate should stir at if stir_switch is true ("on").
         If it is off, the hotplate stops stirring.
@@ -92,10 +77,12 @@ class Hotplate:
         new_rpm: int
         stir_switch_status: bool
 
-        self.stir_switch = stir_switch_status
+        #TODO: Add assertions for rpm.
+
+        self.stir_switch = stir_switch_status # replace
         if self.stir_switch:
             # set rpm
-            self.rpm = new_rpm
+            self.rpm = new_rpm # replace
             self.hotplate.write(f'OUT_SP_4 {new_rpm}')
             time.sleep(1)
             # start stirring
@@ -110,7 +97,9 @@ class Hotplate:
 
     def weigh(self, tare_switch):
         """
-        Weighs an amount. If tare_switch is True, the weight recorded iwll be set to 0.
+        Placeholder function. Not currently in use!
+
+        Weighs an amount. If tare_switch is True, the weight recorded will be set to 0.
         """
         if tare_switch:
             # reset taring value
@@ -146,13 +135,3 @@ class Hotplate:
     def hotplate_close(self):
         self.hotplate.close()
 
-#hotplate.write('START_1')
-#hotplate.write('START_90')
-#time.sleep(10)
-#hotplate.write('STATUS_90')
-#hotplate.write('IN_PV_90')
-
-#print(hotplate.read())
-#hotplate_temp(False,25)
-#hotplate_stir(False,0)
-#print(hotplate_weigh(True))
