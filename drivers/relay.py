@@ -20,46 +20,53 @@ class RelayModule:
     """Relay module"""
     module_address = 3 # Same as Relays variable above
 
-    def __init__(self):
-        #TODO: Put PortInit functionality in here.
-        #TODO: Create list of 8 Relay objects, passing modbus_rtu.RtuMaster object to each.
+    def __init__(self, master):
+        self.master = modbus_rtu.RtuMaster(serial.Serial(port = "com4", baudrate=9600, bytesize=8, parity='N', stopbits=1))
+        self.master.set_timeout(0.10)
+        self.master.set_verbose(True)
+        self.relays: list[Relay] = [Relay(i, self.master, self.module_address) for i in range(1,9)]
 
-    def relay(self):
-        #TODO: Return Relay in list from 1-indexed counting. (see valve.py)
+    def relay(self, relay_num) -> Relay:
+        return self.relays[relay_num - 1]
+
 
 class Relay:
     """ Relay class"""
 
-    def __init__(self):
+    def __init__(self, relay_num: int, master: Master, module_address):
         #TODO: Accept RtuMaster object as argument.
-        #TODO: Accept arg for mod_address
+        #TODO: Accept arg for mod_address?
         #TODO: arg: relay number (from 1)
-        self.state = 0
+        self.relay_num = relay_num
+        self.master = master
+        self.module_address = module_address #?
+        self.state = False
 
-    def set_relay(self, state: bool):
-        #TODO: Adapt from Han's set_relay() above.
-        #TODO: convert from bool to int
+    def set_relay(self, status: bool = False):
+        master.execute(self.module_address, function_code = cst.WRITE_SINGLE_COIL, starting_address = 0, output_value = status)
 
-    def read_relay(self) -> bool:
-        #TODO: Reads returns relay state.
-        #TODO: convert into to bool
-        #TODO: Update self.state with _set_state()
-        return ...
+    def read_relay(self, channel = 0) -> bool:
+        res = master.execute(Relays, function_code = cst.READ_COILS, starting_address = channel, quantity_of_x = 1)[0]
+        self._set_state(bool(res))
+        return self.state
 
-    def _set_state(self):
+
+    def _set_state(self, new_state: bool):
         #TODO: Update self.state
+        self.state = new_state
 
     def _get_state(self):
         #TODO: Return self.state
+        return self.state
 
     @staticmethod
     def int_to_bool(value: int) -> bool:
-        #TODO: assert value is 0 or 1
+        assert value in range(0,2)
         return bool(value)
 
     @staticmethod
     def bool_to_int(value: bool) -> int:
-        #TODO: Assertion
+        #TODO: Assertion?
         return int(value)
 
 

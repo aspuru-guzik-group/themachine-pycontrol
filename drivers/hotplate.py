@@ -27,14 +27,13 @@ class Hotplate:
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
-        # connect to desired COM port device and open remote control
-        #TODO: read com_num value from COM_LIST (see valve.py)
+        com_num = COM_LIST[hotplate_num - 1]
         com_port: str = f'ASRL{com_num}::INSTR'
         self.controller: Resource = rm.open_resource(com_port)
-        self.heat_switch: bool = False
-        self.stir_switch: bool = False
-        self.temp: int = 20
-        self.rpm: int = 0
+        self._set_heat_switch(False)
+        self._set_stir_switch(False)
+        self._set_temp(20)
+        self._set_rpm(0)
 
     def heat(self, heat_switch_status: bool = False, new_temp: int = 20):
         """
@@ -46,12 +45,11 @@ class Hotplate:
 
         """
 
-        # TODO: Add assertions for temp.
+        assert new_temp in range(20,340)
 
-        self.heat_switch = heat_switch_status # replace
+        self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
-            # set temp
-            self.temp = new_temp # replace
+            self._set_temp(new_temp)
             self.controller.write(f'OUT_SP_1 {new_temp}')
             time.sleep(1)
             # start heating
@@ -65,24 +63,68 @@ class Hotplate:
             print("Hotplate is no longer heating.")
 
     #TODO: Create funcs that _set (and _get?) heat and stir statuses, as well as temp and rpm. Replace as appropriate.
+    def _set_temp(self, new_temp: int = 20):
+        """
+        Sets self.temp to new_temp
+        """
+        assert new_temp in range(20, 340)
+        self.temp = new_temp
+    
+    def _get_temp(self):
+        """
+        Returns current temp status
+        """
+        return self.temp
+    
+    def _set_heat_switch(self, new_heat_switch: bool = False):
+        """
+        Sets self.heat_switch to new_heat_switch_status
+        """
+        self.heat_switch = new_heat_switch
+    
+    def _get_heat_switch(self):
+        """
+        Returns current heat switch status
+        """
+        return self.heat_switch
 
-    def stir(self, stir_switch_status=False, new_rpm=0):
-        #TODO: Correct type hinting.
+    def _set_stir_switch(self, new_stir_switch: bool):
+        """
+        Sets self.stir_switch to new_heat_switch_status
+        """
+        self.stir_switch = new_stir_switch
+
+    def _get_stir_switch(self):
+        """
+        Returns current stir switch status
+        """
+        return self.sti_switch
+    
+    def _set_rpm(self, new_rpm: int = 0):
+        """
+        Sets self.rpm to be new_rpm
+        """
+        self.rpm = new_rpm
+
+    def _get_rpm(self):
+        """
+        Returns current rpm
+        """
+        return self.rpm
+
+    def stir(self, stir_switch_status: bool = False, new_rpm: int = 0):
         """
         Sets the rpm the hotplate should stir at if stir_switch is true ("on").
         If it is off, the hotplate stops stirring.
 
         Precondition: max rpm is 1700
         """
-        new_rpm: int
-        stir_switch_status: bool
 
-        #TODO: Add assertions for rpm.
+        assert rpm in range(0,1700)
 
-        self.stir_switch = stir_switch_status # replace
+        self._set_stir_switch(stir_switch_status)
         if self.stir_switch:
-            # set rpm
-            self.rpm = new_rpm # replace
+            self._set_rpm(new_rpm)
             self.controller.write(f'OUT_SP_4 {new_rpm}')
             time.sleep(1)
             # start stirring

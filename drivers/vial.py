@@ -9,10 +9,21 @@ class Container:
     inert: bool
 
     def _get_volume(self):
+        """
+        Returns the current volume of a container.
+        """
+        return self.current_volume
 
-    def _set_volume(self):
+    def _set_volume(self, current_volume):
+        """
+        Sets the current volume of a container to current_volume
+        """
+        self.current_volume = current_volume
 
     def update_volume(self):
+        """
+
+        """
 
     # Is full decorator (eventually)
 
@@ -20,20 +31,31 @@ class Container:
 
 class StockVial(Container):
     """stock vial class"""
-    #TODO: Set values for add, remove and inert variable
-    def __init__(self):
-        #TODO: Set values for max_volume and current_volume
+    add: bool = False
+    remove: bool = True
+    inert: bool = True
 
+    def __init__(self, max_volume: float, current_volume: float):
+        self.max_volume = max_volume
+        self._set_volume(current_volume)
 
 class ReactionVial(Container):
     """reaction vial class"""
-    # TODO: Set values for add, remove and inert variable
-    def __init__(self):
-        # TODO: Set values for max_volume and current_volume
+    add: bool = True
+    remove: bool = False
+    inert: bool = True
+
+    def __init__(self, max_volume: float, current_volume: float = 0): #set to 0?
+        self.max_volume = max_volume
+        self._set_volume(current_volume)
 
 class Waste(Container):
-    """wate container class"""
-    # TODO: Set values for add, remove and inert variable
-    def __init__(self):
-        # TODO: Set values for max_volume and current_volume
+    """waste container class"""
+    add: bool = True
+    remove: bool = False
+    inert: bool = False
+
+    def __init__(self, max_volume: float, current_volume: float):
+        self.max_volume = max_volume
+        self._set_volume(current_volume)
 

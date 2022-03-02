@@ -94,7 +94,7 @@ class Pump:
             self._set_pump_status(False)
             raise Exception(f"Pump number {self.pump_num} failed to initialize.")
 
-    def move(self, new_port, topspeed, volume, wait_ready: bool = True): #lowercase
+    def move(self, new_port, topspeed, volume, wait_ready: bool = True): 
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
         position of the syringe corresponding to the volume volume at the speed topspeed.
@@ -132,15 +132,16 @@ class Pump:
             self.controller.MoveToPosition(self.pump_num, position, wait_ready)
         else:
             raise Exception("Pump is not active.")
-
-    def dispense(self, src_port: int, dst_port: int, ...): #same args as Pump.move()
+        
+    def dispense(self, src_port, dst_port, topspeed, volume, wait_ready: bool = True):    
         """docstring"""
-        # self.move(src_port, ..., volume = volume, ...)
-        # self.move(dst_port, ..., volume = 0, ...)
+        self.move(src_port, topspeed, volume, wait_ready)
+        self.move(dst_port, topspeed, 0, wait_ready)
 
-    def rinse(self, soln_port, ...):
+
+    def rinse(self, soln_port, topspeed, volume, wait_ready: bool = True, waste_port = 5): #order enforced by pycharm
         """Rinse the syringe from sol to waste_port."""
-        # self.dispense(soln_port, waste_port, ...)
+        self.dispense(soln_port, waste_port, topspeed, volume, wait_ready)
 
 
 

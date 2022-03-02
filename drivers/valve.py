@@ -29,13 +29,13 @@ class ValveModule:
 
         """
         self.module_num = module_num - 1
-        com_num = COM_LIST[module_num]
+        #com_num = COM_LIST[module_num]
         #self.com_port = f'ASRL{com_num}::INSTR' #are this and valves private?
         self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
 
     def valve(self, valve_num: int) -> Valve:
         """function that returns valve instance"""
-        #TODO: function that returns valve instance
+        return self.valves[valve_num - 1]
 
 
 class Valve:
