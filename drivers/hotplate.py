@@ -98,7 +98,7 @@ class Hotplate:
         """
         Returns current stir switch status
         """
-        return self.sti_switch
+        return self.stir_switch
     
     def _set_rpm(self, new_rpm: int = 0):
         """
@@ -173,7 +173,7 @@ class Hotplate:
             return weight
 
 
-#close control, do NOT shut down hotplate!!!
+    #close control, do NOT shut down hotplate!!!
     def hotplate_close(self):
         self.controller.close()
 
