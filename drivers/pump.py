@@ -1,13 +1,14 @@
-import sys
 from pathlib import Path
 import clr
 
 
+# FIXME: Need to resolve the DLL issue.
 cwd: Path = Path.cwd()
 dll: Path = cwd / "KEMPumpDLL.dll"
 #clr.AddReference(r'C:\Users\Anji\Desktop\Learning Python\themachine-pycontrol\drivers\KEMPumpDLL.dll')#str(dll))
 
 from KEMPumpDLL import SyringePumpDef
+
 
 class PumpModule:
     """
@@ -37,6 +38,9 @@ class PumpModule:
 
     def get_status_list(self):
         return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
+
+    # TODO: Add pump() func that returns Pump instance. See valve.py and relay.py
+    # To be called as PumpModule.pump(1) instead of PumpModule.pumps[0].
 
     def close(self):
         """
@@ -94,7 +98,8 @@ class Pump:
             self._set_pump_status(False)
             raise Exception(f"Pump number {self.pump_num} failed to initialize.")
 
-    def move(self, new_port, topspeed, volume, wait_ready: bool = True): 
+    def move(self, new_port, topspeed, volume, wait_ready: bool = True):
+        # FIXME: Typehints for args!
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
         position of the syringe corresponding to the volume volume at the speed topspeed.
@@ -104,11 +109,12 @@ class Pump:
         if self.pump_status:
             self._move_port(new_port)
             self._move_piston(topspeed, volume, wait_ready)
-            print(f"Pump is ready to dispense {volume} mL to port {new_port}.") #unsure if it actually dispenses
+            print(f"Pump is ready to dispense {volume} mL to port {new_port}.")  # unsure if it actually dispenses
         else:
             raise Exception("Pump is not active.")
 
     def _move_port(self, new_port):
+        # FIXME: Typehints for args!
         """
         Sets the port of a given pump to new_port.
 
@@ -133,13 +139,14 @@ class Pump:
         else:
             raise Exception("Pump is not active.")
         
-    def dispense(self, src_port, dst_port, topspeed, volume, wait_ready: bool = True):    
+    def dispense(self, src_port, dst_port, topspeed, volume, wait_ready: bool = True):
+        # FIXME: Typehints for args!
         """docstring"""
         self.move(src_port, topspeed, volume, wait_ready)
         self.move(dst_port, topspeed, 0, wait_ready)
 
-
-    def rinse(self, soln_port, topspeed, volume, wait_ready: bool = True, waste_port = 5): #order enforced by pycharm
+    def rinse(self, soln_port, topspeed, volume, wait_ready: bool = True, waste_port = 5):  # order enforced by pycharm
+        # FIXME: Typehints for args!
         """Rinse the syringe from sol to waste_port."""
         self.dispense(soln_port, waste_port, topspeed, volume, wait_ready)
 

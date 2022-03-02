@@ -8,7 +8,7 @@ class Container:
     remove: bool
     inert: bool
 
-    def _get_volume(self):
+    def _get_volume(self): #FIXME: Typehint for return!
         """
         Returns the current volume of a container.
         """
@@ -19,15 +19,20 @@ class Container:
         Sets the current volume of a container to current_volume
         """
         self.current_volume = current_volume
+        #FIXME: Function variable with the same name as a class variable.
 
     def update_volume(self):
         """
 
         """
 
+    #TODO: Add function to query remaining volume in Container.
+    # This will be used to check that you aren't gonna overfill the Container.
+
     # Is full decorator (eventually)
 
     # Is empty decorator (eventually)
+
 
 class StockVial(Container):
     """stock vial class"""
@@ -39,6 +44,7 @@ class StockVial(Container):
         self.max_volume = max_volume
         self._set_volume(current_volume)
 
+
 class ReactionVial(Container):
     """reaction vial class"""
     add: bool = True
@@ -48,6 +54,7 @@ class ReactionVial(Container):
     def __init__(self, max_volume: float, current_volume: float = 0): #set to 0?
         self.max_volume = max_volume
         self._set_volume(current_volume)
+
 
 class Waste(Container):
     """waste container class"""

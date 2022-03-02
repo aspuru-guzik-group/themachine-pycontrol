@@ -23,7 +23,7 @@ class Hotplate:
     - rpm must be <1700 rpm
     """
 
-    def __init__(self, hotplate_num: int): # Change to hotplate_num
+    def __init__(self, hotplate_num: int):  # Change to hotplate_num
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
@@ -45,7 +45,8 @@ class Hotplate:
 
         """
 
-        assert new_temp in range(20,340)
+        assert new_temp in range(20, 340)
+        # FIXME: This assertion wouldn't let you set temp to 340 C. Either set range to 341 or use <= and >=
 
         self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
@@ -62,15 +63,16 @@ class Hotplate:
             time.sleep(1)
             print("Hotplate is no longer heating.")
 
-    #TODO: Create funcs that _set (and _get?) heat and stir statuses, as well as temp and rpm. Replace as appropriate.
     def _set_temp(self, new_temp: int = 20):
         """
         Sets self.temp to new_temp
         """
         assert new_temp in range(20, 340)
+        # FIXME: This assertion wouldn't let you set temp to 340 C. Either set range to 341 or use <= and >=
         self.temp = new_temp
     
     def _get_temp(self):
+        # FIXME: Typehint return
         """
         Returns current temp status
         """
@@ -83,6 +85,7 @@ class Hotplate:
         self.heat_switch = new_heat_switch
     
     def _get_heat_switch(self):
+        # FIXME: Typehint return
         """
         Returns current heat switch status
         """
@@ -95,6 +98,7 @@ class Hotplate:
         self.stir_switch = new_stir_switch
 
     def _get_stir_switch(self):
+        # FIXME: Typehint return
         """
         Returns current stir switch status
         """
@@ -107,6 +111,7 @@ class Hotplate:
         self.rpm = new_rpm
 
     def _get_rpm(self):
+        # FIXME: Typehint return
         """
         Returns current rpm
         """
@@ -120,7 +125,9 @@ class Hotplate:
         Precondition: max rpm is 1700
         """
 
-        assert rpm in range(0,1700)
+        assert rpm in range(0, 1700)
+        # FIXME: rpm reference is unresolved
+        # FIXME: This assertion wouldn't let you set stirring to 1700 rpm. Either set range to +1 or use <= and >=
 
         self._set_stir_switch(stir_switch_status)
         if self.stir_switch:
@@ -172,8 +179,7 @@ class Hotplate:
             print(f"A weight of {weight} has been obtained.")
             return weight
 
-
-    #close control, do NOT shut down hotplate!!!
-    def hotplate_close(self):
+    def close(self):
+        # close control, do NOT shut down hotplate!!!
         self.controller.close()
 

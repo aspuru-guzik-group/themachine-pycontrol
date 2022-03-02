@@ -56,7 +56,7 @@ class Valve:
     - valve_port is between 1 and 8 inclusive
     """
 
-    def __init__(self, valve_num: int, module_num: int, current_port: int = 8):
+    def __init__(self, valve_num: int, module_num: int, current_port: int = 8): # Should we allow init w/ current_port != 8?
         """
         Initialize a new controller. Default port is port 8.
         """
@@ -82,11 +82,11 @@ class Valve:
             controller.write(command)
             time.sleep(1)
             returned_bytes: bytes = controller.read_bytes(4)
-            returned_pos: int = int(bytes.decode(returned_bytes)[-1])
+            returned_port: int = int(bytes.decode(returned_bytes)[-1])
             if returned_bytes != b'/0B\r':  
-                self._set_current_port(returned_pos)
+                self._set_current_port(returned_port)
                 controller.close()
-                return returned_pos
+                return returned_port
         controller.close()
         raise Exception("Query port failed!")
 
