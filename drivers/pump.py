@@ -1,12 +1,9 @@
-from pathlib import Path
 import clr
 
-
-# FIXME: Need to resolve the DLL issue.
-cwd: Path = Path.cwd()
-dll: Path = cwd / "KEMPumpDLL.dll"
-#clr.AddReference(r'C:\Users\Anji\Desktop\Learning Python\themachine-pycontrol\drivers\KEMPumpDLL.dll')#str(dll))
-
+# No need to import sys or Path
+# The file's working directory is automatically added to sys.path
+# As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
+clr.AddReference('KEMPumpDLL')
 from KEMPumpDLL import SyringePumpDef
 
 
