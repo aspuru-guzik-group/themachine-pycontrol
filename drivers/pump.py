@@ -1,10 +1,9 @@
 import clr
-
+clr.AddReference('KEMPumpDLL')
+from KEMPumpDLL import SyringePumpDef
 # No need to import sys or Path
 # The file's working directory is automatically added to sys.path
 # As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
-clr.AddReference('KEMPumpDLL')
-from KEMPumpDLL import SyringePumpDef
 
 
 class PumpModule:
