@@ -19,7 +19,7 @@ class PumpModule:
 
 
     """
-    num_pumps: int = 8
+    num_pumps: int = 7
 
     def __init__(self):
         """
@@ -32,16 +32,13 @@ class PumpModule:
             raise Exception("Communication failed.")
         self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
-    def get_status_list(self) -> List(Bool):
+    def get_status_list(self) -> list[bool]:
         """
         Returns list of statuses for all pumps in order of pump_num
         """
         return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
 
-    # TODO: Add pump() func that returns Pump instance. See valve.py and relay.py
-    # To be called as PumpModule.pump(1) instead of PumpModule.pumps[0].
-    
-    def pump(self, pump_num) -> Pump:
+    def pump(self, pump_num: int) -> Pump:
         """
         Returns the pump instance corresponding to pump_num
         """
@@ -67,16 +64,17 @@ class Pump:
 
     """
     waste_port: int = 5
+    steps_per_vol: int = 307200  # Steps per mL for a 10 mL syringe.
 
-    def __init__(self, pump_num: int, controller: SyringePumpDef, pump_port: int = waste_port, pump_status: bool = False):
-        self.pump_num = pump_num
-        self._set_current_port(pump_port)
-        self._set_pump_status(pump_status)
+    def __init__(self, pump_num: int, controller: SyringePumpDef):
         self.controller = controller
+        self.pump_num = pump_num
+        self.pump_port: int = self.waste_port
+        self.pump_status: bool = False
         if self.controller.DiscoverModule(pump_num):
-            self.controller.priming()
+            self._prime()
         else:
-            raise Exception(f"Module {self.pump_num} failed to be discovered.")
+            raise Exception(f"Pump {self.pump_num} failed to be discovered.")
 
     def _set_pump_status(self, new_pump_status: bool):
         """
@@ -90,18 +88,17 @@ class Pump:
         """
         self.pump_port = new_pump_port
 
-    def priming(self):
+    def _prime(self):
         """
         Initializes a given pump at start of exp. This must be done at the start. Do NOT reinitialize
         (call only once).
         """
-        # waste_port = 5
         if self.controller.Initialize(self.pump_num, self.waste_port):
             self._set_pump_status(True)
             print(f"Pump {self.pump_num} is initialized.")
         else:
             self._set_pump_status(False)
-            raise Exception(f"Pump number {self.pump_num} failed to initialize.")
+            raise Exception(f"Pump {self.pump_num} failed to initialize.")
 
     def move(self, new_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """
@@ -113,22 +110,18 @@ class Pump:
         if self.pump_status:
             self._move_port(new_port)
             self._move_piston(topspeed, volume, wait_ready)
-            print(f"Pump is ready to dispense {volume} mL to port {new_port}.")  # unsure if it actually dispenses
+            print(f"Pump is ready to dispense {volume} mL to port {new_port}.")
         else:
             raise Exception("Pump is not active.")
 
     def _move_port(self, new_port: int):
-        # FIXME: Typehints for args!
         """
         Sets the port of a given pump to new_port.
 
         Precondition: Pump is active, ie pump_status == True
         """
-        if self.pump_status:
-            self.controller.Port(self.pump_num, new_port, True)
-            self._set_current_port(new_port)
-        else:
-            raise Exception("Pump not active.")
+        self.controller.Port(self.pump_num, new_port, True)
+        self._set_current_port(new_port)
 
     def _move_piston(self, topspeed: float, volume: float, wait_ready: bool = True):
         """
@@ -136,26 +129,15 @@ class Pump:
 
         Precondition: pump is active, ie pump_status == True
         """
-        if self.pump_status:
-            self.controller.Speed(self.pump_num, topspeed)
-            position = volume * 307200
-            self.controller.MoveToPosition(self.pump_num, position, wait_ready)
-        else:
-            raise Exception("Pump is not active.")
+        self.controller.Speed(self.pump_num, topspeed)
+        position: float = volume * self.steps_per_vol
+        self.controller.MoveToPosition(self.pump_num, position, wait_ready)
         
     def dispense(self, src_port: int, dst_port: int, topspeed: float, volume: float, wait_ready: bool = True):
-        # FIXME: Typehints for args!
         """docstring"""
         self.move(src_port, topspeed, volume, wait_ready)
         self.move(dst_port, topspeed, 0, wait_ready)
 
-    def rinse(self, soln_port: int, topspeed: float, volume: float, wait_ready: bool = True, waste_port = 5):  # order enforced by pycharm
-        # FIXME: Typehints for args!
+    def rinse(self, soln_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """Rinse the syringe from sol to waste_port."""
-        self.dispense(soln_port, waste_port, topspeed, volume, wait_ready)
-
-
-
-
-
-
+        self.dispense(soln_port, self.waste_port, topspeed, volume, wait_ready)

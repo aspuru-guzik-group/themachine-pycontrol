@@ -23,7 +23,7 @@ class Hotplate:
     - rpm must be <1700 rpm
     """
 
-    def __init__(self, hotplate_num: int):  # Change to hotplate_num
+    def __init__(self, hotplate_num: int):
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
@@ -45,7 +45,7 @@ class Hotplate:
 
         """
 
-        assert new_temp in range(20, 341)
+        assert new_temp in range(20, 341), 'Temperature out of range.'
 
         self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
@@ -66,7 +66,7 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
-        assert new_temp in range(20, 341)
+        assert new_temp in range(20, 341) # TODO: Add err msg
         self.temp = new_temp
     
     def _get_temp(self) -> int:
@@ -120,7 +120,7 @@ class Hotplate:
         Precondition: max rpm is 1700
         """
 
-        assert new_rpm in range(0, 1701)
+        assert new_rpm in range(0, 1701)  # TODO: Add err msg
 
         self._set_stir_switch(stir_switch_status)
         if self.stir_switch:

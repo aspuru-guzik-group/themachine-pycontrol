@@ -2,11 +2,9 @@
 
 class Container:
     """container class"""
+    min_volume: float  # TODO: Add to subclasses
     max_volume: float
     current_volume: float
-    add: bool
-    remove: bool
-    inert: bool
 
     def _get_volume(self) -> float:
         """
@@ -20,54 +18,21 @@ class Container:
         """
         self.current_volume = new_volume
 
-    def update_volume(self, old_volume: float, volume_change: float):
+    def _update_volume(self, volume_change: float):
         """
         Sets an updated volume by adding volume_change to old_volume 
         """
-        self._set_volume(old_volume + volume_change)
-        
-    def remaining_volume(self) -> float:
+        prev_volume: float = self._get_volume()
+        self._set_volume(prev_volume + volume_change)
+
+    def check_transfer(self, vol_change: float) -> bool:
         """
-        Returns remaining volume in a container
+        Returns remaining volume in a container.value
+
+        vol_to_add: positive or negative
         """    
-        remaining_volume = self.max_volume - self.current_volume
-        return remaining_volume
-
-
-    # Is full decorator (eventually)
-
-    # Is empty decorator (eventually)
-
-
-class StockVial(Container):
-    """stock vial class"""
-    add: bool = False
-    remove: bool = True
-    inert: bool = True
-
-    def __init__(self, max_volume: float, current_volume: float):
-        self.max_volume = max_volume
-        self._set_volume(current_volume)
-
-
-class ReactionVial(Container):
-    """reaction vial class"""
-    add: bool = True
-    remove: bool = False
-    inert: bool = True
-
-    def __init__(self, max_volume: float, current_volume: float = 0): #set to 0?
-        self.max_volume = max_volume
-        self._set_volume(current_volume)
-
-
-class Waste(Container):
-    """waste container class"""
-    add: bool = True
-    remove: bool = False
-    inert: bool = False
-
-    def __init__(self, max_volume: float, current_volume: float):
-        self.max_volume = max_volume
-        self._set_volume(current_volume)
-
+        check_vol: float = self.current_volume + vol_change
+        if (check_vol > self.max_volume) or (check_vol < self.min_volume):
+            return False
+        else:
+            return True

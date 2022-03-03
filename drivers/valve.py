@@ -56,29 +56,29 @@ class Valve:
     - valve_port is between 1 and 8 inclusive
     """
 
-    def __init__(self, valve_num: int, module_num: int, current_port: int = 8): # Should we allow init w/ current_port != 8?
+    def __init__(self, valve_num: int, module_num: int): # Should we allow init w/ current_port != 8?
         """
         Initialize a new controller. Default port is port 8.
         """
         self.valve_num = valve_num
         self.module_num = module_num
-        self._set_current_port(current_port)
-        com_num = COM_LIST[module_num]
+        self.current_port: int = 8
+        com_num = COM_LIST[module_num - 1]
         self.com_port_cmd = f'ASRL{com_num}::INSTR'
     
-    def _set_current_port(self, valve_port: int):
+    def _set_current_port(self, new_port: int):
         """
         Sets the value of self.current_port to valve_port.
         """
-        self.current_port: int = valve_port
+        self.current_port: int = new_port
 
-    def get_current_port(self) -> Union[None, int]:
+    def get_current_port(self) -> int:
         """
         Returns the current valve position or port number.
         """
         controller = rm.open_resource(self.com_port_cmd)
         command = f'/{self.valve_num}?8'
-        for i in range(10):
+        for _ in range(10):
             controller.write(command)
             time.sleep(1)
             returned_bytes: bytes = controller.read_bytes(4)
@@ -96,15 +96,14 @@ class Valve:
 
         Precondition: Valve port is between 1 and 8 inclusive
         """
+        assert valve_port in range(1, 9)  # TODO: Arr err msg
         controller = rm.open_resource(self.com_port_cmd)
-        assert valve_port in range(1, 9)
         command = f'/{self.valve_num}o{valve_port}R'
         for _ in range(10):
             controller.write(command)
             time.sleep(2)
             if self.get_current_port() == valve_port:
-                print(
-                    f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}.")
+                print(f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}.")
                 controller.close()
                 return
         controller.close()
