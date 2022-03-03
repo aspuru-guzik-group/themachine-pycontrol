@@ -32,13 +32,20 @@ class PumpModule:
             raise Exception("Communication failed.")
         self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
-    def get_status_list(self):
-        # FIXME: Typehinting for return
-        # FIXME: Docstring
+    def get_status_list(self) -> List(Bool):
+        """
+        Returns list of statuses for all pumps in order of pump_num
+        """
         return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
 
     # TODO: Add pump() func that returns Pump instance. See valve.py and relay.py
     # To be called as PumpModule.pump(1) instead of PumpModule.pumps[0].
+    
+    def pump(self, pump_num) -> Pump:
+        """
+        Returns the pump instance corresponding to pump_num
+        """
+        return self.pumps[pump_num-1]
 
     def close(self):
         """
@@ -96,8 +103,7 @@ class Pump:
             self._set_pump_status(False)
             raise Exception(f"Pump number {self.pump_num} failed to initialize.")
 
-    def move(self, new_port, topspeed, volume, wait_ready: bool = True):
-        # FIXME: Typehints for args!
+    def move(self, new_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
         position of the syringe corresponding to the volume volume at the speed topspeed.
@@ -111,7 +117,7 @@ class Pump:
         else:
             raise Exception("Pump is not active.")
 
-    def _move_port(self, new_port):
+    def _move_port(self, new_port: int):
         # FIXME: Typehints for args!
         """
         Sets the port of a given pump to new_port.
@@ -124,7 +130,7 @@ class Pump:
         else:
             raise Exception("Pump not active.")
 
-    def _move_piston(self, topspeed: int, volume: int, wait_ready: bool = True):
+    def _move_piston(self, topspeed: float, volume: float, wait_ready: bool = True):
         """
         Sets piston speed to topseed, then moves piston to the position corresponding to volume volume.
 
@@ -137,13 +143,13 @@ class Pump:
         else:
             raise Exception("Pump is not active.")
         
-    def dispense(self, src_port, dst_port, topspeed, volume, wait_ready: bool = True):
+    def dispense(self, src_port: int, dst_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         # FIXME: Typehints for args!
         """docstring"""
         self.move(src_port, topspeed, volume, wait_ready)
         self.move(dst_port, topspeed, 0, wait_ready)
 
-    def rinse(self, soln_port, topspeed, volume, wait_ready: bool = True, waste_port = 5):  # order enforced by pycharm
+    def rinse(self, soln_port: int, topspeed: float, volume: float, wait_ready: bool = True, waste_port = 5):  # order enforced by pycharm
         # FIXME: Typehints for args!
         """Rinse the syringe from sol to waste_port."""
         self.dispense(soln_port, waste_port, topspeed, volume, wait_ready)

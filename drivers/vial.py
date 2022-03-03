@@ -8,26 +8,31 @@ class Container:
     remove: bool
     inert: bool
 
-    def _get_volume(self): #FIXME: Typehint for return!
+    def _get_volume(self) -> float: #FIXME: Typehint for return!
         """
         Returns the current volume of a container.
         """
         return self.current_volume
 
-    def _set_volume(self, current_volume):
+    def _set_volume(self, new_volume: float):
         """
         Sets the current volume of a container to current_volume
         """
-        self.current_volume = current_volume
-        #FIXME: Function variable with the same name as a class variable.
+        self.current_volume = new_volume
 
-    def update_volume(self):
+    def update_volume(self, old_volume: float, volume_change: float):
         """
-
+        Sets an updated volume by adding volume_change to old_volume 
         """
+        self._set_volume(old_volume + volume_change)
+        
+    def remaining_volume(self) -> float:
+        """
+        Returns remaining volume in a container
+        """    
+        remaining_volume = self.max_volume - self.current_volume
+        return remaining_volume
 
-    #TODO: Add function to query remaining volume in Container.
-    # This will be used to check that you aren't gonna overfill the Container.
 
     # Is full decorator (eventually)
 

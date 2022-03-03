@@ -45,8 +45,7 @@ class Hotplate:
 
         """
 
-        assert new_temp in range(20, 340)
-        # FIXME: This assertion wouldn't let you set temp to 340 C. Either set range to 341 or use <= and >=
+        assert new_temp in range(20, 341)
 
         self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
@@ -67,12 +66,10 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
-        assert new_temp in range(20, 340)
-        # FIXME: This assertion wouldn't let you set temp to 340 C. Either set range to 341 or use <= and >=
+        assert new_temp in range(20, 341)=
         self.temp = new_temp
     
-    def _get_temp(self):
-        # FIXME: Typehint return
+    def _get_temp(self) -> int:
         """
         Returns current temp status
         """
@@ -97,8 +94,7 @@ class Hotplate:
         """
         self.stir_switch = new_stir_switch
 
-    def _get_stir_switch(self):
-        # FIXME: Typehint return
+    def _get_stir_switch(self) -> bool:
         """
         Returns current stir switch status
         """
@@ -110,8 +106,7 @@ class Hotplate:
         """
         self.rpm = new_rpm
 
-    def _get_rpm(self):
-        # FIXME: Typehint return
+    def _get_rpm(self) -> int:
         """
         Returns current rpm
         """
