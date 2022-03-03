@@ -21,13 +21,10 @@ class RelayModule:
     module_address = 3  # Same as Relays variable above
 
     def __init__(self):
-        self.controller = modbus_rtu.RtuMaster(serial.Serial(port="com4", baudrate=9600, bytesize=8, parity='N', stopbits=1))
-        # FIXME: No spaces between arg, = and value in function call.
-        # This is probably causing a PEP 8: E251 error for you (warning or weak warning)
+        self.controller = modbus_rtu.RtuMaster(serial.Serial(port = "com4", baudrate = 9600, bytesize = 8, parity = 'N', stopbits = 1))
         self.controller.set_timeout(0.10)
         self.controller.set_verbose(True)
-        self.relays: list[Relay] = [Relay(i, self.controller, self.module_address) for i in range(1,9)]
-        # FIXME: Space after comma when entering multiple args (PEP8: E231 for range)
+        self.relays: list[Relay] = [Relay(i, self.controller, self.module_address) for i in range(1, 9)]
 
     def relay(self, relay_num) -> Relay:
         """
@@ -46,15 +43,11 @@ class Relay:
         self.state = False
 
     def set_relay(self, status: bool = False):
-        # FIXME: controller reference is unresolved
-        # FIXME: spaces before/after variable assignment in func call
         self.controller.execute(self.module_address, function_code = cst.WRITE_SINGLE_COIL, starting_address = 0, output_value = status)
 
     def read_relay(self, channel = 0) -> bool:
-        # FIXME: spaces before/after variable assignment in func call
-        # FIXME: res var name is unclear. Change to smth more informative
-        res = self.controller.execute(self.module_address, function_code = cst.READ_COILS, starting_address = channel, quantity_of_x = 1)[0]
-        self._set_state(bool(res))
+        relay_state = self.controller.execute(self.module_address, function_code = cst.READ_COILS, starting_address = channel, quantity_of_x = 1)[0]
+        self._set_state(bool(relay_state))
         return self.state
 
     def _set_state(self, new_state: bool):

@@ -8,7 +8,7 @@ class Container:
     remove: bool
     inert: bool
 
-    def _get_volume(self) -> float: #FIXME: Typehint for return!
+    def _get_volume(self) -> float:
         """
         Returns the current volume of a container.
         """
