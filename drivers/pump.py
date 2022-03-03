@@ -33,6 +33,8 @@ class PumpModule:
         self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
     def get_status_list(self):
+        # FIXME: Typehinting for return
+        # FIXME: Docstring
         return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
 
     # TODO: Add pump() func that returns Pump instance. See valve.py and relay.py
