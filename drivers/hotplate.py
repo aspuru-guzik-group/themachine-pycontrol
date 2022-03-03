@@ -66,7 +66,7 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
-        assert new_temp in range(20, 341)=
+        assert new_temp in range(20, 341)
         self.temp = new_temp
     
     def _get_temp(self) -> int:
@@ -120,9 +120,7 @@ class Hotplate:
         Precondition: max rpm is 1700
         """
 
-        assert rpm in range(0, 1700)
-        # FIXME: rpm reference is unresolved
-        # FIXME: This assertion wouldn't let you set stirring to 1700 rpm. Either set range to +1 or use <= and >=
+        assert new_rpm in range(0, 1701)
 
         self._set_stir_switch(stir_switch_status)
         if self.stir_switch:
