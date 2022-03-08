@@ -69,7 +69,16 @@ class Generator:
                     source_id = node["id"]
                 elif node["label"] == target:
                     target_id = node["id"]
-            graph.add_edge(source_id, target_id, data=link)
+            graph.add_edge(
+                source_id,
+                target_id,
+                id=link["id"],
+                name=link["name"],
+                source=link["source"],
+                target=link["target"],
+                type=link["type"],
+                port_num=link["port_num"],
+            )
 
         # stores graph in a .pkl file
         self.graph_to_pkl(graph, self.graph_path)
@@ -93,7 +102,7 @@ def cli_main():
     new_graph = generator.generate_graph()
     for edge_id in new_graph.edges:
         edge = new_graph.edges[edge_id]
-        print(edge["data"])
+        print(edge["source"])
     # print("done")
     # graph.index_nodes()
 
@@ -106,3 +115,4 @@ if __name__ == "__main__":
 # TODO: create all links
 # TODO: label nodes correctly under "label"
 # TODO: edge data weird formatting
+# TODO: directed graph?
