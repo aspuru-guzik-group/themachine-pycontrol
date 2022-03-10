@@ -26,7 +26,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-.idea
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -117,6 +116,9 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+# PyCharm project settings
+.idea
 
 # mkdocs documentation
 /site
