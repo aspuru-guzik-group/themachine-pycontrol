@@ -3,7 +3,7 @@ import json
 import pkg_resources
 import pickle
 import matplotlib.pyplot as plt
-from themachine_pycontrol.drivers.vial import Container
+from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 
@@ -52,8 +52,8 @@ class Generator:
             volume = node["volume"]
             com_num = node["com_num"]
             max_volume = node["max_volume"]
-            if node["class"] == "Container":
-                node["object"] = Container(float(max_volume), volume)
+            if node["class"] == "Vessel":
+                node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
                 # node["object"] = Hotplate(type_num)
                 node["object"] = "hotplate"

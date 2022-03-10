@@ -1,7 +1,7 @@
 from hotplate import Hotplate
 from valve import ValveModule, Valve
 from relay import RelayModule, Relay
-from vial import Container
+from vessel import Vessel
 from pump import PumpModule, Pump
 
 hotplate1 = Hotplate(1)
@@ -22,7 +22,7 @@ pump_mod1.pumps[1].move(5, topspeed = , volume = , True)
 pump_mod1.pumps[1].dispense(1, 5, topspeed = , volume = , True)
 pump_mod1.pumps[1].rinse(1, topspeed = , volume = , True)
 
-#vial_1 = Container(min_volume = 1, max_volume = 10, current_volume = 1)
+#vial_1 = Vessel(min_volume = 1, max_volume = 10, current_volume = 1)
 
 
 

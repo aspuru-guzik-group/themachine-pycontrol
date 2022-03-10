@@ -1,6 +1,6 @@
 # imports
 
-class Container:
+class Vessel:
     """container class"""
 
     def __init__(self, max_volume: float, current_volume: float):
