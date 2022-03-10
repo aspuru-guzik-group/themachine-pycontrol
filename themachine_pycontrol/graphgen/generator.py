@@ -116,3 +116,5 @@ if __name__ == "__main__":
 # TODO: label nodes correctly under "label"
 # TODO: edge data weird formatting
 # TODO: directed graph?
+
+#N2 = node?
