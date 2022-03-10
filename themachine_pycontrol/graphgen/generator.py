@@ -2,6 +2,7 @@ import networkx as nx
 import json
 import pkg_resources
 import pickle
+import matplotlib.pyplot as plt
 from themachine_pycontrol.drivers.vial import Container
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
@@ -33,7 +34,7 @@ class Generator:
         self.json_path = json_path
         self.graph_path = graph_path
 
-    def graph_to_pkl(self, graph, pkl_path):
+    def graph_to_pkl(self, graph, pkl_path) -> None:
         file = open(pkl_path, "wb")
         pickle.dump(graph, file)
         file.close()
@@ -85,7 +86,7 @@ class Generator:
 
         return graph
 
-    def index_nodes(self):
+    def index_nodes(self) -> None:
         graph_json = json.load(open(self.json_path))
         id = 0
         for node in graph_json["nodes"]:
@@ -102,9 +103,8 @@ def cli_main():
     new_graph = generator.generate_graph()
     for edge_id in new_graph.edges:
         edge = new_graph.edges[edge_id]
-        print(edge["source"])
-    # print("done")
-    # graph.index_nodes()
+    nx.draw_planar(new_graph, with_labels=True)
+    plt.show()
 
 
 if __name__ == "__main__":
@@ -117,4 +117,5 @@ if __name__ == "__main__":
 # TODO: edge data weird formatting
 # TODO: directed graph?
 
-#N2 = node?
+# N2 = node?
+
