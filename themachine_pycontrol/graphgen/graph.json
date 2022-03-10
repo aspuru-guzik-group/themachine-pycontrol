@@ -1,0 +1,1006 @@
+{
+  "nodes": [
+    {
+      "type": "valve",
+      "label": "valve_1",
+      "id": 0,
+      "class": "Valve",
+      "name": "valve_1",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 10
+    },
+    {
+      "type": "valve",
+      "label": "valve_2",
+      "id": 1,
+      "class": "Valve",
+      "name": "valve_2",
+      "type_num": 2,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 7
+    },
+    {
+      "type": "valve",
+      "label": "valve_3",
+      "id": 2,
+      "class": "Valve",
+      "name": "valve_3",
+      "type_num": 3,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 11
+    },
+    {
+      "type": "valve",
+      "label": "valve_4",
+      "id": 3,
+      "class": "Valve",
+      "name": "valve_4",
+      "type_num": 4,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 10
+    },
+    {
+      "type": "pump",
+      "label": "pump_1",
+      "id": 4,
+      "class": "Pump",
+      "name": "pump_1",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "hotplate",
+      "label": "hotplate_1",
+      "id": 5,
+      "class": "Hotplate",
+      "name": "hotplate_1",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_1",
+      "id": 6,
+      "class": "Container",
+      "name": "container_1",
+      "type_num": 1,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_2",
+      "id": 7,
+      "class": "Container",
+      "name": "container_2",
+      "type_num": 2,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_3",
+      "id": 8,
+      "class": "Container",
+      "name": "container_3",
+      "type_num": 3,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_4",
+      "id": 9,
+      "class": "Container",
+      "name": "container_4",
+      "type_num": 4,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_5",
+      "id": 10,
+      "class": "Container",
+      "name": "container_5",
+      "type_num": 5,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_6",
+      "id": 11,
+      "class": "Container",
+      "name": "container_6",
+      "type_num": 6,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_7",
+      "id": 12,
+      "class": "Container",
+      "name": "container_7",
+      "type_num": 7,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "stock_vial",
+      "label": "sln_8",
+      "id": 13,
+      "class": "Container",
+      "name": "container_8",
+      "type_num": 8,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_1",
+      "id": 14,
+      "class": "Container",
+      "name": "container_9",
+      "type_num": 9,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_2",
+      "id": 15,
+      "class": "Container",
+      "name": "container_10",
+      "type_num": 10,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_3",
+      "id": 16,
+      "class": "Container",
+      "name": "container_11",
+      "type_num": 11,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_4",
+      "id": 17,
+      "class": "Container",
+      "name": "container_12",
+      "type_num": 12,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_5",
+      "id": 18,
+      "class": "Container",
+      "name": "container_13",
+      "type_num": 13,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_6",
+      "id": 19,
+      "class": "Container",
+      "name": "container_14",
+      "type_num": 14,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_7",
+      "id": 20,
+      "class": "Container",
+      "name": "container_15",
+      "type_num": 15,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_8",
+      "id": 21,
+      "class": "Container",
+      "name": "container_16",
+      "type_num": 16,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_9",
+      "id": 22,
+      "class": "Container",
+      "name": "container_17",
+      "type_num": 17,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_10",
+      "id": 23,
+      "class": "Container",
+      "name": "container_18",
+      "type_num": 18,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_11",
+      "id": 24,
+      "class": "Container",
+      "name": "container_19",
+      "type_num": 19,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_12",
+      "id": 25,
+      "class": "Container",
+      "name": "container_20",
+      "type_num": 20,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_13",
+      "id": 26,
+      "class": "Container",
+      "name": "container_21",
+      "type_num": 21,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_14",
+      "id": 27,
+      "class": "Container",
+      "name": "container_22",
+      "type_num": 22,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_15",
+      "id": 28,
+      "class": "Container",
+      "name": "container_23",
+      "type_num": 23,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_16",
+      "id": 29,
+      "class": "Container",
+      "name": "container_24",
+      "type_num": 24,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_17",
+      "id": 30,
+      "class": "Container",
+      "name": "container_25",
+      "type_num": 25,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_18",
+      "id": 31,
+      "class": "Container",
+      "name": "container_26",
+      "type_num": 26,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_19",
+      "id": 32,
+      "class": "Container",
+      "name": "container_27",
+      "type_num": 27,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_20",
+      "id": 33,
+      "class": "Container",
+      "name": "container_28",
+      "type_num": 28,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_21",
+      "id": 34,
+      "class": "Container",
+      "name": "container_29",
+      "type_num": 29,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_22",
+      "id": 35,
+      "class": "Container",
+      "name": "container_30",
+      "type_num": 30,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_23",
+      "id": 36,
+      "class": "Container",
+      "name": "container_31",
+      "type_num": 31,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "rxn_vial",
+      "label": "rxn_24",
+      "id": 37,
+      "class": "Container",
+      "name": "container_32",
+      "type_num": 32,
+      "volume": 8,
+      "max_volume": 8,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "waste",
+      "label": "waste",
+      "id": 38,
+      "class": "Container",
+      "name": "container_3",
+      "type_num": 1,
+      "volume": 500,
+      "max_volume": 500,
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "relay_module",
+      "label": "relay_module_1",
+      "id": 39,
+      "class": "RelayModule",
+      "name": "relay_module_1",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay",
+      "id": 40,
+      "class": "Relay",
+      "name": "relay_1",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": "None",
+      "com_num": "None"
+    },
+    {
+      "type": "None",
+      "label": "N2",
+      "id": 41,
+      "class": "None",
+      "name": "N2",
+      "type_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": "None",
+      "com_num": "None"
+    }
+  ],
+  "links": [
+    {
+      "id": 0,
+      "name": "port_1_0_A",
+      "source": "pump_1",
+      "target": "valve_1",
+      "type": "volumetric",
+      "port_num": 1
+    },
+    {
+      "id": 1,
+      "name": "port_1_0_B",
+      "source": "pump_1",
+      "target": "valve_2",
+      "type": "volumetric",
+      "port_num": 2
+    },
+    {
+      "id": 2,
+      "name": "port_1_0_C",
+      "source": "pump_1",
+      "target": "valve_3",
+      "type": "volumetric",
+      "port_num": 3
+    },
+    {
+      "id": 3,
+      "name": "port_1_0_D",
+      "source": "pump_1",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 4
+    },
+    {
+      "id": 4,
+      "name": "port_1_0_F",
+      "source": "pump_1",
+      "target": "waste",
+      "type": "volumetric",
+      "port_num": 6
+    },
+    {
+      "id": 5,
+      "name": "port_1_0_G",
+      "source": "pump_1",
+      "target": "N2",
+      "type": "volumetric",
+      "port_num": 7
+    },
+    {
+      "id": 6,
+      "name": "port_1_1_A",
+      "source": "valve_1",
+      "target": "rxn_1",
+      "type": "volumetric",
+      "port_num": 1
+    },
+    {
+      "id": 7,
+      "name": "port_1_1_B",
+      "source": "valve_1",
+      "target": "rxn_2",
+      "type": "volumetric",
+      "port_num": 2
+    },
+    {
+      "id": 8,
+      "name": "port_1_1_C",
+      "source": "valve_1",
+      "target": "rxn_3",
+      "type": "volumetric",
+      "port_num": 3
+    },
+    {
+      "id": 9,
+      "name": "port_1_1_D",
+      "source": "valve_1",
+      "target": "rxn_4",
+      "type": "volumetric",
+      "port_num": 4
+    },
+    {
+      "id": 10,
+      "name": "port_1_1_E",
+      "source": "valve_1",
+      "target": "rxn_5",
+      "type": "volumetric",
+      "port_num": 5
+    },
+    {
+      "id": 11,
+      "name": "port_1_1_F",
+      "source": "valve_1",
+      "target": "rxn_6",
+      "type": "volumetric",
+      "port_num": 6
+    },
+    {
+      "id": 12,
+      "name": "port_1_1_G",
+      "source": "valve_1",
+      "target": "rxn_7",
+      "type": "volumetric",
+      "port_num": 7
+    },
+    {
+      "id": 13,
+      "name": "port_1_1_H",
+      "source": "valve_1",
+      "target": "rxn_8",
+      "type": "volumetric",
+      "port_num": 8
+    },
+    {
+      "id": 14,
+      "name": "port_1_2_A",
+      "source": "valve_2",
+      "target": "rxn_9",
+      "type": "volumetric",
+      "port_num": 1
+    },
+    {
+      "id": 15,
+      "name": "port_1_2_B",
+      "source": "valve_2",
+      "target": "rxn_10",
+      "type": "volumetric",
+      "port_num": 2
+    },
+    {
+      "id": 16,
+      "name": "port_1_2_C",
+      "source": "valve_2",
+      "target": "rxn_11",
+      "type": "volumetric",
+      "port_num": 3
+    },
+    {
+      "id": 17,
+      "name": "port_1_2_D",
+      "source": "valve_2",
+      "target": "rxn_12",
+      "type": "volumetric",
+      "port_num": 4
+    },
+    {
+      "id": 18,
+      "name": "port_1_2_E",
+      "source": "valve_2",
+      "target": "rxn_13",
+      "type": "volumetric",
+      "port_num": 5
+    },
+    {
+      "id": 19,
+      "name": "port_1_2_F",
+      "source": "valve_2",
+      "target": "rxn_14",
+      "type": "volumetric",
+      "port_num": 6
+    },
+    {
+      "id": 20,
+      "name": "port_1_2_G",
+      "source": "valve_2",
+      "target": "rxn_15",
+      "type": "volumetric",
+      "port_num": 7
+    },
+    {
+      "id": 21,
+      "name": "port_1_2_H",
+      "source": "valve_2",
+      "target": "rxn_16",
+      "type": "volumetric",
+      "port_num": 8
+    },
+    {
+      "id": 22,
+      "name": "port_1_3_A",
+      "source": "valve_2",
+      "target": "rxn_17",
+      "type": "volumetric",
+      "port_num": 1
+    },
+    {
+      "id": 23,
+      "name": "port_1_3_B",
+      "source": "valve_2",
+      "target": "rxn_18",
+      "type": "volumetric",
+      "port_num": 2
+    },
+    {
+      "id": 24,
+      "name": "port_1_3_C",
+      "source": "valve_2",
+      "target": "rxn_19",
+      "type": "volumetric",
+      "port_num": 3
+    },
+    {
+      "id": 25,
+      "name": "port_1_3_D",
+      "source": "valve_2",
+      "target": "rxn_20",
+      "type": "volumetric",
+      "port_num": 4
+    },
+    {
+      "id": 26,
+      "name": "port_1_3_E",
+      "source": "valve_2",
+      "target": "rxn_21",
+      "type": "volumetric",
+      "port_num": 5
+    },
+    {
+      "id": 27,
+      "name": "port_1_3_F",
+      "source": "valve_2",
+      "target": "rxn_22",
+      "type": "volumetric",
+      "port_num": 6
+    },
+    {
+      "id": 28,
+      "name": "port_1_3_G",
+      "source": "valve_2",
+      "target": "rxn_23",
+      "type": "volumetric",
+      "port_num": 7
+    },
+    {
+      "id": 29,
+      "name": "port_1_3_H",
+      "source": "valve_2",
+      "target": "rxn_14",
+      "type": "volumetric",
+      "port_num": 8
+    },
+    {
+      "id": 30,
+      "name": "port_1_4_A",
+      "source": "sln_1",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 1
+    },
+    {
+      "id": 31,
+      "name": "port_1_4_B",
+      "source": "sln_2",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 2
+    },
+    {
+      "id": 32,
+      "name": "port_1_4_C",
+      "source": "sln_3",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 3
+    },
+    {
+      "id": 33,
+      "name": "port_1_4_D",
+      "source": "sln_4",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 4
+    },
+    {
+      "id": 34,
+      "name": "port_1_4_E",
+      "source": "sln_5",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 5
+    },
+    {
+      "id": 35,
+      "name": "port_1_4_F",
+      "source": "sln_6",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 6
+    },
+    {
+      "id": 36,
+      "name": "port_1_4_G",
+      "source": "sln_7",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 7
+    },
+    {
+      "id": 37,
+      "name": "port_1_4_H",
+      "source": "sln_8",
+      "target": "valve_4",
+      "type": "volumetric",
+      "port_num": 8
+    },
+    {
+      "id": 38,
+      "name": "hr_1",
+      "source": "hotplate_1",
+      "target": "rxn_1",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 39,
+      "name": "hr_2",
+      "source": "hotplate_1",
+      "target": "rxn_2",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 40,
+      "name": "hr_3",
+      "source": "hotplate_1",
+      "target": "rxn_3",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 41,
+      "name": "hr_4",
+      "source": "hotplate_1",
+      "target": "rxn_4",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 42,
+      "name": "hr_5",
+      "source": "hotplate_1",
+      "target": "rxn_5",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 43,
+      "name": "hr_6",
+      "source": "hotplate_1",
+      "target": "rxn_6",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 44,
+      "name": "hr_7",
+      "source": "hotplate_1",
+      "target": "rxn_7",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 45,
+      "name": "hr_8",
+      "source": "hotplate_1",
+      "target": "rxn_8",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 46,
+      "name": "hr_9",
+      "source": "hotplate_1",
+      "target": "rxn_9",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 47,
+      "name": "hr_10",
+      "source": "hotplate_1",
+      "target": "rxn_10",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 48,
+      "name": "hr_11",
+      "source": "hotplate_1",
+      "target": "rxn_11",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 49,
+      "name": "hr_12",
+      "source": "hotplate_1",
+      "target": "rxn_12",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 50,
+      "name": "hr_13",
+      "source": "hotplate_1",
+      "target": "rxn_13",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 51,
+      "name": "hr_14",
+      "source": "hotplate_1",
+      "target": "rxn_14",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 52,
+      "name": "hr_15",
+      "source": "hotplate_1",
+      "target": "rxn_15",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 53,
+      "name": "hr_16",
+      "source": "hotplate_1",
+      "target": "rxn_16",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 54,
+      "name": "hr_17",
+      "source": "hotplate_1",
+      "target": "rxn_17",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 55,
+      "name": "hr_18",
+      "source": "hotplate_1",
+      "target": "rxn_18",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 56,
+      "name": "hr_19",
+      "source": "hotplate_1",
+      "target": "rxn_19",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 57,
+      "name": "hr_20",
+      "source": "hotplate_1",
+      "target": "rxn_20",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 58,
+      "name": "hr_21",
+      "source": "hotplate_1",
+      "target": "rxn_21",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 59,
+      "name": "hr_22",
+      "source": "hotplate_1",
+      "target": "rxn_22",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 60,
+      "name": "hr_23",
+      "source": "hotplate_1",
+      "target": "rxn_23",
+      "type": "thermal",
+      "port_num": "None"
+    },
+    {
+      "id": 61,
+      "name": "hr_24",
+      "source": "hotplate_1",
+      "target": "rxn_24",
+      "type": "thermal",
+      "port_num": "None"
+    }
+  ]
+}
