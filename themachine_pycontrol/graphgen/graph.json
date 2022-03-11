@@ -533,8 +533,8 @@
     {
       "id": 3,
       "name": "port_1_0_D",
-      "source": "pump_1",
-      "target": "valve_4",
+      "source": "valve_4",
+      "target": "pump_1",
       "type": "volumetric",
       "port_num": 4
     },
@@ -800,7 +800,7 @@
       "source": "sln_7",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": 7
+      "port_num": "(0, 7)"
     },
     {
       "id": 37,

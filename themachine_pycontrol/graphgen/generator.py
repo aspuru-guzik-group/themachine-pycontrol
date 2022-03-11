@@ -35,19 +35,17 @@ class Generator:
         self.graph_path = graph_path
 
     def graph_to_pkl(self, graph, pkl_path) -> None:
-        file = open(pkl_path, "wb")
-        pickle.dump(graph, file)
-        file.close()
+        with open(pkl_path, "wb") as f:
+            pickle.dump(graph, f)
 
     def generate_graph(self) -> nx.Graph:
         """
         Reads the .json data which is used to generate the graph with nodes and edges that access classes in ~/drivers.
         """
-        graph = nx.Graph()
+        graph = nx.DiGraph()
         json_data = json.load(open(self.json_path))
-        id = 0
         for node in json_data["nodes"]:
-            node_id = id
+            node_id = node["id"]
             type_num = node["type_num"]
             volume = node["volume"]
             com_num = node["com_num"]
@@ -60,7 +58,6 @@ class Generator:
             elif node["class"] == "Valve":
                 node["object"] = Valve(type_num, com_num)
             graph.add_nodes_from([(node_id, node)])
-            id += 1
         for link in json_data["links"]:
             source = link["source"]
             target = link["target"]
@@ -93,9 +90,8 @@ class Generator:
             node["id"] = id
             id += 1
 
-        f = open(self.json_path, "w")
-        json.dump(graph_json, f)
-        f.close()
+        with open(self.json_path, "w") as f:
+            json.dump(graph_json, f)
 
 
 def cli_main():
@@ -109,13 +105,4 @@ def cli_main():
 
 if __name__ == "__main__":
     cli_main()
-
-
-# TODO: pyvisa / visa???
-# TODO: create all links
-# TODO: label nodes correctly under "label"
-# TODO: edge data weird formatting
-# TODO: directed graph?
-
-# N2 = node?
 
