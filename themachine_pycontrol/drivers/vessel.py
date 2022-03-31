@@ -1,7 +1,15 @@
 # imports
 
 class Vessel:
-    """container class"""
+    """
+    Defines a vessel, which may be a solution container, a reaction vial, a N2 tank, or a waste bottle.
+
+    == Public Attributes ==
+    max_volume: The maximum volume in mL a vessel can contain
+    current_volume: The current volume occupied in a vessel
+    min_volume: The minimum volume that can be withdrawn from a vessel
+
+    """
 
     def __init__(self, max_volume: float, current_volume: float):
         """

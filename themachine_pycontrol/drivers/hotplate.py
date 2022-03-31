@@ -23,12 +23,12 @@ class Hotplate:
     - rpm must be <1700 rpm
     """
 
-    def __init__(self, hotplate_num: int):
+    def __init__(self, hotplate_num: int, com_num: int):
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
-        com_num = COM_LIST[hotplate_num - 1]
-        com_port: str = f"ASRL{com_num}::INSTR"
+        self.com_num = com_num
+        com_port: str = f"ASRL{self.com_num}::INSTR"
         self.controller: Resource = rm.open_resource(com_port)
         self._set_heat_switch(False)
         self._set_stir_switch(False)
