@@ -3,7 +3,7 @@ import pickle
 # import networkx as nx
 # import json
 from themachine_pycontrol.drivers.vessel import Vessel
-from themachine_pycontrol.drivers.hotplate import Hotplate
+#from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.drivers.pump import Pump
 from themachine_pycontrol.main.graph_search import GraphSearch
@@ -44,9 +44,17 @@ def transfer(graph_path, volume: int, source, target, wait_ready: bool):
             port_3_tuple = eval(edge_3[2]["port_num"]) #trg valve to pump
             port_2 = port_2_tuple[1]
             port_3 = port_3_tuple[1]
-            node["object"].dispense(port_2, port_3, 1.0, volume, wait_ready)
-            #node["object"].move(port_2, 1, volume, wait_ready)
-            print(f"{volume} was transferred to {port_3} from {port_2}")
+            #check volumes
+            source_node = search.get_node_from_label("source")
+            target_node = search.get_node_from_label("target")
+            a = source_node.check_transfer(-volume)
+            b = target_node.check_transfer(volume)
+            if a == b == True:
+                node["object"].dispense(port_2, port_3, 1.0, volume, wait_ready)
+                #node["object"].move(port_2, 1, volume, wait_ready)
+                source_node.update_volume(-volume)
+                source_node.update_volume(volume)
+                print(f"{volume} was transferred to {port_3} from {port_2}")
 
 
 def heat(graph_path, object_label, temp):
@@ -74,8 +82,8 @@ def stir(graph_path, object_label, rpm):
 
 def cli_main():
     graph_1 = GraphSearch(GRAPH_PKL)
-    #transfer(graph_1, 10, "sln_1", "rxn_1", True)
-    heat(graph_1, "rxn_12,", 20)
+    transfer(graph_1, 10, "sln_1", "rxn_1", True)
+    #heat(graph_1, "rxn_12,", 20)
 
 
 

@@ -53,7 +53,7 @@ class Generator:
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
-                node["object"] = Hotplate(type_num, com_num)
+                #node["object"] = Hotplate(type_num, com_num)
                 node["object"] = "hotplate"
             elif node["class"] == "Valve":
                 node["object"] = Valve(type_num, com_num)

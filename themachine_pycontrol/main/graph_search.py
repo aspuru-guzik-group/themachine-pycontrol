@@ -98,9 +98,14 @@ class GraphSearch:
         traversed_edges.append(self.edge_search(traversed_nodes[2], target_label))
         return traversed_edges
 
-    def get_node(self, id):
-        for node in self.graph.nodes.data():
-            if node[0] == id:
+    def get_node_from_id(self, node_id):
+        for node in self.graph.nodes():
+            if node["id"] == node_id:
+                return node
+
+    def get_node_from_label(self, label: str):
+        for node in self.graph.nodes():
+            if node["label"] == label:
                 return node
 
 

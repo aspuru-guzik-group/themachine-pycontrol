@@ -6,7 +6,7 @@ clr.AddReference('KEMPumpDLL')
 # As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
 
 
-class PumpModule:
+class PumpModule(object):
     """
     Defines a pump module, which contains all pumps.
 
@@ -21,16 +21,31 @@ class PumpModule:
     """
     num_pumps: int = 7
 
-    def __init__(self):
-        """
-        Initializes the pump module, which contains all pumps.
+    def __new__(self):
+        _instance = None
+        def __new__(self):
+            """
+            Initializes the pump module, which contains all pumps.
 
-        Precondition: module must be open to communication
-        """
-        self.controller = SyringePumpDef()
-        if not self.controller.OpenCommunications():
-            raise Exception("Communication failed.")
-        self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
+            Precondition: module must be open to communication
+            """
+            if not self._instance:
+                self._instance = super(PumpModule, self).__new__(self)
+                self.controller = SyringePumpDef()
+                if not self.controller.OpenCommunications():
+                    raise Exception("Communication failed.")
+                self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
+
+    # def __init__(self):
+    #     """
+    #     Initializes the pump module, which contains all pumps.
+    #
+    #     Precondition: module must be open to communication
+    #     """
+    #     self.controller = SyringePumpDef()
+    #     if not self.controller.OpenCommunications():
+    #         raise Exception("Communication failed.")
+    #     self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
     def get_status_list(self) -> list[bool]:
         """
