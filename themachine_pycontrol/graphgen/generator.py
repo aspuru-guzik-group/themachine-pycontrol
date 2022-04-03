@@ -46,7 +46,6 @@ class Generator:
         # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
         #   harder to change.
         json_data = json.load(open(self.json_path))
-        # TODO: I think nodes and links could be their own classes = more flexibility.
         for node in json_data["nodes"]:
             node_id = node["id"]
             type_num = node["type_num"]
