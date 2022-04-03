@@ -43,13 +43,17 @@ class Generator:
         Reads the .json data which is used to generate the graph with nodes and edges that access classes in ~/drivers.
         """
         graph = nx.DiGraph()
+        # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
+        #   harder to change.
         json_data = json.load(open(self.json_path))
+        # TODO: I think nodes and links could be their own classes = more flexibility.
         for node in json_data["nodes"]:
             node_id = node["id"]
             type_num = node["type_num"]
             volume = node["volume"]
             com_num = node["com_num"]
             max_volume = node["max_volume"]
+            # TODO: This would be a great opportunity to include a factory pattern.
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
