@@ -1,4 +1,6 @@
 import clr
+from singleton_decorator import singleton
+
 clr.AddReference('KEMPumpDLL')
 from KEMPumpDLL import SyringePumpDef
 # No need to import sys or Path
@@ -98,6 +100,7 @@ class Pump:
         self.dispense(soln_port, self.waste_port, topspeed, volume, wait_ready)
 
 
+@singleton
 class PumpModule(object):
     """
     Defines a pump module, which contains all pumps.
@@ -113,31 +116,16 @@ class PumpModule(object):
     """
     num_pumps: int = 7
 
-    def __new__(self):
-        _instance = None
-        def __new__(self):
-            """
-            Initializes the pump module, which contains all pumps.
+    def __init__(self):
+        """
+        Initializes the pump module, which contains all pumps.
 
-            Precondition: module must be open to communication
-            """
-            if not self._instance:
-                self._instance = super(PumpModule, self).__new__(self)
-                self.controller = SyringePumpDef()
-                if not self.controller.OpenCommunications():
-                    raise Exception("Communication failed.")
-                self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
-
-    # def __init__(self):
-    #     """
-    #     Initializes the pump module, which contains all pumps.
-    #
-    #     Precondition: module must be open to communication
-    #     """
-    #     self.controller = SyringePumpDef()
-    #     if not self.controller.OpenCommunications():
-    #         raise Exception("Communication failed.")
-    #     self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
+        Precondition: module must be open to communication
+        """
+        self.controller = SyringePumpDef()
+        if not self.controller.OpenCommunications():
+            raise Exception("Communication failed.")
+        self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
     def get_status_list(self) -> list[bool]:
         """
