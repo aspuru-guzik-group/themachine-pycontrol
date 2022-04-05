@@ -1,69 +1,9 @@
 import clr
 clr.AddReference('KEMPumpDLL')
-#from KEMPumpDLL import SyringePumpDef
+from KEMPumpDLL import SyringePumpDef
 # No need to import sys or Path
 # The file's working directory is automatically added to sys.path
 # As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
-
-
-class PumpModule(object):
-    """
-    Defines a pump module, which contains all pumps.
-
-    === Public Attributes ===
-    num_pumps: The total number of pumps the module contains
-    controller:
-    pumps:
-
-    === Representation Invariants ===
-
-
-    """
-    num_pumps: int = 7
-
-    def __new__(self):
-        _instance = None
-        def __new__(self):
-            """
-            Initializes the pump module, which contains all pumps.
-
-            Precondition: module must be open to communication
-            """
-            if not self._instance:
-                self._instance = super(PumpModule, self).__new__(self)
-                self.controller = SyringePumpDef()
-                if not self.controller.OpenCommunications():
-                    raise Exception("Communication failed.")
-                self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
-
-    # def __init__(self):
-    #     """
-    #     Initializes the pump module, which contains all pumps.
-    #
-    #     Precondition: module must be open to communication
-    #     """
-    #     self.controller = SyringePumpDef()
-    #     if not self.controller.OpenCommunications():
-    #         raise Exception("Communication failed.")
-    #     self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
-
-    def get_status_list(self) -> list[bool]:
-        """
-        Returns list of statuses for all pumps in order of pump_num
-        """
-        return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
-
-    def pump(self, pump_num: int) -> Pump:
-        """
-        Returns the pump instance corresponding to pump_num
-        """
-        return self.pumps[pump_num-1]
-
-    def close(self):
-        """
-        Closes communication to the pump. Only close at the end of a reaction, never during.
-        """
-        self.controller.CloseCommPort()
 
 
 class Pump:
@@ -147,7 +87,7 @@ class Pump:
         self.controller.Speed(self.pump_num, topspeed)
         position: float = volume * self.steps_per_vol
         self.controller.MoveToPosition(self.pump_num, position, wait_ready)
-        
+
     def dispense(self, src_port: int, dst_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """docstring"""
         self.move(src_port, topspeed, volume, wait_ready)
@@ -156,3 +96,63 @@ class Pump:
     def rinse(self, soln_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """Rinse the syringe from sol to waste_port."""
         self.dispense(soln_port, self.waste_port, topspeed, volume, wait_ready)
+
+
+class PumpModule(object):
+    """
+    Defines a pump module, which contains all pumps.
+
+    === Public Attributes ===
+    num_pumps: The total number of pumps the module contains
+    controller:
+    pumps:
+
+    === Representation Invariants ===
+
+
+    """
+    num_pumps: int = 7
+
+    def __new__(self):
+        _instance = None
+        def __new__(self):
+            """
+            Initializes the pump module, which contains all pumps.
+
+            Precondition: module must be open to communication
+            """
+            if not self._instance:
+                self._instance = super(PumpModule, self).__new__(self)
+                self.controller = SyringePumpDef()
+                if not self.controller.OpenCommunications():
+                    raise Exception("Communication failed.")
+                self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
+
+    # def __init__(self):
+    #     """
+    #     Initializes the pump module, which contains all pumps.
+    #
+    #     Precondition: module must be open to communication
+    #     """
+    #     self.controller = SyringePumpDef()
+    #     if not self.controller.OpenCommunications():
+    #         raise Exception("Communication failed.")
+    #     self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
+
+    def get_status_list(self) -> list[bool]:
+        """
+        Returns list of statuses for all pumps in order of pump_num
+        """
+        return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
+
+    def pump(self, pump_num: int) -> Pump:
+        """
+        Returns the pump instance corresponding to pump_num
+        """
+        return self.pumps[pump_num-1]
+
+    def close(self):
+        """
+        Closes communication to the pump. Only close at the end of a reaction, never during.
+        """
+        self.controller.CloseCommPort()

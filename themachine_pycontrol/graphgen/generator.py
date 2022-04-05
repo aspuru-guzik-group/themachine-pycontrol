@@ -34,7 +34,7 @@ class Generator:
         self.json_path = json_path
         self.graph_path = graph_path
 
-    def graph_to_pkl(self, graph, pkl_path) -> None:
+    def _graph_to_pkl(self, graph, pkl_path) -> None:
         with open(pkl_path, "wb") as f:
             pickle.dump(graph, f)
 
@@ -46,17 +46,17 @@ class Generator:
         json_data = json.load(open(self.json_path))
         for node in json_data["nodes"]:
             node_id = node["id"]
-            type_num = node["type_num"]
+            class_num = node["class_num"]
             volume = node["volume"]
             com_num = node["com_num"]
             max_volume = node["max_volume"]
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
-                #node["object"] = Hotplate(type_num, com_num)
+                #node["object"] = Hotplate(class_num, com_num)
                 node["object"] = "hotplate"
             elif node["class"] == "Valve":
-                node["object"] = Valve(type_num, com_num)
+                node["object"] = Valve(class_num, com_num)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
@@ -79,7 +79,7 @@ class Generator:
             )
 
         # stores graph in a .pkl file
-        self.graph_to_pkl(graph, self.graph_path)
+        self._graph_to_pkl(graph, self.graph_path)
 
         return graph
 

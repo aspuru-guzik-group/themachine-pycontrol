@@ -175,3 +175,11 @@ class Hotplate:
     def close(self):
         # close control, do NOT shut down hotplate!!!
         self.controller.close()
+
+def cli_main():
+    hp = Hotplate(1, 2)
+    hp.heat(True, 25)
+
+
+if __name__ == "__main__":
+    cli_main()

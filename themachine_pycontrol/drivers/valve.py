@@ -114,3 +114,10 @@ class Valve:
         controller.close()
         raise Exception(f"Moving valve {self.valve_num} to port {valve_port} failed.")
 
+def cli_main():
+    valve_1 = Valve(1, 2)
+    valve_1.move(2)
+
+
+if __name__ == "__main__":
+    cli_main()
