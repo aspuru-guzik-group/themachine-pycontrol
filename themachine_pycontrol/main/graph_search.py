@@ -1,5 +1,6 @@
 import pkg_resources
 import pickle
+import networkx as nx
 
 GRAPH_PKL = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.pkl"
@@ -66,28 +67,51 @@ class GraphSearch:
     #         if edge_data["id"] == id:
     #             return edge
 
-    def multistep_search(self, source_label: str, target_label: str) -> list:
-        # NOTE: For later, talk with Han!
-        traversed_nodes = []
-        stop_1 = self.single_search(source_label, True)
-        stop_1_label = stop_1["label"]
-        print(stop_1)
-        #traversed_nodes.append(source_label)
-        traversed_nodes.append(stop_1)
-        #int_2 = self.graph.edges.data[4]
-        #edge_1_id = self.edge_search(source_label, int_1)
-        #edge_1 = self.get_edge(edge_1_id)
-        #int_2 = edge_1[1]
-        #traversed_nodes.append(int_2)
-        stop_2 = self.single_search(stop_1_label, True) #should give pump
-        print(stop_2)
-        traversed_nodes.append(stop_2)
-        stop_a = self.single_search(target_label, True)
-        stop_b = self.single_search(stop_a, True)
-        #traversed_nodes.append(int_b)
-        traversed_nodes.append(stop_a)
-        #traversed_nodes.append(target_label)
-        return traversed_nodes
+    # def multistep_search(self, source_label: str, target_label: str) -> list:
+    #     # NOTE: For later, talk with Han!
+    #     traversed_nodes = []
+    #     stop_1 = self.single_search(source_label, True)
+    #     stop_1_label = stop_1["label"]
+    #     print(stop_1)
+    #     #traversed_nodes.append(source_label)
+    #     traversed_nodes.append(stop_1)
+    #     #int_2 = self.graph.edges.data[4]
+    #     #edge_1_id = self.edge_search(source_label, int_1)
+    #     #edge_1 = self.get_edge(edge_1_id)
+    #     #int_2 = edge_1[1]
+    #     #traversed_nodes.append(int_2)
+    #     stop_2 = self.single_search(stop_1_label, True) #should give pump
+    #     print(stop_2)
+    #     traversed_nodes.append(stop_2)
+    #     stop_a = self.single_search(target_label, True)
+    #     stop_b = self.single_search(stop_a, True)
+    #     #traversed_nodes.append(int_b)
+    #     traversed_nodes.append(stop_a)
+    #     #traversed_nodes.append(target_label)
+    #     return traversed_nodes
+
+    def path_search(self, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
+        source_id = self.get_node_id_from_label(source_label)
+        target_id = self.get_node_id_from_label(target_label)
+        traversed_node_ids = nx.shortest_path(self.graph, source_id, target_id)
+        traversed_edges = self.path_edges(traversed_node_ids)
+        return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
+
+    def multistep_search(self, source_label: str, target_label: str, common_node_label: str = "pump_1"):
+        source_to_common = self.path_search(source_label, common_node_label)
+        target_to_common = self.path_search(target_label, common_node_label)
+        return source_to_common, target_to_common
+
+
+    def path_edges(self, traversed_node_ids: list[int]):
+        traversed_edges = []
+        for node, next_node in zip(traversed_node_ids[0:], traversed_node_ids[1:]):
+            traversed_edges.append(self.graph[node][next_node])
+        return traversed_edges
+
+
+
+
 
     def multistep_edges(self, source_label: str, target_label: str) -> list:
         traversed_edges = []
@@ -99,60 +123,36 @@ class GraphSearch:
         return traversed_edges
 
     def get_node_from_id(self, node_id):
-        for node in self.graph.nodes():
-            if node["id"] == node_id:
-                return node
+        return self.graph.nodes[node_id]
+        # for node in self.graph.nodes:
+        #     if node["id"] == node_id:
+        #         return node
 
-    def get_node_from_label(self, label: str):
-        for node in self.graph.nodes():
-            if node["label"] == label:
-                return node
+    def get_node_id_from_label(self, label: str):
+        for node_id in self.graph.nodes:
+            if self.graph.nodes[node_id]["label"] == label:
+                return node_id
 
+    def get_connected_nodes(self, label: str):
+        node_id = self.get_node_id_from_label(label)
+        neighbor_ids = list(nx.all_neighbors(self.graph, node_id))
+        return [self.get_node_from_id(node_id) for node_id in neighbor_ids]
 
 
 
 
 def cli_main():
     search = GraphSearch(GRAPH_PKL)
-    next_node = search.single_search("rxn_1", True)
-    #print(next_node)
-    #test = search.edge_search("valve_1","rxn_1")
-    #print("here")
-    #print(test)
-    #lst = search.graph.write.edgelist()
-    #print(lst[0])
-    #print(type(search.graph.edges.data()))
-    #print(type(search.graph.nodes.data()))
-    #print((search.graph.edges[0]))
-    #for edge in search.graph.edges.data():
-        #print(edge)
-    #for edge in search.graph.nodes():
-     #   print(edge)
-    print(search.multistep_search("sln_1", "rxn_1"))
-    # ex_edge = search.get_edge(1)
-    # print(ex_edge[2]["port_num"])
-    # str_tuple = ex_edge[2]["port_num"]
-    # tuple_tuple = eval(str_tuple)
-    # port = tuple_tuple[1]
-    # print(port)
-    # print(search.multistep_edges("sln_1", "rxn_1"))
-    # #print(search.get_node(0))
-    # print("!")
-    # for node in search.graph.nodes.data():
-    #     print(node)
-    # node_ex = search.get_node(0)
-    # print(node_ex)
-    # print(node_ex[1]["label"])
-    print("hotplate test")
-    # hotplate = search.single_search("rxn_1", False)
-    # print(hotplate)
-    # print(hotplate["object"])
-    # hotplate["object"].heat(True, 20)
-    print("new test")
-    x = search.single_search("rxn_1", True)
-    print(x)
-    print(x["object"])
-    x["object"].move(2)
+    bla = search.path_search("rxn_1", "pump_1")
+    pass
+    #
+    # next_node = search.single_search("rxn_1", True)
+    #
+    # print("hi")
+    # a = search.multistep_search("sln_1", "rxn_1")
+    print(search.get_connected_nodes("rxn_1"))
+
+
 
 
 
@@ -161,3 +161,4 @@ def cli_main():
 
 if __name__ == "__main__":
     cli_main()
+    print('done')
