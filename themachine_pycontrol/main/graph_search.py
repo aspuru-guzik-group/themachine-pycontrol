@@ -1,6 +1,7 @@
 import pkg_resources
 import pickle
 import networkx as nx
+from typing import Dict, List, Tuple
 
 GRAPH_PKL = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.pkl"
@@ -12,12 +13,13 @@ class GraphSearch:
     pass
     """
 
-    def __init__(self, graph_path):
+    def __init__(self, graph):
         """
         pass
         """
-        with open(graph_path, "rb") as f:
-            self.graph = pickle.load(f)
+        # with open(graph_path, "rb") as f:
+        #     self.graph = pickle.load(f)
+        self.graph: Graph = graph
 
     def single_search(self, label: str, fwd: bool) -> str:
         """
@@ -90,7 +92,7 @@ class GraphSearch:
     #     #traversed_nodes.append(target_label)
     #     return traversed_nodes
 
-    def path_search(self, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
+    def path_search(self, source_label: str, target_label: str) -> Tuple[List[Dict], List[Dict]]:
         source_id = self.get_node_id_from_label(source_label)
         target_id = self.get_node_id_from_label(target_label)
         traversed_node_ids = nx.shortest_path(self.graph, source_id, target_id)
@@ -103,7 +105,7 @@ class GraphSearch:
         return source_to_common, target_to_common
 
 
-    def path_edges(self, traversed_node_ids: list[int]):
+    def path_edges(self, traversed_node_ids: List[int]):
         traversed_edges = []
         for node, next_node in zip(traversed_node_ids[0:], traversed_node_ids[1:]):
             traversed_edges.append(self.graph[node][next_node])
@@ -143,9 +145,10 @@ class GraphSearch:
 
 def cli_main():
     search = GraphSearch(GRAPH_PKL)
+
     bla = search.path_search("rxn_1", "pump_1")
     print(bla)
-    pass
+    
     #
     # next_node = search.single_search("rxn_1", True)
     #

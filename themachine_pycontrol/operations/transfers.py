@@ -1,20 +1,17 @@
 import pkg_resources
-import pickle
 import networkx as nx
-# import json
+import json
 from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
+from themachine_pycontrol.graphgen.generator import Generator
 #from themachine_pycontrol.drivers.pump import Pump
 from themachine_pycontrol.main.graph_search import GraphSearch
 import typing
 
-
-GRAPH_PKL = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.pkl"
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graphgen/graph.json"
 )
-
-SEARCH = GraphSearch(GRAPH_PKL)
 
 class Transfer:
 
@@ -56,9 +53,9 @@ class Transfer:
                     if edge["target"] == node["label"]:
                         pump_port = edge["port_num"][1]
                         if direction:
-                            node["object"].move(pump_port, 2, self.volume)
+                            node["object"].move(pump_port, 25, self.volume)
                         else:
-                            node["object"].move(pump_port, 2, 0)
+                            node["object"].move(pump_port, 25, 0)
 
     # def transfer(graph_path, volume: int, source, target, wait_ready: bool):
     #     """
@@ -108,9 +105,11 @@ class Transfer:
 
 
 def cli_main():
-    graph_1 = GraphSearch(GRAPH_PKL)
+    graph_1_gen = Generator(GRAPH_JSON)
+    graph_1 = graph_1_gen.generate_graph()
+    search = GraphSearch(graph_1)
 
-    transfer = Transfer(SEARCH, "sln_1", "rxn_1", 1.0)
+    transfer = Transfer(search, "sln_1", "rxn_1", 1.0)
     transfer()
 
 

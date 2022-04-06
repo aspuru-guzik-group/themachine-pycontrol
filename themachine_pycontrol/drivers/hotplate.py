@@ -2,7 +2,8 @@ from pyvisa import ResourceManager
 import time
 
 
-COM_LIST = [4, 6]
+#COM_LIST now deprecated due to JSON
+# COM_LIST = [4, 6]
 rm = ResourceManager()
 
 

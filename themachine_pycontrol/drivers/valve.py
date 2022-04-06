@@ -62,6 +62,7 @@ class Valve:
         """
         Initialize a new controller. Default port is port 8.
         """
+        # TODO: Add module numbers in JSON
         self.valve_num = valve_num
         # self.module_num = module_num
         self.current_port: int = 8
@@ -85,8 +86,9 @@ class Valve:
             controller.write(command)
             time.sleep(1)
             returned_bytes: bytes = controller.read_bytes(4)
-            returned_port: int = int(bytes.decode(returned_bytes)[-1])
-            if returned_bytes != b"/0B\r":
+            #if (returned_bytes != b"/0B\r") and isinstance():
+            if bytes.decode(returned_bytes)[-1] in ['1', '2','3', '4', '5', '6', '7', '8'] :
+                returned_port: int = int(bytes.decode(returned_bytes)[-1])
                 self._set_current_port(returned_port)
                 controller.close()
                 return returned_port
@@ -107,7 +109,8 @@ class Valve:
             time.sleep(2)
             if self.get_current_port() == valve_port:
                 print(
-                    f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}."
+                    # f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}."
+                    f"Valve {self.valve_num} has been moved to port {self.current_port}."
                 )
                 controller.close()
                 return

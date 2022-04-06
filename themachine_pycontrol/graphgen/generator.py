@@ -6,16 +6,13 @@ import matplotlib.pyplot as plt
 from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
-#from themachine_pycontrol.drivers.pump import PumpModule
+from themachine_pycontrol.drivers.pump import PumpModule
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-GRAPH_PKL = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.pkl"
-)
-
+PUMP_MOD = PumpModule()
 
 class Generator:
     """
@@ -28,12 +25,11 @@ class Generator:
     - 
     """
 
-    def __init__(self, json_path: str, graph_path: str) -> None:
+    def __init__(self, json_path: str) -> None:
         """
         Initializes Generator class with paths to where data is stored, and where graph is stored.
         """
         self.json_path = json_path
-        self.graph_path = graph_path
 
     def _graph_to_pkl(self, graph, pkl_path) -> None:
         with open(pkl_path, "wb") as f:
@@ -58,11 +54,10 @@ class Generator:
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
                 node["object"] = Hotplate(class_num, com_num)
-                node["object"] = "hotplate"
             elif node["class"] == "Valve":
                 node["object"] = Valve(class_num, com_num)
-            #elif node["class"] == "Pump":
-                #node["object"] == PumpModule.pumps[class_num-1]
+            elif node["class"] == "Pump":
+                node["object"] = PUMP_MOD.pump(class_num)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
@@ -84,8 +79,9 @@ class Generator:
                 port_num=link["port_num"],
             )
 
+        # We shouldn't be dumping to pkl...
         # stores graph in a .pkl file
-        self._graph_to_pkl(graph, self.graph_path)
+        # self._graph_to_pkl(graph, self.graph_path)
 
         return graph
 
@@ -104,7 +100,7 @@ def cli_main():
     generator = Generator(GRAPH_JSON, GRAPH_PKL)
     new_graph = generator.generate_graph()
     for edge_id in new_graph.edges:
-        edge = new_graph.edges[edge_id]
+        new_graph.edges[edge_id]
     nx.draw_planar(new_graph, with_labels=True)
     plt.show()
 

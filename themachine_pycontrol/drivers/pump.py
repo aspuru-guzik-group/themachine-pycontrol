@@ -1,6 +1,11 @@
-import clr
+import pkg_resources
 from singleton_decorator import singleton
-clr.AddReference('KEMPumpDLL')
+from typing import List
+
+import clr
+PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
+# PUMP_DLL =r"D:\Documents\TheMachine\themachine-pycontrol\themachine_pycontrol\drivers\KEMPumpDLL"
+clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
 
 # No need to import sys or Path
@@ -31,7 +36,8 @@ class Pump:
         if self.controller.DiscoverModule(pump_num):
             self._prime()
         else:
-            raise Exception(f"Pump {self.pump_num} failed to be discovered.")
+            # raise Exception(f"Pump {self.pump_num} failed to be discovered.")
+            print(f"Pump {self.pump_num} failed to be discovered.")
 
     def _set_pump_status(self, new_pump_status: bool):
         """
@@ -114,7 +120,7 @@ class PumpModule(object):
 
 
     """
-    num_pumps: int = 7
+    num_pumps: int = 1
 
     def __init__(self):
         """
@@ -127,7 +133,7 @@ class PumpModule(object):
             raise Exception("Communication failed.")
         self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
-    def get_status_list(self) -> list[bool]:
+    def get_status_list(self) -> List[bool]:
         """
         Returns list of statuses for all pumps in order of pump_num
         """

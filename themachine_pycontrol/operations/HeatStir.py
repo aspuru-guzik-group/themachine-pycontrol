@@ -1,13 +1,15 @@
 import pkg_resources
-import pickle
 import networkx as nx
 from themachine_pycontrol.main.graph_search import GraphSearch
+from themachine_pycontrol.graphgen.generator import Generator
 
-GRAPH_PKL = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.pkl"
+
+
+
+
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graphgen/graph.json"
 )
-
-SEARCH = GraphSearch(GRAPH_PKL)
 
 
 class HeatStir:
@@ -26,12 +28,13 @@ class HeatStir:
         for node in neighbors:
             if node["class"] == "Hotplate":
                 a = node["object"]
+                print(a)
                 return node["object"]
-            pass
+            
 
     def heat(self):
         self.hotplate.heat(True, self.temp)
-        pass
+        
 
     def stir(self):
         self.hotplate.stir(True, self.rpm)
@@ -42,9 +45,11 @@ class HeatStir:
 
 
 def cli_main():
-    graph_1 = GraphSearch(GRAPH_PKL)
-    try_1 = HeatStir(SEARCH, "rxn_1", 30, 120)
-    try_1.heat()
+    graph_1_gen = Generator(GRAPH_JSON)
+    graph_1 = graph_1_gen.generate_graph()
+    search = GraphSearch(graph_1)
+    try_1 = HeatStir(search, "rxn_1", 30, 120)
+    try_1.heat_stir()
 
 
 if __name__ == "__main__":
