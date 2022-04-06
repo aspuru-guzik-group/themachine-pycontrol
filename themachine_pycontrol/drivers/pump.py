@@ -4,7 +4,6 @@ from typing import List
 
 import clr
 PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
-# PUMP_DLL =r"D:\Documents\TheMachine\themachine-pycontrol\themachine_pycontrol\drivers\KEMPumpDLL"
 clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
 

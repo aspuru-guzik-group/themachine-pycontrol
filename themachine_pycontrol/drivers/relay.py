@@ -3,6 +3,9 @@ import modbus_tk.defines as cst
 import serial
 from modbus_tk import modbus_rtu
 import serial
+from errors import CommunicationError
+
+# TODO: Add errors as appropriate
 
 
 # controller = None
@@ -67,5 +70,3 @@ class Relay:
     def bool_to_int(value: bool) -> int:
         # TODO: Assertion?
         return int(value)
-
-

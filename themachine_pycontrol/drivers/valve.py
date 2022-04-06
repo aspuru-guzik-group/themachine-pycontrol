@@ -1,41 +1,12 @@
 from pyvisa import ResourceManager
 import time
 from typing import Union
+from errors import CommunicationError, HardwareError
 
 COM_LIST = [10, 7, 11, 10, 5, 9, 8]
 rm = ResourceManager()
 
-# todo: use a decorator to wrap all functions with open and close valve
-
-#
-# class ValveModule:
-#     """
-#     Describes a module, each of which contains four valves.
-#
-#     === Public Attributes ===
-#     module_num: Identifies the given module by a number 1-6
-#     valves:
-#
-#     === Private Attributes ===
-#
-#     === Representation Invariants ===
-#     - module_num is between 1 and 6 inclusive
-#
-#
-#     """
-#     def __init__(self, module_num: int):
-#         """
-#         Initialize a valve module.
-#
-#         """
-#         self.module_num = module_num - 1
-#         #com_num = COM_LIST[module_num]
-#         #self.com_port = f'ASRL{com_num}::INSTR' #are this and valves private?
-#         self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
-#
-#     def valve(self, valve_num: int) -> Valve:
-#         """function that returns valve instance"""
-#         return self.valves[valve_num - 1]
+# TODO: use a decorator to wrap all functions with open and close valve
 
 
 class Valve:
@@ -55,6 +26,7 @@ class Valve:
     - valve_num must be a number between 1-4 inclusive
     - valve_port is between 1 and 8 inclusive
     """
+    num_ports = 8
 
     def __init__(
         self, valve_num: int, com_num: int
@@ -86,14 +58,25 @@ class Valve:
             controller.write(command)
             time.sleep(1)
             returned_bytes: bytes = controller.read_bytes(4)
+            last_byte: str = returned_bytes.decode()[-1]
             #if (returned_bytes != b"/0B\r") and isinstance():
-            if bytes.decode(returned_bytes)[-1] in ['1', '2','3', '4', '5', '6', '7', '8'] :
-                returned_port: int = int(bytes.decode(returned_bytes)[-1])
-                self._set_current_port(returned_port)
+            # if bytes.decode(returned_bytes)[-1] in ['1', '2','3', '4', '5', '6', '7', '8'] :
+            # if last_byte in [str(i) for i in range(1, self.num_ports+1)]:
+            try:
+                returned_port: int = int(last_byte)
+                if returned_port in range(1, self.num_ports+1):
+                    self._set_current_port(returned_port)
+                    controller.close()
+                    return returned_port
+                else:
+                    controller.close()
+                    raise CommunicationError('Returned port not in correct range.')
+            except ValueError:
                 controller.close()
-                return returned_port
+                raise CommunicationError('Last byte was not a number.')
         controller.close()
-        raise Exception("Query port failed!")
+        raise CommunicationError("Querying port failed.")
+        # TODO: Is there a way to close the controller even when exceptions are raised? Decorator?
 
     def move(self, valve_port: int):
         """
@@ -115,7 +98,38 @@ class Valve:
                 controller.close()
                 return
         controller.close()
-        raise Exception(f"Moving valve {self.valve_num} to port {valve_port} failed.")
+        raise HardwareError(f"Moving valve {self.valve_num} to port {valve_port} failed.")
+
+
+# class ValveModule:
+#     """
+#     Describes a module, each of which contains four valves.
+#
+#     === Public Attributes ===
+#     module_num: Identifies the given module by a number 1-6
+#     valves:
+#
+#     === Private Attributes ===
+#
+#     === Representation Invariants ===
+#     - module_num is between 1 and 6 inclusive
+#
+#
+#     """
+#     def __init__(self, module_num: int):
+#         """
+#         Initialize a valve module.
+#
+#         """
+#         self.module_num = module_num - 1
+#         #com_num = COM_LIST[module_num]
+#         #self.com_port = f'ASRL{com_num}::INSTR' #are this and valves private?
+#         self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
+#
+#     def valve(self, valve_num: int) -> Valve:
+#         """function that returns valve instance"""
+#         return self.valves[valve_num - 1]
+
 
 def cli_main():
     valve_1 = Valve(1, 2)

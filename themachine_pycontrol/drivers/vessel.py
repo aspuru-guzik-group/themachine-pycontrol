@@ -1,4 +1,7 @@
-# imports
+from errors import CommunicationError
+
+# TODO: Add errors as appropriate
+
 
 class Vessel:
     """
