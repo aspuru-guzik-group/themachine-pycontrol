@@ -144,6 +144,7 @@ class GraphSearch:
 def cli_main():
     search = GraphSearch(GRAPH_PKL)
     bla = search.path_search("rxn_1", "pump_1")
+    print(bla)
     pass
     #
     # next_node = search.single_search("rxn_1", True)
