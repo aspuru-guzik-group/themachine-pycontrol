@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
+#from themachine_pycontrol.drivers.pump import PumpModule
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
@@ -56,10 +57,12 @@ class Generator:
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
-                #node["object"] = Hotplate(class_num, com_num)
+                node["object"] = Hotplate(class_num, com_num)
                 node["object"] = "hotplate"
             elif node["class"] == "Valve":
                 node["object"] = Valve(class_num, com_num)
+            #elif node["class"] == "Pump":
+                #node["object"] == PumpModule.pumps[class_num-1]
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]

@@ -1,8 +1,8 @@
 import clr
 from singleton_decorator import singleton
-
 clr.AddReference('KEMPumpDLL')
 from KEMPumpDLL import SyringePumpDef
+
 # No need to import sys or Path
 # The file's working directory is automatically added to sys.path
 # As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work

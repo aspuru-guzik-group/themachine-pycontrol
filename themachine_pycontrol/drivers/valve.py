@@ -99,7 +99,7 @@ class Valve:
 
         Precondition: Valve port is between 1 and 8 inclusive
         """
-        assert valve_port in range(1, 9)  # TODO: Arr err msg
+        assert valve_port in range(1, 9), f"Submitted {valve_port}"
         controller = rm.open_resource(self.com_port_cmd)
         command = f"/{self.valve_num}o{valve_port}R"
         for _ in range(10):
