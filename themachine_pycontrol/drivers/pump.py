@@ -10,7 +10,7 @@ from KEMPumpDLL import SyringePumpDef
 
 class Pump:
     """
-    Defines a pump, where all pumps are part of a pump module in the PumpModule class.
+    Defines a pump object.
 
     == Public Attributes ==
     pump_num: The number that identifies a given pump
@@ -21,23 +21,14 @@ class Pump:
 
     """
     waste_port: int = 5
-    steps_per_vol: int = 307200  # Steps per mL for a 10 mL syringe.
 
-    def __init__(self, pump_num: int, controller: SyringePumpDef):
-        self.controller = controller
+    def __init__(self, pump_num: int):
         self.pump_num = pump_num
-        self.pump_port: int = self.waste_port
-        self.pump_status: bool = False
-        if self.controller.DiscoverModule(pump_num):
-            self._prime()
-        else:
-            raise Exception(f"Pump {self.pump_num} failed to be discovered.")
 
-    def _set_pump_status(self, new_pump_status: bool):
-        """
-        Sets the value of self.pump_status to pump_status, where pump_status is True or False.
-        """
-        self.pump_status = new_pump_status
+        self.controller = PumpModule()  # Singleton Object
+        self.controller.initialize(pump_num)
+
+        self.pump_port: int = self.waste_port
 
     def _set_current_port(self, new_pump_port: int):
         """
@@ -45,50 +36,27 @@ class Pump:
         """
         self.pump_port = new_pump_port
 
-    def _prime(self):
-        """
-        Initializes a given pump at start of exp. This must be done at the start. Do NOT reinitialize
-        (call only once).
-        """
-        if self.controller.Initialize(self.pump_num, self.waste_port):
-            self._set_pump_status(True)
-            print(f"Pump {self.pump_num} is initialized.")
-        else:
-            self._set_pump_status(False)
-            raise Exception(f"Pump {self.pump_num} failed to initialize.")
-
-    def move(self, new_port: int, topspeed: float, volume: float, wait_ready: bool = True):
+    def move(self, new_port: int, topspeed: float, volume: float, wait_ready: bool = True) -> None:
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
         position of the syringe corresponding to the volume volume at the speed topspeed.
-
-        Precondition: Pump must be active, ie pump_status == True
         """
-        if self.pump_status:
-            self._move_port(new_port)
-            self._move_piston(topspeed, volume, wait_ready)
-            print(f"Pump is ready to dispense {volume} mL to port {new_port}.")
-        else:
-            raise Exception("Pump is not active.")
+        self._move_port(new_port)
+        self._move_piston(topspeed, volume, wait_ready)
+        print(f"Pump is ready to dispense {volume} mL to port {new_port}.")
 
     def _move_port(self, new_port: int):
         """
-        Sets the port of a given pump to new_port.
-
-        Precondition: Pump is active, ie pump_status == True
+        Moves the pump to a new port and sets the pump_port number accordingly
         """
-        self.controller.Port(self.pump_num, new_port, True)
+        self.controller.set_port(self.pump_num, new_port)
         self._set_current_port(new_port)
 
     def _move_piston(self, topspeed: float, volume: float, wait_ready: bool = True):
         """
-        Sets piston speed to topseed, then moves piston to the position corresponding to volume volume.
-
-        Precondition: pump is active, ie pump_status == True
+        Moves the pump piston accordingly to transfer the specified amount
         """
-        self.controller.Speed(self.pump_num, topspeed)
-        position: float = volume * self.steps_per_vol
-        self.controller.MoveToPosition(self.pump_num, position, wait_ready)
+        self.controller.move_piston(self.pump_num, topspeed, volume, wait_ready)
 
     def dispense(self, src_port: int, dst_port: int, topspeed: float, volume: float, wait_ready: bool = True):
         """docstring"""
@@ -112,9 +80,10 @@ class PumpModule(object):
 
     === Representation Invariants ===
 
-
     """
-    num_pumps: int = 7
+    steps_per_vol: int = 307200  # Steps per mL for a 10 mL syringe.
+    max_num_pumps: int = 7
+    waste_port: int = 5
 
     def __init__(self):
         """
@@ -125,22 +94,53 @@ class PumpModule(object):
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
             raise Exception("Communication failed.")
-        self.pumps = [Pump(i, self.controller) for i in range(1, self.num_pumps + 1)]
 
-    def get_status_list(self) -> list[bool]:
-        """
-        Returns list of statuses for all pumps in order of pump_num
-        """
-        return [self.pumps[i].pump_status for i in range(0, self.num_pumps)]
+        self.pumps = {i + 1 : False for i in range(self.max_num_pumps)}
 
-    def pump(self, pump_num: int) -> Pump:
+    def initialize_pump(self, pump_number: int) -> None:
         """
-        Returns the pump instance corresponding to pump_num
+        Activates a pump
         """
-        return self.pumps[pump_num-1]
+        if self.controller.DiscoverModule(pump_number):
+            self._prime()
+        else:
+            raise Exception(f"Pump {pump_number} could not be discovered.")
 
-    def close(self):
+    def _prime(self, pump_number: int) -> None:
         """
-        Closes communication to the pump. Only close at the end of a reaction, never during.
+        Initializes a given pump at start of exp. This must be done at the start.
+        """
+        if self.controller.Initialize(pump_number, self.waste_port):
+            self._set_pump_status(pump_number, True)
+            print(f"Pump {pump_number} is initialized.")
+        else:
+            self._set_pump_status(pump_number, False)
+            raise Exception(f"Pump {pump_number} failed to initialize while priming.")
+
+    def _set_pump_status(self, pump_number: int, new_pump_status: bool) -> None:
+        """
+        Sets the value of self.pump_status to pump_status, where pump_status is True or False.
+        """
+        self.pumps[pump_number] = new_pump_status
+
+    def set_port(self, pump_number: int, port_number: int) -> None:
+        """
+        Sets the port of a given pump to a given position
+        """
+        assert self.pumps[pump_number], "Requested Pump is not Active."
+        self.controller.Port(pump_number, port_number, True)
+
+    def move_piston(self, pump_number: int, topspeed: float, volume: float, wait_ready: bool = True) -> None:
+        """
+        Moves the piston of a specific pump to the target position to dispense a given volume.
+        """
+        assert self.pumps[pump_number], "Requested Pump is not Active."
+        self.controller.Speed(pump_number, topspeed)
+        position: float = volume * self.steps_per_vol
+        self.controller.MoveToPosition(pump_number, position, wait_ready)
+
+    def close(self) -> None:
+        """
+        Closes communication to the pump module. Only close at the end of a reaction, never during.
         """
         self.controller.CloseCommPort()
