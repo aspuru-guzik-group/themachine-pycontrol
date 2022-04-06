@@ -5,13 +5,14 @@ from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.graphgen.generator import Generator
-#from themachine_pycontrol.drivers.pump import Pump
+from themachine_pycontrol.drivers.pump import Pump
 from themachine_pycontrol.main.graph_search import GraphSearch
 import typing
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
+
 
 class Transfer:
 
@@ -23,7 +24,6 @@ class Transfer:
 
     def __call__(self):
         self.transfer_liquid()
-
 
     def transfer_liquid(self) -> None:
 
@@ -101,7 +101,6 @@ class Transfer:
     #                     source_node.update_volume(-volume)
     #                     source_node.update_volume(volume)
     #                     print(f"{volume} was transferred to {port_3} from {port_2}")
-
 
 
 def cli_main():

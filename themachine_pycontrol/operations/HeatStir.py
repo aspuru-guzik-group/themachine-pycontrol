@@ -4,9 +4,6 @@ from themachine_pycontrol.main.graph_search import GraphSearch
 from themachine_pycontrol.graphgen.generator import Generator
 
 
-
-
-
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
@@ -30,11 +27,9 @@ class HeatStir:
                 a = node["object"]
                 print(a)
                 return node["object"]
-            
 
     def heat(self):
         self.hotplate.heat(True, self.temp)
-        
 
     def stir(self):
         self.hotplate.stir(True, self.rpm)

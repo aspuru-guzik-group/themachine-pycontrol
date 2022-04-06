@@ -3,9 +3,11 @@ import pickle
 import networkx as nx
 from typing import Dict, List, Tuple
 
-GRAPH_PKL = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.pkl"
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graphgen/graph.json"
 )
+
+# TODO: Typehinting!
 
 
 class GraphSearch:
@@ -19,8 +21,9 @@ class GraphSearch:
         """
         # with open(graph_path, "rb") as f:
         #     self.graph = pickle.load(f)
-        self.graph: Graph = graph
+        self.graph: nx.DiGraph = graph
 
+    # FIXME: Is this return type correct?
     def single_search(self, label: str, fwd: bool) -> str:
         """
         label:
@@ -50,6 +53,7 @@ class GraphSearch:
         # elif edge_data["target"] == tgt_label:
         # print(edge_data["id"])
 
+    # TODO: Typehint return
     def edge_search(self, source_label: str, target_label: str):
         """
 
@@ -104,16 +108,11 @@ class GraphSearch:
         target_to_common = self.path_search(target_label, common_node_label)
         return source_to_common, target_to_common
 
-
     def path_edges(self, traversed_node_ids: List[int]):
         traversed_edges = []
         for node, next_node in zip(traversed_node_ids[0:], traversed_node_ids[1:]):
             traversed_edges.append(self.graph[node][next_node])
         return traversed_edges
-
-
-
-
 
     def multistep_edges(self, source_label: str, target_label: str) -> list:
         traversed_edges = []
@@ -141,10 +140,8 @@ class GraphSearch:
         return [self.get_node_from_id(node_id) for node_id in neighbor_ids]
 
 
-
-
 def cli_main():
-    search = GraphSearch(GRAPH_PKL)
+    search = GraphSearch(GRAPH_JSON)
 
     bla = search.path_search("rxn_1", "pump_1")
     print(bla)
@@ -155,12 +152,6 @@ def cli_main():
     # print("hi")
     # a = search.multistep_search("sln_1", "rxn_1")
     print(search.get_connected_nodes("rxn_1"))
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

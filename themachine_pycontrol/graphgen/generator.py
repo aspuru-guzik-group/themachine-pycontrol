@@ -14,6 +14,7 @@ GRAPH_JSON = pkg_resources.resource_filename(
 
 PUMP_MOD = PumpModule()
 
+
 class Generator:
     """
     Class that contains the functions for generating the graph that represents the hardware in The Machine.
@@ -97,7 +98,7 @@ class Generator:
 
 
 def cli_main():
-    generator = Generator(GRAPH_JSON, GRAPH_PKL)
+    generator = Generator(GRAPH_JSON)
     new_graph = generator.generate_graph()
     for edge_id in new_graph.edges:
         new_graph.edges[edge_id]
