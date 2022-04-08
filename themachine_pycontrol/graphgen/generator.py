@@ -20,10 +20,8 @@ class Generator:
     Class that contains the functions for generating the graph that represents the hardware in The Machine.
 
     === Public Attributes ==
+    json_path: the path for accessing the JSON file, where graph dictionaries are stored
 
-
-    === Representation Invariants ===
-    - 
     """
 
     def __init__(self, json_path: str) -> None:
@@ -32,13 +30,17 @@ class Generator:
         """
         self.json_path = json_path
 
-    def _graph_to_pkl(self, graph, pkl_path) -> None:
-        with open(pkl_path, "wb") as f:
-            pickle.dump(graph, f)
+    def __call__(self):
+        """
+        When a Generator object is called, ex: generator_1(), the generate_graph() function is called
+        """
+        self.generate_graph()
+
 
     def generate_graph(self) -> nx.Graph:
         """
         Reads the .json data which is used to generate the graph with nodes and edges that access classes in ~/drivers.
+        Creates a directed graph object.
         """
         graph = nx.DiGraph()
         # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
@@ -79,14 +81,12 @@ class Generator:
                 type=link["type"],
                 port_num=link["port_num"],
             )
-
-        # We shouldn't be dumping to pkl...
-        # stores graph in a .pkl file
-        # self._graph_to_pkl(graph, self.graph_path)
-
         return graph
 
     def index_nodes(self) -> None:
+    """
+    Renumbers the node ids in the JSON automatically.
+    """
         graph_json = json.load(open(self.json_path))
         id = 0
         for node in graph_json["nodes"]:
