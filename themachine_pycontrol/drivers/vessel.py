@@ -1,4 +1,7 @@
-# imports
+from errors import CommunicationError
+
+# TODO: Add errors as appropriate
+
 
 class Vessel:
     """
@@ -31,7 +34,7 @@ class Vessel:
         """
         self.current_volume = new_volume
 
-    def update_volume(self, volume_change: float):
+    def update_volume(self, vol_change: float):
         """
         Sets an updated volume by adding volume_change to old_volume 
         """

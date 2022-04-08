@@ -1,9 +1,14 @@
 from pyvisa import ResourceManager
 import time
+from errors import CommunicationError
 
 
-COM_LIST = [4, 6]
+#COM_LIST now deprecated due to JSON
+# COM_LIST = [4, 6]
 rm = ResourceManager()
+
+
+# TODO: Add custom errors as appropriate.
 
 
 class Hotplate:

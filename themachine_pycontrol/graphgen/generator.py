@@ -6,14 +6,13 @@ import matplotlib.pyplot as plt
 from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
+from themachine_pycontrol.drivers.pump import PumpModule
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-GRAPH_PKL = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.pkl"
-)
+PUMP_MOD = PumpModule()
 
 
 class Generator:
@@ -21,26 +20,27 @@ class Generator:
     Class that contains the functions for generating the graph that represents the hardware in The Machine.
 
     === Public Attributes ==
+    json_path: the path for accessing the JSON file, where graph dictionaries are stored
 
-
-    === Representation Invariants ===
-    - 
     """
 
-    def __init__(self, json_path: str, graph_path: str) -> None:
+    def __init__(self, json_path: str) -> None:
         """
         Initializes Generator class with paths to where data is stored, and where graph is stored.
         """
         self.json_path = json_path
-        self.graph_path = graph_path
 
-    def _graph_to_pkl(self, graph, pkl_path) -> None:
-        with open(pkl_path, "wb") as f:
-            pickle.dump(graph, f)
+    def __call__(self):
+        """
+        When a Generator object is called, ex: generator_1(), the generate_graph() function is called
+        """
+        self.generate_graph()
+
 
     def generate_graph(self) -> nx.Graph:
         """
         Reads the .json data which is used to generate the graph with nodes and edges that access classes in ~/drivers.
+        Creates a directed graph object.
         """
         graph = nx.DiGraph()
         # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
@@ -56,10 +56,11 @@ class Generator:
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
             elif node["class"] == "Hotplate":
-                #node["object"] = Hotplate(class_num, com_num)
-                node["object"] = "hotplate"
+                node["object"] = Hotplate(class_num, com_num)
             elif node["class"] == "Valve":
                 node["object"] = Valve(class_num, com_num)
+            elif node["class"] == "Pump":
+                node["object"] = PUMP_MOD.pump(class_num)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
@@ -80,13 +81,12 @@ class Generator:
                 type=link["type"],
                 port_num=link["port_num"],
             )
-
-        # stores graph in a .pkl file
-        self._graph_to_pkl(graph, self.graph_path)
-
         return graph
 
     def index_nodes(self) -> None:
+    """
+    Renumbers the node ids in the JSON automatically.
+    """
         graph_json = json.load(open(self.json_path))
         id = 0
         for node in graph_json["nodes"]:
@@ -98,10 +98,10 @@ class Generator:
 
 
 def cli_main():
-    generator = Generator(GRAPH_JSON, GRAPH_PKL)
+    generator = Generator(GRAPH_JSON)
     new_graph = generator.generate_graph()
     for edge_id in new_graph.edges:
-        edge = new_graph.edges[edge_id]
+        new_graph.edges[edge_id]
     nx.draw_planar(new_graph, with_labels=True)
     plt.show()
 

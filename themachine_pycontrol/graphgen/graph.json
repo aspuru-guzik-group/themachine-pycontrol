@@ -10,7 +10,7 @@
       "volume": "None",
       "max_volume": "None",
       "module_num": 1,
-      "com_num": 10,
+      "com_num": 9,
       "addable": "None",
       "removable": "None"
     },
@@ -24,7 +24,7 @@
       "volume": "None",
       "max_volume": "None",
       "module_num": 1,
-      "com_num": 7,
+      "com_num": 9,
       "addable": "None",
       "removable": "None"
     },
@@ -38,7 +38,7 @@
       "volume": "None",
       "max_volume": "None",
       "module_num": 1,
-      "com_num": 11,
+      "com_num": 9,
       "addable": "None",
       "removable": "None"
     },
@@ -52,7 +52,7 @@
       "volume": "None",
       "max_volume": "None",
       "module_num": 1,
-      "com_num": 10,
+      "com_num": 9,
       "addable": "None",
       "removable": "None"
     },
@@ -80,7 +80,7 @@
       "volume": "None",
       "max_volume": "None",
       "module_num": "None",
-      "com_num": "None",
+      "com_num": 4,
       "addable": "None",
       "removable": "None"
     },

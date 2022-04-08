@@ -1,8 +1,12 @@
-import clr
+import pkg_resources
 from singleton_decorator import singleton
+from typing import List
 
-clr.AddReference('KEMPumpDLL')
+import clr
+PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
+clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
+
 # No need to import sys or Path
 # The file's working directory is automatically added to sys.path
 # As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
@@ -85,6 +89,7 @@ class PumpModule(object):
     max_num_pumps: int = 7
     waste_port: int = 5
 
+
     def __init__(self):
         """
         Initializes the pump module, which contains all pumps.
@@ -107,6 +112,7 @@ class PumpModule(object):
             raise Exception(f"Pump {pump_number} could not be discovered.")
 
     def _prime(self, pump_number: int) -> None:
+
         """
         Initializes a given pump at start of exp. This must be done at the start.
         """
