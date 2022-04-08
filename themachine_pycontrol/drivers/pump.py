@@ -7,10 +7,6 @@ PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMP
 clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
 
-# No need to import sys or Path
-# The file's working directory is automatically added to sys.path
-# As long as pump.py and KEMPumpDLL.dll are in the same folder, this will work
-
 
 class Pump:
     """
