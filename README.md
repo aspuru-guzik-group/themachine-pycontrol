@@ -1,5 +1,5 @@
 # themachine-pycontrol
-![License](https://img.shields.io/github/license/aspuru-guzik-group/themachine-pycontrol)
+![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Version](https://img.shields.io/pypi/v/themachine_pycontrol)
 ![Windows](https://svgshare.com/i/ZhY.svg)
 
