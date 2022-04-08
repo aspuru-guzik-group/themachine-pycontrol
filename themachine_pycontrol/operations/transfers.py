@@ -1,8 +1,9 @@
 import pkg_resources
+
 import networkx as nx
 import json
 from themachine_pycontrol.drivers.vessel import Vessel
-from themachine_pycontrol.drivers.hotplate import Hotplate
+#from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.graphgen.generator import Generator
 from themachine_pycontrol.drivers.pump import Pump
@@ -12,7 +13,6 @@ import typing
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
-
 
 class Transfer:
     """
@@ -111,7 +111,6 @@ class Transfer:
                             raise Exception("This volume cannot be drawn")
                     else:
                         raise Exception("This vessel cannot be drawn from")
-
 
 
 def cli_main():
