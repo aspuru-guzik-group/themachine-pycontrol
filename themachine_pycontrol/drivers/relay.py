@@ -26,7 +26,7 @@ class RelayModule:
     module_address = 3  # Same as Relays variable above
 
     def __init__(self):
-        self.controller = modbus_rtu.RtuMaster(serial.Serial(port="com4", baudrate=9600, bytesize=8, parity="N", stopbits=1)) #no spaces
+        self.controller = modbus_rtu.RtuMaster(serial.Serial(port="com4", baudrate=9600, bytesize=8, parity="N", stopbits=1))
         self.controller.set_timeout(0.10)
         self.controller.set_verbose(True)
         self.relays: list[Relay] = [Relay(i, self.controller, self.module_address) for i in range(1, 9)]
@@ -50,7 +50,7 @@ class Relay:
     def set_relay(self, status: bool = False):
         self.controller.execute(self.module_address, function_code=cst.WRITE_SINGLE_COIL, starting_address=0, output_value=status)
 
-    def read_relay(self, channel = 0) -> bool:
+    def read_relay(self, channel=0) -> bool:
         relay_state = self.controller.execute(self.module_address, function_code=cst.READ_COILS, starting_address=channel, quantity_of_x=1)[0]
         self._set_state(bool(relay_state))
         return self.state
@@ -68,5 +68,5 @@ class Relay:
 
     @staticmethod
     def bool_to_int(value: bool) -> int:
-        # TODO: Assertion?
+        # TODO: Assertion? Not sure what assertion here?
         return int(value)

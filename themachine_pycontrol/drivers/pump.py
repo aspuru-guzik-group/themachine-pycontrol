@@ -1,6 +1,7 @@
 import pkg_resources
 from singleton_decorator import singleton
 from typing import List
+from errors import CommunicationError, HardwareError
 
 import clr
 PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
@@ -94,7 +95,7 @@ class PumpModule(object):
         """
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
-            raise Exception("Communication failed.")
+            raise CommunicationError("Communication failed.")
 
         self.pumps = {i + 1 : False for i in range(self.max_num_pumps)}
 
@@ -103,9 +104,9 @@ class PumpModule(object):
         Activates a pump
         """
         if self.controller.DiscoverModule(pump_number):
-            self._prime()
+            self._prime(pump_number)
         else:
-            raise Exception(f"Pump {pump_number} could not be discovered.")
+            raise CommunicationError(f"Pump {pump_number} could not be discovered.")
 
     def _prime(self, pump_number: int) -> None:
 
@@ -117,7 +118,7 @@ class PumpModule(object):
             print(f"Pump {pump_number} is initialized.")
         else:
             self._set_pump_status(pump_number, False)
-            raise Exception(f"Pump {pump_number} failed to initialize while priming.")
+            raise HardwareError(f"Pump {pump_number} failed to initialize while priming.")
 
     def _set_pump_status(self, pump_number: int, new_pump_status: bool) -> None:
         """

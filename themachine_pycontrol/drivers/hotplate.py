@@ -8,8 +8,6 @@ from errors import CommunicationError
 rm = ResourceManager()
 
 
-# TODO: Add custom errors as appropriate.
-
 
 class Hotplate:
     """
@@ -34,7 +32,10 @@ class Hotplate:
         """
         self.com_num = com_num
         com_port: str = f"ASRL{self.com_num}::INSTR"
-        self.controller: Resource = rm.open_resource(com_port)
+        try:
+            self.controller: Resource = rm.open_resource(com_port)
+        except MissingManifestResourceException:
+            print("Resource not found") #not sure if this is necessary/helpful
         self._set_heat_switch(False)
         self._set_stir_switch(False)
         self._set_temp(20)
@@ -71,8 +72,11 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
-        assert new_temp in range(20, 341)  # TODO: Add err msg
-        self.temp = new_temp
+        try:
+            assert new_temp in range(20, 341)
+            self.temp = new_temp
+        except AssertionError:
+            print("New temperature is not within the range of 20-341 degrees Celcius.")
 
     def _get_temp(self) -> int:
         """
@@ -86,8 +90,7 @@ class Hotplate:
         """
         self.heat_switch = new_heat_switch
 
-    def _get_heat_switch(self):
-        # FIXME: Typehint return
+    def _get_heat_switch(self) -> bool:
         """
         Returns current heat switch status
         """
@@ -107,9 +110,13 @@ class Hotplate:
 
     def _set_rpm(self, new_rpm: int = 0):
         """
-        Sets self.rpm to be new_rpm
+        Sets self.rpm to be new_rpm, which must be <1700 rpm
         """
-        self.rpm = new_rpm
+        try:
+            assert new_rpm in range(0, 1701)
+            self.rpm = new_rpm
+        except AssertionError:
+            print("Stir speed must be under 1700 rpm")
 
     def _get_rpm(self) -> int:
         """
@@ -124,8 +131,6 @@ class Hotplate:
 
         Precondition: max rpm is 1700
         """
-
-        assert new_rpm in range(0, 1701)  # TODO: Add err msg
 
         self._set_stir_switch(stir_switch_status)
         if self.stir_switch:

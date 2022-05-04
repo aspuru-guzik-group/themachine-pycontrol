@@ -53,30 +53,23 @@ class Valve:
         Returns the current valve position or port number.
         """
         controller = rm.open_resource(self.com_port_cmd)
-        command = f"/{self.valve_num}?8"
         for _ in range(10):
+            command = f"/{self.valve_num}?8"
             controller.write(command)
             time.sleep(1)
             returned_bytes: bytes = controller.read_bytes(4)
-            last_byte: str = returned_bytes.decode()[-1]
-            #if (returned_bytes != b"/0B\r") and isinstance():
-            # if bytes.decode(returned_bytes)[-1] in ['1', '2','3', '4', '5', '6', '7', '8'] :
-            # if last_byte in [str(i) for i in range(1, self.num_ports+1)]:
             try:
+                last_byte: str = returned_bytes.decode()[-1]
                 returned_port: int = int(last_byte)
                 if returned_port in range(1, self.num_ports+1):
                     self._set_current_port(returned_port)
                     controller.close()
                     return returned_port
-                else:
-                    controller.close()
-                    raise CommunicationError('Returned port not in correct range.')
             except ValueError:
-                controller.close()
-                raise CommunicationError('Last byte was not a number.')
+                continue
         controller.close()
         raise CommunicationError("Querying port failed.")
-        # TODO: Is there a way to close the controller even when exceptions are raised? Decorator?
+
 
     def move(self, valve_port: int):
         """
