@@ -7,6 +7,15 @@ COM_LIST = [10, 7, 11, 10, 5, 9, 8]
 rm = ResourceManager()
 
 # TODO: use a decorator to wrap all functions with open and close valve
+# close.controller() still has to be written above all raise Exceptions
+
+
+def close(func):
+    def wrapper(self, *args, **kwargs):
+        controller = rm.open_resource(self.com_port_cmd)
+        func(self, *args, **kwargs)
+        controller.close()
+    return wrapper
 
 
 class Valve:
@@ -34,7 +43,6 @@ class Valve:
         """
         Initialize a new controller. Default port is port 8.
         """
-        # TODO: Add module numbers in JSON
         self.valve_num = valve_num
         # self.module_num = module_num
         self.current_port: int = 8
@@ -48,6 +56,7 @@ class Valve:
         """
         self.current_port: int = new_port
 
+    @close
     def get_current_port(self) -> int:
         """
         Returns the current valve position or port number.
@@ -63,14 +72,14 @@ class Valve:
                 returned_port: int = int(last_byte)
                 if returned_port in range(1, self.num_ports+1):
                     self._set_current_port(returned_port)
-                    controller.close()
+                    #controller.close()
                     return returned_port
             except ValueError:
                 continue
         controller.close()
         raise CommunicationError("Querying port failed.")
 
-
+    @close
     def move(self, valve_port: int):
         """
         Moves a given valve to a selected port.
@@ -88,10 +97,12 @@ class Valve:
                     # f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}."
                     f"Valve {self.valve_num} has been moved to port {self.current_port}."
                 )
-                controller.close()
+                #controller.close()
                 return
         controller.close()
         raise HardwareError(f"Moving valve {self.valve_num} to port {valve_port} failed.")
+
+
 
 
 # class ValveModule:
@@ -125,8 +136,7 @@ class Valve:
 
 
 def cli_main():
-    valve_1 = Valve(1, 2)
-    valve_1.move(2)
+
 
 
 if __name__ == "__main__":
