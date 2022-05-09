@@ -22,12 +22,15 @@ from errors import CommunicationError
 #     controller.execute(Relays, function_code = cst.WRITE_SINGLE_COIL, starting_address = Channel, output_value = Status)
 
 def controller(func):
-    def wrapper(self, com_num, module_address, channel, status=None):
-        with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
-            self.controller = modbus_rtu.RtuMaster(ser)
-            self.controller.set_timeout(0.10)
-            self.controller.set_verbose(True)
-            func(self, com_num, module_address, channel, status)
+    def wrapper(self, com_num, *args, **kwargs):
+        #ser = serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1)
+        #self.controller = modbus_rtu.RtuMaster(ser)
+        self.controller(com_num)
+        self.controller.set_timeout(0.10)
+        self.controller.set_verbose(True)
+        output = func(self, com_num, *args, **kwargs)
+        ser.close()
+        return output
     return wrapper
 
 
@@ -38,7 +41,20 @@ class RelayModule:
 
     def __init__(self):
         self.controller = None
-    
+
+    @property
+    def controller(self):
+        return self.controller
+
+    @controller.setter
+    def controller(self, com_num):
+        ser = serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1)
+        self.controller = modbus_rtu.RtuMaster(ser)
+
+    @controller.deleter
+    def controller(self):
+        del self.controller
+
     @controller
     def relay_control(self, com_num, module_address, channel, status):
         # with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
