@@ -21,7 +21,7 @@ from errors import CommunicationError
 #     Relays = 3
 #     controller.execute(Relays, function_code = cst.WRITE_SINGLE_COIL, starting_address = Channel, output_value = Status)
 
-def controller(func):
+def ctrl_decorator(func):
     def wrapper(self, com_num, *args, **kwargs):
         self.controller(com_num)
         output = func(self, com_num, *args, **kwargs)
@@ -54,7 +54,7 @@ class RelayModule:
         ser.close()
         del self.controller
 
-    @controller
+    @ctrl_decorator
     def relay_control(self, com_num, module_address, channel, status):
         # with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
         #     self.controller = modbus_rtu.RtuMaster(ser)
