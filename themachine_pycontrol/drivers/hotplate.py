@@ -1,6 +1,6 @@
 from pyvisa import ResourceManager
 import time
-from errors import CommunicationError
+from errors import CommunicationError, RangeError
 
 
 #COM_LIST now deprecated due to JSON
@@ -35,7 +35,7 @@ class Hotplate:
         try:
             self.controller: Resource = rm.open_resource(com_port)
         except MissingManifestResourceException:
-            print("Resource not found") #not sure if this is necessary/helpful
+            raise CommunicationError("Resource not found")
         self._set_heat_switch(False)
         self._set_stir_switch(False)
         self._set_temp(20)
@@ -50,8 +50,6 @@ class Hotplate:
         point of material
 
         """
-
-        assert new_temp in range(20, 341), "Temperature out of range."
 
         self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
@@ -76,7 +74,7 @@ class Hotplate:
             assert new_temp in range(20, 341)
             self.temp = new_temp
         except AssertionError:
-            print("New temperature is not within the range of 20-341 degrees Celcius.")
+            raise RangeError("New temperature is not within the range of 20-341 degrees Celcius.")
 
     def _get_temp(self) -> int:
         """
@@ -116,7 +114,8 @@ class Hotplate:
             assert new_rpm in range(0, 1701)
             self.rpm = new_rpm
         except AssertionError:
-            print("Stir speed must be under 1700 rpm")
+            raise RangeError("Stir speed must be under 1700 rpm")
+
 
     def _get_rpm(self) -> int:
         """

@@ -11,6 +11,7 @@
       "max_volume": "None",
       "module_num": 1,
       "com_num": 9,
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },

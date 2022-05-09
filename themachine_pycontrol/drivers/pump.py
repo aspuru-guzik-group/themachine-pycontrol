@@ -1,7 +1,7 @@
 import pkg_resources
 from singleton_decorator import singleton
 from typing import List
-from errors import CommunicationError, HardwareError
+from errors import CommunicationError, HardwareError, RangeError
 
 import clr
 PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
@@ -97,7 +97,7 @@ class PumpModule(object):
         if not self.controller.OpenCommunications():
             raise CommunicationError("Communication failed.")
 
-        self.pumps = {i + 1 : False for i in range(self.max_num_pumps)}
+        self.pumps: dict = {i + 1 : False for i in range(self.max_num_pumps)}
 
     def initialize_pump(self, pump_number: int) -> None:
         """
@@ -130,14 +130,20 @@ class PumpModule(object):
         """
         Sets the port of a given pump to a given position
         """
-        assert self.pumps[pump_number], "Requested Pump is not Active."
+        try:
+            assert self.pumps[pump_number]
+        except AssertionError:
+            raise HardwareError("Requested Pump is not Active.")
         self.controller.Port(pump_number, port_number, True)
 
     def move_piston(self, pump_number: int, topspeed: float, volume: float, wait_ready: bool = True) -> None:
         """
         Moves the piston of a specific pump to the target position to dispense a given volume.
         """
-        assert self.pumps[pump_number], "Requested Pump is not Active."
+        try:
+            assert self.pumps[pump_number]
+        except AssertionError:
+            raise HardwareError("Requested Pump is not Active.")
         self.controller.Speed(pump_number, topspeed)
         position: float = volume * self.steps_per_vol
         self.controller.MoveToPosition(pump_number, position, wait_ready)

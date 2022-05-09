@@ -21,37 +21,60 @@ from errors import CommunicationError
 #     Relays = 3
 #     controller.execute(Relays, function_code = cst.WRITE_SINGLE_COIL, starting_address = Channel, output_value = Status)
 
+def controller(func):
+    def wrapper(self, com_num, module_address, channel, status=None):
+        with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
+            self.controller = modbus_rtu.RtuMaster(ser)
+            self.controller.set_timeout(0.10)
+            self.controller.set_verbose(True)
+            func(self, com_num, module_address, channel, status)
+    return wrapper
+
+
+@singleton
 class RelayModule:
     """Relay module"""
-    module_address = 3  # Same as Relays variable above
+    #module_address = 3  # Same as Relays variable above
 
     def __init__(self):
-        self.controller = modbus_rtu.RtuMaster(serial.Serial(port="com4", baudrate=9600, bytesize=8, parity="N", stopbits=1))
-        self.controller.set_timeout(0.10)
-        self.controller.set_verbose(True)
-        self.relays: list[Relay] = [Relay(i, self.controller, self.module_address) for i in range(1, 9)]
-
-    def relay(self, relay_num) -> Relay:
-        """
-        Returns the Relay object corresponding to relay_num
-        """
-        return self.relays[relay_num - 1]
+        self.controller = None
+    
+    @controller
+    def relay_control(self, com_num, module_address, channel, status):
+        # with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
+        #     self.controller = modbus_rtu.RtuMaster(ser)
+        #     self.controller.set_timeout(0.10)
+        #     self.controller.set_verbose(True)
+        self.controller.execute(module_address, function_code=cst.READ_COILS, starting_address=channel, output_value=status)
+        print(f"Relay number {channel+1} has been set to {status}.")
+        
+    @controller
+    def relay_read(self, com_num, module_address, channel, status=None):
+        # with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
+        #     self.controller = modbus_rtu.RtuMaster(ser)
+        #     self.controller.set_timeout(0.10)
+        #     self.controller.set_verbose(True)
+        relay_state = self.controller.execute(self.module_address, function_code=cst.READ_COILS, starting_address=channel, quantity_of_x=1)[0]
+        return relay_state
 
 
 class Relay:
     """ Relay class"""
 
-    def __init__(self, relay_num: int, controller: Master, module_address: int):
+    def __init__(self, relay_num: int, com_num: int, module_address: int):
         self.relay_num = relay_num
-        self.controller = controller
-        self.module_address = module_address  # ?
+        self.module = RelayModule()
+        self.module_address = module_address
         self.state = False
+        self.channel = self.relay_num - 1
 
     def set_relay(self, status: bool = False):
-        self.controller.execute(self.module_address, function_code=cst.WRITE_SINGLE_COIL, starting_address=0, output_value=status)
+        self.module.relay_control(self.com_num, self.module_address, self.channel, status)
+        self._set_state(status)
 
-    def read_relay(self, channel=0) -> bool:
-        relay_state = self.controller.execute(self.module_address, function_code=cst.READ_COILS, starting_address=channel, quantity_of_x=1)[0]
+    def read_relay(self) -> bool:
+        #relay_state = self.controller.execute(self.module_address, function_code=cst.READ_COILS, starting_address=self.channel, quantity_of_x=1)[0]
+        relay_state = self.module.relay_read(self.com_num, self.module_address, self.channel)
         self._set_state(bool(relay_state))
         return self.state
 
@@ -60,13 +83,3 @@ class Relay:
 
     def _get_state(self) -> bool:
         return self.state
-
-    @staticmethod
-    def int_to_bool(value: int) -> bool:
-        assert value in range(0, 2)
-        return bool(value)
-
-    @staticmethod
-    def bool_to_int(value: bool) -> int:
-        # TODO: Assertion? Not sure what assertion here?
-        return int(value)

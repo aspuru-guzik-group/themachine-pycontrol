@@ -7,3 +7,5 @@ class CommunicationError(Exception):
 class HardwareError(Exception):
     pass
 
+class RangeError(Exception):
+    pass

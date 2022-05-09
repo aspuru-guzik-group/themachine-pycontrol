@@ -7,12 +7,13 @@ from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.drivers.pump import PumpModule
+from themachine_pycontrol.drivers.relay import RelayModule, Relay
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-PUMP_MOD = PumpModule()
+PUMP_MOD = PumpModule() #we can remove this now given the Singleton class right?
 
 
 class Generator:
@@ -52,6 +53,7 @@ class Generator:
             volume = node["volume"]
             com_num = node["com_num"]
             max_volume = node["max_volume"]
+            module_address = node["module_address"]
             # TODO: This would be a great opportunity to include a factory pattern.
             if node["class"] == "Vessel":
                 node["object"] = Vessel(float(max_volume), volume)
@@ -60,7 +62,9 @@ class Generator:
             elif node["class"] == "Valve":
                 node["object"] = Valve(class_num, com_num)
             elif node["class"] == "Pump":
-                node["object"] = PUMP_MOD.pump(class_num)
+                node["object"] = PUMP_MOD.pump(class_num) #This can be changed to just Pump(class_num) since PumpModule is now a singleton class right?
+            elif node["class"] == "Relay":
+                node["object"] = Relay(class_num, com_num, module_address)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
