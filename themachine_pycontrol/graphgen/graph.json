@@ -26,6 +26,7 @@
       "max_volume": "None",
       "module_num": 1,
       "com_num": 9,
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },
@@ -54,6 +55,7 @@
       "max_volume": "None",
       "module_num": 1,
       "com_num": 9,
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },
@@ -68,6 +70,7 @@
       "max_volume": "None",
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },
@@ -82,6 +85,7 @@
       "max_volume": "None",
       "module_num": "None",
       "com_num": 4,
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },
@@ -96,6 +100,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -110,6 +115,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -124,6 +130,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -138,6 +145,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -152,6 +160,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -166,6 +175,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -180,6 +190,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -194,6 +205,7 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
@@ -208,6 +220,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -222,6 +235,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -236,6 +250,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -250,6 +265,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -264,6 +280,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -278,6 +295,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -292,6 +310,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -306,6 +325,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -320,6 +340,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -334,6 +355,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -348,6 +370,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -362,6 +385,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -376,6 +400,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -390,6 +415,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -404,6 +430,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -418,6 +445,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -432,6 +460,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -446,6 +475,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -460,6 +490,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -474,6 +505,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -488,6 +520,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -502,6 +535,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -516,6 +550,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -530,6 +565,7 @@
       "max_volume": 8,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
@@ -544,27 +580,14 @@
       "max_volume": 500,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 1,
       "removable": 0
     },
     {
-      "type": "relay_module",
-      "label": "relay_module_1",
-      "id": 39,
-      "class": "RelayModule",
-      "name": "relay_module_1",
-      "class_num": 1,
-      "volume": "None",
-      "max_volume": "None",
-      "module_num": "None",
-      "com_num": "None",
-      "addable": "None",
-      "removable": "None"
-    },
-    {
       "type": "relay",
       "label": "relay",
-      "id": 40,
+      "id": 39,
       "class": "Relay",
       "name": "relay_1",
       "class_num": 1,
@@ -572,13 +595,14 @@
       "max_volume": "None",
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": "None",
       "removable": "None"
     },
     {
       "type": "N2",
       "label": "N2",
-      "id": 41,
+      "id": 40,
       "class": "Container",
       "name": "N2",
       "class_num": 1,
@@ -586,13 +610,14 @@
       "max_volume": 1000,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
     {
       "type": "solvent",
       "label": "sol_1",
-      "id": 42,
+      "id": 41,
       "class": "Container",
       "name": "sol_1",
       "class_num": 1,
@@ -600,13 +625,14 @@
       "max_volume": 1000,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
     },
     {
       "type": "solvent",
       "label": "sol_2",
-      "id": 43,
+      "id": 42,
       "class": "Container",
       "name": "sol_2",
       "class_num": 2,
@@ -614,8 +640,249 @@
       "max_volume": 1000,
       "module_num": "None",
       "com_num": "None",
+      "module_address": "None",
       "addable": 0,
       "removable": 1
+    },
+    {
+      "type": "relay",
+      "label": "relay_1",
+      "id": 43,
+      "class": "Relay",
+      "name": "relay_1",
+      "class_num": 1,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_2",
+      "id": 44,
+      "class": "Relay",
+      "name": "relay_2",
+      "class_num": 2,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_3",
+      "id": 45,
+      "class": "Relay",
+      "name": "relay_3",
+      "class_num": 3,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_4",
+      "id": 46,
+      "class": "Relay",
+      "name": "relay_4",
+      "class_num": 4,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_5",
+      "id": 47,
+      "class": "Relay",
+      "name": "relay_5",
+      "class_num": 5,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_6",
+      "id": 48,
+      "class": "Relay",
+      "name": "relay_6",
+      "class_num": 6,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_7",
+      "id": 49,
+      "class": "Relay",
+      "name": "relay_7",
+      "class_num": 7,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_8",
+      "id": 50,
+      "class": "Relay",
+      "name": "relay_8",
+      "class_num": 8,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 1,
+      "com_num": 4,
+      "module_address": 3,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_9",
+      "id": 51,
+      "class": "Relay",
+      "name": "relay_9",
+      "class_num": 9,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_10",
+      "id": 52,
+      "class": "Relay",
+      "name": "relay_10",
+      "class_num": 10,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_11",
+      "id": 53,
+      "class": "Relay",
+      "name": "relay_11",
+      "class_num": 11,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_12",
+      "id": 54,
+      "class": "Relay",
+      "name": "relay_12",
+      "class_num": 12,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_13",
+      "id": 55,
+      "class": "Relay",
+      "name": "relay_13",
+      "class_num": 13,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_14",
+      "id": 56,
+      "class": "Relay",
+      "name": "relay_14",
+      "class_num": 14,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_15",
+      "id": 57,
+      "class": "Relay",
+      "name": "relay_15",
+      "class_num": 15,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
+    },
+    {
+      "type": "relay",
+      "label": "relay_16",
+      "id": 58,
+      "class": "Relay",
+      "name": "relay_16",
+      "class_num": 16,
+      "volume": "None",
+      "max_volume": "None",
+      "module_num": 2,
+      "com_num": 5,
+      "module_address": 4,
+      "addable": "None",
+      "removable": "None"
     }
   ],
   "links": [
@@ -1130,6 +1397,262 @@
       "target": "pump_1",
       "type": "volumetric",
       "port_num": "(0,7)"
+    },
+    {
+      "id": 64,
+      "name": "gas_rel_1", 
+      "source": "N2",
+      "target": "relay_1",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 65,
+      "name": "gas_rel_2",
+      "source": "N2",
+      "target": "relay_2",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 66,
+      "name": "gas_rel_3",
+      "source": "N2",
+      "target": "relay_3",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 67,
+      "name": "gas_rel_4",
+      "source": "N2",
+      "target": "relay_4",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 68,
+      "name": "gas_rel_5",
+      "source": "N2",
+      "target": "relay_5",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 69,
+      "name": "gas_rel_6",
+      "source": "N2",
+      "target": "relay_6",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 70,
+      "name": "gas_rel_7",
+      "source": "N2",
+      "target": "relay_7",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 71,
+      "name": "gas_rel_8",
+      "source": "N2",
+      "target": "relay_8",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 72,
+      "name": "rel_rxn_1",
+      "source": "relay_1",
+      "target": "rxn_1",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 73,
+      "name": "rel_rxn_2",
+      "source": "relay_2",
+      "target": "rxn_2",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 74,
+      "name": "rel_rxn_3",
+      "source": "relay_3",
+      "target": "rxn_3",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 75,
+      "name": "rel_rxn_4",
+      "source": "relay_4",
+      "target": "rxn_4",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 76,
+      "name": "rel_rxn_5",
+      "source": "relay_5",
+      "target": "rxn_5",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 77,
+      "name": "rel_rxn_6",
+      "source": "relay_6",
+      "target": "rxn_6",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 78,
+      "name": "rel_rxn_7",
+      "source": "relay_7",
+      "target": "rxn_7",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 79,
+      "name": "rel_rxn_8",
+      "source": "relay_8",
+      "target": "rxn_8",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 80,
+      "name": "rxn_rel_1",
+      "source": "rxn_1",
+      "target": "relay_9",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 81,
+      "name": "rxn_rel_2",
+      "source": "rxn_2",
+      "target": "relay_10",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 82,
+      "name": "rxn_rel_3",
+      "source": "rxn_3",
+      "target": "relay_11",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 83,
+      "name": "rxn_rel_4",
+      "source": "rxn_4",
+      "target": "relay_12",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 84,
+      "name": "rxn_rel_5",
+      "source": "rxn_5",
+      "target": "relay_13",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 85,
+      "name": "rxn_rel_6",
+      "source": "rxn_6",
+      "target": "relay_14",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 86,
+      "name": "rxn_rel_7",
+      "source": "rxn_7",
+      "target": "relay_15",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 87,
+      "name": "rxn_rel_8",
+      "source": "rxn_8",
+      "target": "relay_16",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 88,
+      "name": "rel_waste_1",
+      "source": "relay_9",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 89,
+      "name": "rel_waste_2",
+      "source": "relay_10",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 90,
+      "name": "rel_waste_3",
+      "source": "relay_11",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 91,
+      "name": "rel_waste_4",
+      "source": "relay_12",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 92,
+      "name": "rel_waste_5",
+      "source": "relay_13",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 93,
+      "name": "rel_waste_6",
+      "source": "relay_14",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 94,
+      "name": "rel_waste_7",
+      "source": "relay_15",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
+    },
+    {
+      "id": 95,
+      "name": "rel_waste_8",
+      "source": "relay_16",
+      "target": "waste",
+      "type": "electric",
+      "port_num": "(0,0)"
     }
   ]
 }

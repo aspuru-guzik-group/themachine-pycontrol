@@ -23,13 +23,9 @@ from errors import CommunicationError
 
 def controller(func):
     def wrapper(self, com_num, *args, **kwargs):
-        #ser = serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1)
-        #self.controller = modbus_rtu.RtuMaster(ser)
         self.controller(com_num)
-        self.controller.set_timeout(0.10)
-        self.controller.set_verbose(True)
         output = func(self, com_num, *args, **kwargs)
-        ser.close()
+        del self.controller
         return output
     return wrapper
 
@@ -50,9 +46,12 @@ class RelayModule:
     def controller(self, com_num):
         ser = serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1)
         self.controller = modbus_rtu.RtuMaster(ser)
+        self.controller.set_timeout(0.10)
+        self.controller.set_verbose(True)
 
     @controller.deleter
     def controller(self):
+        ser.close()
         del self.controller
 
     @controller
