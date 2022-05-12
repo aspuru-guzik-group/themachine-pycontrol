@@ -24,7 +24,6 @@ class GraphSearch:
         """
         self.graph: nx.DiGraph = graph
 
-    # TODO: Typehint return
     def edge_search(self, source_label: str, target_label: str) -> Dict:
         """
         Returns the edge corresponding to the connection from the node with source_label to the node with target_label
