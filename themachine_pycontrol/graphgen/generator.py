@@ -13,7 +13,9 @@ GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-PUMP_MOD = PumpModule() #we can remove this now given the Singleton class right?
+#PUMP_MOD = PumpModule() #we can remove this now given the Singleton class right?
+
+
 
 
 class Generator:
@@ -37,6 +39,56 @@ class Generator:
         """
         self.generate_graph()
 
+    def _make_vessel(self, node):
+        """
+
+        :return:
+        """
+        volume = node["volume"]
+        max_volume = node["max_volume"]
+        return Vessel(float(max_volume), volume)
+
+    def _make_hotplate(self, node):
+        """
+
+        :return:
+        """
+        class_num = node["class_num"]
+        com_num = node["com_num"]
+        return Hotplate(class_num, com_num)
+
+    def _make_valve(self, node):
+        """
+
+        :return:
+        """
+        class_num = node["class_num"]
+        com_num = node["com_num"]
+        return Valve(class_num, com_num)
+
+    def _make_pump(self, node):
+        """
+
+        :return:
+        """
+        class_num = node["class_num"]
+        return Pump(class_num)
+
+    def factory(self, node_class: str, node):
+        """
+
+        :param object_class:
+        :return:
+        """
+
+        classes = {
+            "Vessel":  self._make_vessel(node),
+            "Hotplate": self._make_hotplate(node),
+            "Valve": self._make_valve(node),
+            "Pump": self._make_pump(node)
+        }
+        node["object"] = classes[node_class]
+
 
     def generate_graph(self) -> nx.Graph:
         """
@@ -46,25 +98,13 @@ class Generator:
         graph = nx.DiGraph()
         # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
         #   harder to change.
+        # TODO: make separate _get_link and _get_node to increase modularity maybe
+        # and do the get data fn
+        node_id = node["id"]
         json_data = json.load(open(self.json_path))
         for node in json_data["nodes"]:
-            node_id = node["id"]
-            class_num = node["class_num"]
-            volume = node["volume"]
-            com_num = node["com_num"]
-            max_volume = node["max_volume"]
-            module_address = node["module_address"]
-            # TODO: This would be a great opportunity to include a factory pattern.
-            if node["class"] == "Vessel":
-                node["object"] = Vessel(float(max_volume), volume)
-            elif node["class"] == "Hotplate":
-                node["object"] = Hotplate(class_num, com_num)
-            elif node["class"] == "Valve":
-                node["object"] = Valve(class_num, com_num)
-            elif node["class"] == "Pump":
-                node["object"] = PUMP_MOD.pump(class_num) #This can be changed to just Pump(class_num) since PumpModule is now a singleton class right?
-            elif node["class"] == "Relay":
-                node["object"] = Relay(class_num, com_num, module_address)
+            node_class = node["class"]
+            self.factory(node_class, node)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
