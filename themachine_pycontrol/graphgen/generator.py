@@ -13,10 +13,6 @@ GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-#PUMP_MOD = PumpModule() #we can remove this now given the Singleton class right?
-
-
-
 
 class Generator:
     """
@@ -39,56 +35,64 @@ class Generator:
         """
         self.generate_graph()
 
-    def _make_vessel(self, node):
+    def _make_vessel(self, node) -> Vessel:
         """
-
-        :return:
+        Returns a vessel object given a vessel node.
         """
         volume = node["volume"]
         max_volume = node["max_volume"]
         return Vessel(float(max_volume), volume)
 
-    def _make_hotplate(self, node):
+    def _make_hotplate(self, node) -> Hotplate:
         """
-
-        :return:
+        Returns a hotplate object given a hotplate node.
         """
         class_num = node["class_num"]
         com_num = node["com_num"]
         return Hotplate(class_num, com_num)
 
-    def _make_valve(self, node):
+    def _make_valve(self, node) -> Valve:
         """
+        Returns a valve object given a valve node.
 
-        :return:
         """
         class_num = node["class_num"]
         com_num = node["com_num"]
         return Valve(class_num, com_num)
 
-    def _make_pump(self, node):
+    def _make_pump(self, node) -> Pump:
         """
-
-        :return:
+        Returns a pump object given a pump node.
         """
         class_num = node["class_num"]
         return Pump(class_num)
 
+    def _make_relay(self, node) -> Relay:
+        """
+        Returns a relay object given a relay node.
+        """
+        class_num = node["class_num"]
+        com_num = node["com_num"]
+        mod_address = node["module_address"]
+        return Relay(class_num, com_num, mod_address)
+
     def factory(self, node_class: str, node):
         """
-
-        :param object_class:
-        :return:
+        Given a node of any type, creates the correct corresponding object and updates the node dictionary
+        to include this object.
         """
 
         classes = {
             "Vessel":  self._make_vessel(node),
             "Hotplate": self._make_hotplate(node),
             "Valve": self._make_valve(node),
-            "Pump": self._make_pump(node)
+            "Pump": self._make_pump(node),
+            "Relay": self._make_relay(node)
         }
         node["object"] = classes[node_class]
 
+    def get_data(self):
+        json.load(open(self.json_path))
 
     def generate_graph(self) -> nx.Graph:
         """
@@ -96,12 +100,8 @@ class Generator:
         Creates a directed graph object.
         """
         graph = nx.DiGraph()
-        # TODO: Make getting the data its own function. It later on you want to use something other than JSON, it will
-        #   harder to change.
-        # TODO: make separate _get_link and _get_node to increase modularity maybe
-        # and do the get data fn
         node_id = node["id"]
-        json_data = json.load(open(self.json_path))
+        json_data = self.get_data()
         for node in json_data["nodes"]:
             node_class = node["class"]
             self.factory(node_class, node)
