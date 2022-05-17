@@ -25,10 +25,8 @@ class Pump:
 
     def __init__(self, pump_num: int):
         self.pump_num = pump_num
-
         self.controller = PumpModule()  # Singleton Object
         self.controller.initialize(pump_num)
-
         self.pump_port: int = self.waste_port
 
     def _set_current_port(self, new_pump_port: int):
@@ -76,8 +74,8 @@ class PumpModule(object):
 
     === Public Attributes ===
     num_pumps: The total number of pumps the module contains
-    controller:
-    pumps:
+    controller: The controller object used to perform all pump-related functions
+    pumps: A list of all pumps contained in the pump module
 
     === Representation Invariants ===
 
@@ -85,7 +83,6 @@ class PumpModule(object):
     steps_per_vol: int = 307200  # Steps per mL for a 10 mL syringe.
     max_num_pumps: int = 7
     waste_port: int = 5
-
 
     def __init__(self):
         """
@@ -96,12 +93,11 @@ class PumpModule(object):
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
             raise CommunicationError("Communication failed.")
-
         self.pumps: dict = {i + 1 : False for i in range(self.max_num_pumps)}
 
     def initialize_pump(self, pump_number: int) -> None:
         """
-        Activates a pump
+        Activates a pump.
         """
         if self.controller.DiscoverModule(pump_number):
             self._prime(pump_number)

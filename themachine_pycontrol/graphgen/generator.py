@@ -47,9 +47,8 @@ class Generator:
         """
         Returns a hotplate object given a hotplate node.
         """
-        class_num = node["class_num"]
         com_num = node["com_num"]
-        return Hotplate(class_num, com_num)
+        return Hotplate(com_num)
 
     def _make_valve(self, node) -> Valve:
         """
@@ -92,6 +91,9 @@ class Generator:
         node["object"] = classes[node_class]
 
     def get_data(self):
+        """
+        Opens file path to where graph data is stored.
+        """
         json.load(open(self.json_path))
 
     def generate_graph(self) -> nx.Graph:
@@ -100,9 +102,9 @@ class Generator:
         Creates a directed graph object.
         """
         graph = nx.DiGraph()
-        node_id = node["id"]
         json_data = self.get_data()
         for node in json_data["nodes"]:
+            node_id = node["id"]
             node_class = node["class"]
             self.factory(node_class, node)
             graph.add_nodes_from([(node_id, node)])

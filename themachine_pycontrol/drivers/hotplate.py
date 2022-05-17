@@ -8,7 +8,6 @@ from errors import CommunicationError, RangeError
 rm = ResourceManager()
 
 
-
 class Hotplate:
     """
     A hotplate with functions that can heat to a given temperature, stir at a given speed,
@@ -26,7 +25,7 @@ class Hotplate:
     - rpm must be <1700 rpm
     """
 
-    def __init__(self, hotplate_num: int, com_num: int):
+    def __init__(self, com_num: int):
         """
         Initialize a new hotplate with heating and stirring switches set to off.
         """
@@ -50,7 +49,6 @@ class Hotplate:
         point of material
 
         """
-
         self._set_heat_switch(heat_switch_status)
         if self.heat_switch:
             self._set_temp(new_temp)
@@ -115,7 +113,6 @@ class Hotplate:
             self.rpm = new_rpm
         except AssertionError:
             raise RangeError("Stir speed must be under 1700 rpm")
-
 
     def _get_rpm(self) -> int:
         """

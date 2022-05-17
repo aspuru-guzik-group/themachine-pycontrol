@@ -3,7 +3,7 @@ import pkg_resources
 import networkx as nx
 import json
 from themachine_pycontrol.drivers.vessel import Vessel
-#from themachine_pycontrol.drivers.hotplate import Hotplate
+from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.graphgen.generator import Generator
 from themachine_pycontrol.drivers.pump import Pump
@@ -42,6 +42,7 @@ class Transfer:
         When a Transfer object is called, ex: transfer_1(), the transfer_liquid() function is called.
         """
         self.transfer_liquid()
+        
 
     def transfer_liquid(self) -> None:
         """

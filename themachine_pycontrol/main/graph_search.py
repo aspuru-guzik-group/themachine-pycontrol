@@ -7,7 +7,6 @@ GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
 )
 
-# TODO: Typehinting!
 
 
 class GraphSearch:

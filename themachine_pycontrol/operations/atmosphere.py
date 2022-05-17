@@ -62,6 +62,7 @@ class Atmosphere:
         """
         self.gas_relay.set_relay(True)
         self.waste_relay.set_relay(True)
+        print(f"Relay {self.gas_relay.relay_num} and relay {self.waste_relay.relay_num} are both True/open.")
 
     def set_atm(self):
         """
@@ -70,6 +71,7 @@ class Atmosphere:
         """
         self.gas_relay.set_relay(True)
         self.waste_relay.set_relay(False)
+        print(f"Relay {self.gas_relay.relay_num} is True/open and relay {self.waste_relay.relay_num} is False/closed.")
 
     def timed_purge(self, purge_minutes: int):
         """
