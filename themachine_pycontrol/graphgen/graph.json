@@ -1372,7 +1372,8 @@
       "source": "valve_1",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0, 1)"
+      "port_num": "(0, 1)",
+      "clean": 1
     },
     {
       "id": 1,

@@ -8,6 +8,7 @@ from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
 from themachine_pycontrol.drivers.pump import PumpModule
 from themachine_pycontrol.drivers.relay import RelayModule, Relay
+from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graphgen/graph.json"
@@ -126,11 +127,12 @@ class Generator:
                 target=link["target"],
                 type=link["type"],
                 port_num=link["port_num"],
+                clean=link["clean"]
             )
         return graph
 
     def index_nodes(self) -> None:
-    """
+        """
     Renumbers the node ids in the JSON automatically.
     """
         graph_json = json.load(open(self.json_path))

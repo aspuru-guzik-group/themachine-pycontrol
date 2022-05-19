@@ -1,6 +1,7 @@
 from errors import CommunicationError
 
-# TODO: Add errors as appropriate
+#Added errors at graph level (in transfer functions)
+
 
 
 class Vessel:
@@ -39,7 +40,7 @@ class Vessel:
         Sets an updated volume by adding volume_change to old_volume 
         """
         prev_volume: float = self._get_volume()
-        self._set_volume(prev_volume + volume_change)
+        self._set_volume(prev_volume + vol_change)
 
     def check_transfer(self, vol_change: float) -> bool:
         """
