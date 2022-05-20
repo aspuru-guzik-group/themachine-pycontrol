@@ -40,7 +40,9 @@ class Hotplate:
         self._set_temp(20)
         self._set_rpm(0)
 
-    def heat(self, heat_switch_status: bool = False, new_temp: int = 20):
+    def heat(self, heat_switch_state: bool = False, new_temp: int = 20):
+        # NOTE: I don't understand why heat_switch_state is a kwarg. Would you ever call the method simply as
+        #  Hotplate.heat() or Hotplate.heat(new_temp=100)?
         """
         Sets the temperature the hotplate should heat up to if heat_switch is True (or "on").
         If it is off, the hotplate stops heating.
@@ -49,7 +51,7 @@ class Hotplate:
         point of material
 
         """
-        self._set_heat_switch(heat_switch_status)
+        self._set_heat_switch(heat_switch_state)
         if self.heat_switch:
             self._set_temp(new_temp)
             self.controller.write(f"OUT_SP_1 {new_temp}")
@@ -68,11 +70,14 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
+        # FIXME: Rather than asserting new_temp in range, and the catching the AssertionError, you should do:
+        #  if variable not in correct range, then raise RangeError
         try:
             assert new_temp in range(20, 341)
             self.temp = new_temp
         except AssertionError:
-            raise RangeError("New temperature is not within the range of 20-341 degrees Celcius.")
+            raise RangeError("New temperature is not within the range of 20-341 degrees Celsius.")
+            # TODO: Here, you could use an f string to also put the value of new_temp in the error msg.
 
     def _get_temp(self) -> int:
         """
@@ -82,7 +87,7 @@ class Hotplate:
 
     def _set_heat_switch(self, new_heat_switch: bool = False):
         """
-        Sets self.heat_switch to new_heat_switch_status
+        Sets self.heat_switch to new_heat_switch_state
         """
         self.heat_switch = new_heat_switch
 
@@ -94,7 +99,7 @@ class Hotplate:
 
     def _set_stir_switch(self, new_stir_switch: bool):
         """
-        Sets self.stir_switch to new_heat_switch_status
+        Sets self.stir_switch to new_heat_switch_state
         """
         self.stir_switch = new_stir_switch
 
@@ -108,6 +113,7 @@ class Hotplate:
         """
         Sets self.rpm to be new_rpm, which must be <1700 rpm
         """
+        # FIXME: See above.
         try:
             assert new_rpm in range(0, 1701)
             self.rpm = new_rpm
@@ -120,7 +126,7 @@ class Hotplate:
         """
         return self.rpm
 
-    def stir(self, stir_switch_status: bool = False, new_rpm: int = 0):
+    def stir(self, stir_switch_state: bool = False, new_rpm: int = 0):
         """
         Sets the rpm the hotplate should stir at if stir_switch is true ("on").
         If it is off, the hotplate stops stirring.
@@ -128,7 +134,7 @@ class Hotplate:
         Precondition: max rpm is 1700
         """
 
-        self._set_stir_switch(stir_switch_status)
+        self._set_stir_switch(stir_switch_state)
         if self.stir_switch:
             self._set_rpm(new_rpm)
             self.controller.write(f"OUT_SP_4 {new_rpm}")
@@ -143,49 +149,50 @@ class Hotplate:
             time.sleep(1)
             print("The hotplate has stopped stirring.")
 
-    def weigh(self, tare_switch):
-        """
-        Placeholder function. Not currently in use!
-
-        Weighs an amount. If tare_switch is True, the weight recorded will be set to 0.
-        """
-        if tare_switch:
-            # reset taring value
-            self.controller.write("STOP_90")
-            self.controller.write("START_90")
-            time.sleep(10)
-            self.controller.write("STATUS_90")
-            print(self.controller.read())
-            print("The hotplate has been tared.")
-            return 0
-        else:
-            # check stability
-            for i in range(0, 6):
-                self.controller.write("STATUS_90")
-                hotplate_reading = self.controller.read()
-                hotplate_reading = hotplate_reading.strip()
-                if hotplate_reading == "1041 90":
-                    #    print('y')
-                    break
-                else:
-                    #   print('n')
-                    time.sleep(10)
-                # out put error here?
-            # measure weight
-            self.controller.write("IN_PV_90")
-            time.sleep(1)
-            weight = self.controller.read()
-            print(f"A weight of {weight} has been obtained.")
-            return weight
+    # def weigh(self, tare_switch):
+    #     """
+    #     Placeholder function. Not currently in use!
+    # 
+    #     Weighs an amount. If tare_switch is True, the weight recorded will be set to 0.
+    #     """
+    #     if tare_switch:
+    #         # reset taring value
+    #         self.controller.write("STOP_90")
+    #         self.controller.write("START_90")
+    #         time.sleep(10)
+    #         self.controller.write("STATUS_90")
+    #         print(self.controller.read())
+    #         print("The hotplate has been tared.")
+    #         return 0
+    #     else:
+    #         # check stability
+    #         for i in range(0, 6):
+    #             self.controller.write("STATUS_90")
+    #             hotplate_reading = self.controller.read()
+    #             hotplate_reading = hotplate_reading.strip()
+    #             if hotplate_reading == "1041 90":
+    #                 #    print('y')
+    #                 break
+    #             else:
+    #                 #   print('n')
+    #                 time.sleep(10)
+    #             # out put error here?
+    #         # measure weight
+    #         self.controller.write("IN_PV_90")
+    #         time.sleep(1)
+    #         weight = self.controller.read()
+    #         print(f"A weight of {weight} has been obtained.")
+    #         return weight
 
     def close(self):
         # close control, do NOT shut down hotplate!!!
         self.controller.close()
 
-def cli_main():
+
+def main():
     hp = Hotplate(1, 2)
     hp.heat(True, 25)
 
 
 if __name__ == "__main__":
-    cli_main()
+    main()

@@ -37,6 +37,7 @@ class Valve:
     """
     num_ports = 8
 
+    # NOTE: The Valve class doesn't support multiple valve modules anymore. Should we add that capability?
     def __init__(
         self, valve_num: int, com_num: int
     ):  # Should we allow init w/ current_port != 8?
@@ -86,6 +87,7 @@ class Valve:
 
         Precondition: Valve port is between 1 and 8 inclusive
         """
+        # FIXME: Change from assertion to if check and raising error.
         assert valve_port in range(1, 9), f"Submitted {valve_port}"
         controller = rm.open_resource(self.com_port_cmd)
         command = f"/{self.valve_num}o{valve_port}R"
@@ -136,7 +138,7 @@ class Valve:
 
 
 def cli_main():
-
+    pass
 
 
 if __name__ == "__main__":

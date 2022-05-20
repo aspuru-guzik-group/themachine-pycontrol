@@ -3,10 +3,10 @@ import pickle
 import networkx as nx
 from typing import Dict, List, Tuple
 
+# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
 GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.json"
+    "themachine_pycontrol", "graph/graph.json"
 )
-
 
 
 class GraphSearch:
@@ -20,8 +20,9 @@ class GraphSearch:
         """
         Instantiates a GraphSearch object for a graph
         """
-        self.graph: nx.DiGraph = graph
+        self.graph: nx.DiGraph = graph  # TODO: Type hint should be in args?
 
+    # FIXME: Already implemented as Graph.get_edge_data
     def edge_search(self, source_label: str, target_label: str) -> Dict:
         """
         Returns the edge corresponding to the connection from the node with source_label to the node with target_label
@@ -33,6 +34,7 @@ class GraphSearch:
                     return edge
 
     def path_search(self, source_label: str, target_label: str) -> Tuple[List[Dict], List[Dict]]:
+        # TODO: Type hints!
         """
         Returns the shortest path from the node corresponding to source_label to the node corresponding to target_label
         as a tuple of the list of traversed nodes and the list of traversed edges in the discovered path
@@ -44,12 +46,16 @@ class GraphSearch:
         return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
     def specific_path_search(self, edge_type: str, source_label, target_label):
+        # TODO: Type hints!
         """
         Returns the shortest path from source to target for the subgraph containing only the edges
         of the type edge_type
         """
+        # TODO: Lines 55-56 and 64-65 are in path_search(), specific_path_search() and dirtiest_path().
+        #  Should also be refactored to be a single method and called in all 3.
         source_id = self.get_node_id_from_label(source_label)
         target_id = self.get_node_id_from_label(target_label)
+        # TODO: This is duplicated in dirtiest_path() (nice). Should be its own method and called in both?
         edges = []
         for edge in self.graph.edges.data():
             edge_data = edge[2]
@@ -61,6 +67,7 @@ class GraphSearch:
         return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
     def multistep_search(self, source_label: str, target_label: str, common_node_label: str = "pump_1"):
+        # TODO: I think this is now deprecated by the specific path searches (and therefore so is path_search)...
         """
         Returns a tuple featuring the shortest path from the node of source_label to the node of common_node_label, and
         the shortest path from the node of target_label to the node of common_node_label.
@@ -70,6 +77,7 @@ class GraphSearch:
         return source_to_common, target_to_common
 
     def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, common_node_label: str = "pump_1"):
+        # TODO: Doc (and type) me!
         source_to_common = self.specific_path_search(edge_type, source_label, common_node_label)
         target_to_common = self.specific_path_search(edge_type, target_label, common_node_label)
         return source_to_common, target_to_common
@@ -106,6 +114,8 @@ class GraphSearch:
         return [self.get_node_from_id(node_id) for node_id in neighbor_ids]
 
     def dirtiest_path(self, edge_type: str, wash_label: str, waste_label: str = "waste", pump_label: str = "pump_1"):
+        # TODO: Types hints, please!
+        # TODO: See above comments about all the path search stuff.
         """
         Returns the path involving the most dirty tubes between a source wash solution and a target waste.
         """
@@ -117,26 +127,33 @@ class GraphSearch:
             if edge_data["type"] == edge_type:
                 edges.append(edge)
         subgraph = self.graph.edge_subgraph(edges)
+        
         intermediate_traversed_node_ids = nx.bellman_ford_path(subgraph, source_id, pump_label, "clean")
         intermediate_traversed_edges = self.path_edges(intermediate_traversed_node_ids)
+        
         source_to_common = self.get_node_from_id(intermediate_traversed_node_ids), intermediate_traversed_edges
         common_to_target_node_ids = nx.bellman_ford_path(subgraph, pump_label, target_id, "clean")
+        
         common_to_target_edges = self.path_edges(common_to_target_node_ids)
         common_to_target = self.get_node_from_id(common_to_target_node_ids), common_to_target_edges
+        # TODO: I think you could clean this up...
+        #  This returns Tuple[Tuple[Dict, List[Dict]], Tuple[Dict, List[Dict]]]
         return source_to_common, common_to_target
 
+    # TODO: Unused method. What's it for..?
     def search_graph_for_edge_attr(self, edge_attribute: str, wanted_attribute: str):
+        # TODO: Doc (and type) me!
         for edge in self.graph.edges.data():
             edge_data = edge[2]
             if edge_data[edge_attribute] == wanted_attribute:
                 return edge
 
     def get_all_edge_data(self):
-        all_edges = [edge for edge in self.graph.edges.data()]
-        return all_edges
+        # TODO: Doc (and type) me!
+        return [edge for edge in self.graph.edges.data()]
 
 
-def cli_main():
+def main():
     search = GraphSearch(GRAPH_JSON)
 
     b = search.path_search("rxn_1", "pump_1")
@@ -151,6 +168,7 @@ def cli_main():
     # print(search.edge_search("rxn_1", "pump_1"))
     pass
 
+
 if __name__ == "__main__":
-    cli_main()
+    main()
     print('done')

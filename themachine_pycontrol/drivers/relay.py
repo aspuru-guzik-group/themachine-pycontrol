@@ -76,6 +76,7 @@ class RelayModule:
 
     @ctrl_decorator
     def relay_control(self, com_num, module_address, channel, bool_status):
+        # NOTE: com_num is unused...
         """
         Changes the relay status of the relay corresponding to the channel number to bool_status.
         """
@@ -89,8 +90,9 @@ class RelayModule:
         
     @ctrl_decorator
     def relay_read(self, com_num, channel):
+        # NOTE: com_num is unused...
         """
-        Queries and returns the current relay status of th relay corresponding to channel.
+        Queries and returns the current relay status of the relay corresponding to channel.
         """
         # with serial.Serial(port=com_num, baudrate=9600, bytesize=8, parity="N", stopbits=1) as ser:
         #     self.controller = modbus_rtu.RtuMaster(ser)
@@ -126,7 +128,7 @@ class Relay:
         self.com_num = com_num
         self.module = RelayModule()
         self.module_address = module_address
-        self.state: Bool = False
+        self.state: bool = False
         self.channel = self.relay_num - 1
 
     def set_relay(self, status: bool = False):

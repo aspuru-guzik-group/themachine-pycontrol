@@ -1,18 +1,15 @@
 import pkg_resources
 
-import networkx as nx
-import json
-from themachine_pycontrol.drivers.vessel import Vessel
-from themachine_pycontrol.graphgen.generator import Generator
-from themachine_pycontrol.drivers.relay import Relay
-from themachine_pycontrol.main.graph_search import GraphSearch
-import typing
+from themachine_pycontrol.graph.generator import Generator
+from themachine_pycontrol.graph.search import GraphSearch
 
+# TODO: You know the drill.
 GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.json"
+    "themachine_pycontrol", "graph/graph.json"
 )
 
-class Atmosphere:
+
+class Atmosphere:  # TODO: Change name to smth like AtmosphereController
     """
     Class that contains the functions for controlling the atmosphere of the vessels.
 
@@ -84,7 +81,7 @@ class Atmosphere:
         self.set_atm
 
 
-def cli_main():
+def main():
     graph_1_gen = Generator(GRAPH_JSON)
     graph_1 = graph_1_gen.generate_graph()
     search = GraphSearch(graph_1)
@@ -94,4 +91,4 @@ def cli_main():
 
 
 if __name__ == "__main__":
-    cli_main()
+    main()

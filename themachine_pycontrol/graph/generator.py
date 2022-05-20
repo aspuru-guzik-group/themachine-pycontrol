@@ -3,15 +3,18 @@ import json
 import pkg_resources
 import pickle
 import matplotlib.pyplot as plt
+# TODO: Look in __all__ attribute of __init__.py files so that you can do this:
+#  from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Vessel
+#  instead of needing individual lines for each module.
 from themachine_pycontrol.drivers.vessel import Vessel
 from themachine_pycontrol.drivers.hotplate import Hotplate
 from themachine_pycontrol.drivers.valve import Valve
-from themachine_pycontrol.drivers.pump import PumpModule
+from themachine_pycontrol.drivers.pump import PumpModule, Pump
 from themachine_pycontrol.drivers.relay import RelayModule, Relay
-from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
+# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
 GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.json"
+    "themachine_pycontrol", "graph/graph.json"
 )
 
 
@@ -24,6 +27,7 @@ class Generator:
 
     """
 
+    # TODO: json_path should be a pathlib.Path type
     def __init__(self, json_path: str) -> None:
         """
         Initializes Generator class with paths to where data is stored, and where graph is stored.
@@ -36,7 +40,10 @@ class Generator:
         """
         self.generate_graph()
 
+    # TODO: All the _make_x() methods and factory() should be in a separate class, e.g. NodeFactory
+    # TODO: _make_x() methods should be static methods (hint: more decorators!)
     def _make_vessel(self, node) -> Vessel:
+        # TODO: Type hints!
         """
         Returns a vessel object given a vessel node.
         """
@@ -45,6 +52,7 @@ class Generator:
         return Vessel(float(max_volume), volume)
 
     def _make_hotplate(self, node) -> Hotplate:
+        # TODO: Type hints!
         """
         Returns a hotplate object given a hotplate node.
         """
@@ -52,6 +60,7 @@ class Generator:
         return Hotplate(com_num)
 
     def _make_valve(self, node) -> Valve:
+        # TODO: Type hints!
         """
         Returns a valve object given a valve node.
 
@@ -61,6 +70,7 @@ class Generator:
         return Valve(class_num, com_num)
 
     def _make_pump(self, node) -> Pump:
+        # TODO: Type hints!
         """
         Returns a pump object given a pump node.
         """
@@ -68,6 +78,7 @@ class Generator:
         return Pump(class_num)
 
     def _make_relay(self, node) -> Relay:
+        # TODO: Type hints!
         """
         Returns a relay object given a relay node.
         """
@@ -77,6 +88,8 @@ class Generator:
         return Relay(class_num, com_num, mod_address)
 
     def factory(self, node_class: str, node):
+        # FIXME: You only need to pass node since node_class == node["class"]
+        # TODO: Type hints!
         """
         Given a node of any type, creates the correct corresponding object and updates the node dictionary
         to include this object.
@@ -89,9 +102,12 @@ class Generator:
             "Pump": self._make_pump(node),
             "Relay": self._make_relay(node)
         }
+        # FIXME: This might work (depending on if pointer or mem addr), but only by accident.
+        #  You should return classes[node_class], and then set node["object"] to the class instance outside.
         node["object"] = classes[node_class]
 
     def get_data(self):
+        # FIXME: This method does nothing because it doesn't return anything! Also, should use context manager...
         """
         Opens file path to where graph data is stored.
         """
@@ -105,15 +121,18 @@ class Generator:
         graph = nx.DiGraph()
         json_data = self.get_data()
         for node in json_data["nodes"]:
+            # FIXME: No need to assign node_id and node_class anymore
             node_id = node["id"]
             node_class = node["class"]
-            self.factory(node_class, node)
+            self.factory(node_class, node)  # FIXME: See comments in factory()
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
             target = link["target"]
             for node_id in graph.nodes:  # iterate through node_ids from the graph
                 node = graph.nodes[node_id]  # get node from graph with node_id
+                # FIXME: You might accidentally re-use a source_id or target_id.
+                #  Make sure to set to None in the for loop above this one.
                 if node["label"] == source:
                     source_id = node["id"]
                 elif node["label"] == target:
@@ -131,10 +150,10 @@ class Generator:
             )
         return graph
 
-    def index_nodes(self) -> None:
+    def index_nodes(self) -> None:  # FIXME: What's this for..?
         """
-    Renumbers the node ids in the JSON automatically.
-    """
+        Renumbers the node ids in the JSON automatically.
+        """
         graph_json = json.load(open(self.json_path))
         id = 0
         for node in graph_json["nodes"]:
@@ -145,15 +164,15 @@ class Generator:
             json.dump(graph_json, f)
 
 
-def cli_main():
+def main():
     generator = Generator(GRAPH_JSON)
     new_graph = generator.generate_graph()
-    for edge_id in new_graph.edges:
+    for edge_id in new_graph.edges:  # FIXME: Huh?
         new_graph.edges[edge_id]
     nx.draw_planar(new_graph, with_labels=True)
     plt.show()
 
 
 if __name__ == "__main__":
-    cli_main()
+    main()
 

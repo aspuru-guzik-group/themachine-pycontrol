@@ -35,13 +35,13 @@ class Pump:
         """
         self.pump_port = new_pump_port
 
-    def move(self, new_port: int, topspeed: float, volume: float, wait_ready: bool = True) -> None:
+    def move(self, new_port: int, top_speed: float, volume: float, wait_ready: bool = True) -> None:
         """
         Moves a pump to the port new_port and moves the plunger of the pump to the
-        position of the syringe corresponding to the volume volume at the speed topspeed.
+        position of the syringe corresponding to the volume volume at the speed top_speed.
         """
         self._move_port(new_port)
-        self._move_piston(topspeed, volume, wait_ready)
+        self._move_piston(top_speed, volume, wait_ready)
         print(f"Pump is ready to dispense {volume} mL to port {new_port}.")
 
     def _move_port(self, new_port: int):
@@ -51,20 +51,20 @@ class Pump:
         self.controller.set_port(self.pump_num, new_port)
         self._set_current_port(new_port)
 
-    def _move_piston(self, topspeed: float, volume: float, wait_ready: bool = True):
+    def _move_piston(self, top_speed: float, volume: float, wait_ready: bool = True):
         """
         Moves the pump piston accordingly to transfer the specified amount
         """
-        self.controller.move_piston(self.pump_num, topspeed, volume, wait_ready)
+        self.controller.move_piston(self.pump_num, top_speed, volume, wait_ready)
 
-    def dispense(self, src_port: int, dst_port: int, topspeed: float, volume: float, wait_ready: bool = True):
+    def dispense(self, src_port: int, dst_port: int, top_speed: float, volume: float, wait_ready: bool = True):
         """docstring"""
-        self.move(src_port, topspeed, volume, wait_ready)
-        self.move(dst_port, topspeed, 0, wait_ready)
+        self.move(src_port, top_speed, volume, wait_ready)
+        self.move(dst_port, top_speed, 0, wait_ready)
 
-    def rinse(self, soln_port: int, topspeed: float, volume: float, wait_ready: bool = True):
+    def rinse(self, soln_port: int, top_speed: float, volume: float, wait_ready: bool = True):
         """Rinse the syringe from sol to waste_port."""
-        self.dispense(soln_port, self.waste_port, topspeed, volume, wait_ready)
+        self.dispense(soln_port, self.waste_port, top_speed, volume, wait_ready)
 
 
 @singleton
@@ -92,8 +92,9 @@ class PumpModule(object):
         """
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
+            # TODO: This error msg should be more specific that comm failed with pump module.
             raise CommunicationError("Communication failed.")
-        self.pumps: dict = {i + 1 : False for i in range(self.max_num_pumps)}
+        self.pumps: dict = {i + 1: False for i in range(self.max_num_pumps)}
 
     def initialize_pump(self, pump_number: int) -> None:
         """
@@ -126,21 +127,25 @@ class PumpModule(object):
         """
         Sets the port of a given pump to a given position
         """
+        # FIXME: See same comment from hotplate.py
         try:
             assert self.pumps[pump_number]
         except AssertionError:
-            raise HardwareError("Requested Pump is not Active.")
+            raise HardwareError("Requested pump is not active.")
+            # TODO: Give pump number in error msg.
         self.controller.Port(pump_number, port_number, True)
 
-    def move_piston(self, pump_number: int, topspeed: float, volume: float, wait_ready: bool = True) -> None:
+    def move_piston(self, pump_number: int, top_speed: float, volume: float, wait_ready: bool = True) -> None:
         """
         Moves the piston of a specific pump to the target position to dispense a given volume.
         """
+        # FIXME: See same comment from hotplate.py
         try:
             assert self.pumps[pump_number]
         except AssertionError:
-            raise HardwareError("Requested Pump is not Active.")
-        self.controller.Speed(pump_number, topspeed)
+            raise HardwareError("Requested pump is not active.")
+            # TODO: Give pump number in error msg.
+        self.controller.Speed(pump_number, top_speed)
         position: float = volume * self.steps_per_vol
         self.controller.MoveToPosition(pump_number, position, wait_ready)
 

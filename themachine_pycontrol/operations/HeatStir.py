@@ -1,11 +1,10 @@
 import pkg_resources
-import networkx as nx
-from themachine_pycontrol.main.graph_search import GraphSearch
-from themachine_pycontrol.graphgen.generator import Generator
+from themachine_pycontrol.graph.search import GraphSearch
+from themachine_pycontrol.graph.generator import Generator
 
 
 GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graphgen/graph.json"
+    "themachine_pycontrol", "graph/graph.json"
 )
 
 
@@ -24,6 +23,7 @@ class HeatStir:
     - rpm must be <1700 rpm
     """
     def __init__(self, search: GraphSearch, object_label: str, temp: int, rpm: int):
+        # TODO: This will set heat/stir N times for N vials on the same hotplate.
         """
         Instantiates a HeatStir object.
         """
@@ -62,7 +62,7 @@ class HeatStir:
         """
         self.hotplate.stir(True, self.rpm)
 
-    def heat_stir(self)
+    def heat_stir(self):
         """
         Heats and stirs hotplate at temp and rpm.
         """
@@ -70,7 +70,7 @@ class HeatStir:
         self.stir()
 
 
-def cli_main():
+def main():
     graph_1_gen = Generator(GRAPH_JSON)
     graph_1 = graph_1_gen.generate_graph()
     search = GraphSearch(graph_1)
@@ -79,5 +79,4 @@ def cli_main():
 
 
 if __name__ == "__main__":
-    cli_main()
-
+    main()
