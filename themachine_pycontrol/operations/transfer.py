@@ -137,7 +137,7 @@ class LiquidTransfer:
         """
         Cleans all contaminated tubes with 2.0 mL of wash solvent.
         """
-        while check_dirty_tubes():
+        while self.check_dirty_tubes():
             # FIXME: dirty_path doesn't necessarily pass through edge!
             # ^ Is this a problem? Purpose is to re-do the search as long as any edge is dirty
             dirty_path = self.search.dirtiest_path("volumetric", wash_label, waste_label, self.common)
@@ -148,7 +148,7 @@ class LiquidTransfer:
         print("All tubes are clean")
 
     @staticmethod
-    def _update_clean_state(self, state: bool, *edges):  # TODO: Ask your nearest postdoc about *args
+    def _update_clean_state(state: bool, *edges):
         for edge in edges:
             edge["clean"] = int(state)
     #input is one edge though? not edges? used in transfer to make edges dirty too

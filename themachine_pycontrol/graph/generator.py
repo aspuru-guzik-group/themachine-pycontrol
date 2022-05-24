@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Dict
+
 import networkx as nx
 import json
 import pkg_resources
@@ -6,11 +9,12 @@ import matplotlib.pyplot as plt
 # TODO: Look in __all__ attribute of __init__.py files so that you can do this:
 #  from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Vessel
 #  instead of needing individual lines for each module.
-from themachine_pycontrol.drivers.vessel import Vessel
-from themachine_pycontrol.drivers.hotplate import Hotplate
-from themachine_pycontrol.drivers.valve import Valve
-from themachine_pycontrol.drivers.pump import PumpModule, Pump
-from themachine_pycontrol.drivers.relay import RelayModule, Relay
+# from themachine_pycontrol.drivers.vessel import Vessel
+# from themachine_pycontrol.drivers.hotplate import Hotplate
+# from themachine_pycontrol.drivers.valve import Valve
+# from themachine_pycontrol.drivers.pump import Pump
+# from themachine_pycontrol.drivers.relay import Relay
+from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Valve, Vessel
 
 # TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
 # ^ this is used to test the code/to generate the graph
@@ -33,7 +37,6 @@ class NodeFactory:
         self.node_class = self.node["class"]
 
     def _make_vessel(self) -> Vessel:
-        # TODO: Type hints!
         """
         Returns a vessel object given a vessel node.
         """
@@ -46,7 +49,6 @@ class NodeFactory:
         return Hotplate(self.com_num)
 
     def _make_valve(self) -> Valve:
-        # TODO: Type hints!
         """
         Returns a valve object given a valve node.
 
@@ -54,7 +56,6 @@ class NodeFactory:
         return Valve(self.class_num, self.com_num)
 
     def _make_pump(self) -> Pump:
-        # TODO: Type hints!
         """
         Returns a pump object given a pump node.
         """
@@ -66,7 +67,7 @@ class NodeFactory:
         """
         return Relay(self.class_num, self.com_num, self.mod_address)
 
-    def factory(self):
+    def make_object(self):
         """
         Given a node of any type, creates the correct corresponding object and updates the node dictionary
         to include this object.
@@ -79,13 +80,7 @@ class NodeFactory:
             "Pump": self._make_pump(),
             "Relay": self._make_relay()
         }
-        # FIXME: This might work (depending on if pointer or mem addr), but only by accident.
-        #  You should return classes[node_class], and then set node["object"] to the class instance outside.
         return classes[self.node_class]
-
-    @staticmethod
-    def set_object(self, object): #type hint will be union
-        node["object"] = object
 
 
 class Generator:
@@ -97,7 +92,7 @@ class Generator:
 
     """
 
-    def __init__(self, json_path) -> None:
+    def __init__(self, json_path: Path) -> None:
         """
         Initializes Generator class with paths to where data is stored, and where graph is stored.
         """
@@ -109,12 +104,13 @@ class Generator:
         """
         self.generate_graph()
 
-    def get_data(self):
-        # FIXME: This method does nothing because it doesn't return anything! Also, should use context manager...
+    def get_data(self) -> Dict:
         """
         Opens file path to where graph data is stored.
         """
-        return json.load(open(self.json_path))
+        with open(self.json_path, 'r') as f:
+            data = json.load(f)
+        return data
 
     def generate_graph(self) -> nx.Graph:
         """
@@ -125,17 +121,17 @@ class Generator:
         json_data = self.get_data()
         for node in json_data["nodes"]:
             node_id = node["id"]
-            node_factory = NodeFactory(node)
-            new_object = node_factory.factory()
-            node_factory.set_object(new_object)
+            node["object"] = NodeFactory(node).make_object()
+            # node_factory = NodeFactory(node).make_object()
+            # new_object = node_factory.factory()
+            # node_factory.set_object(new_object)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]
             target = link["target"]
+            source_id, target_id = None, None
             for node_id in graph.nodes:  # iterate through node_ids from the graph
                 node = graph.nodes[node_id]  # get node from graph with node_id
-                # FIXME: You might accidentally re-use a source_id or target_id.
-                #  Make sure to set to None in the for loop above this one.
                 if node["label"] == source:
                     source_id = node["id"]
                 elif node["label"] == target:
@@ -153,9 +149,9 @@ class Generator:
             )
         return graph
 
-    def index_nodes(self) -> None:  # FIXME: What's this for..?
+    def index_nodes(self) -> None:
         """
-        Renumbers the node ids in the JSON automatically.
+        Renumbers the node ids in the JSON automatically. This allows you to more easily update the graph JSON.
         """
         graph_json = json.load(open(self.json_path))
         id = 0

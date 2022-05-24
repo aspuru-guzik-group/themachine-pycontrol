@@ -16,24 +16,24 @@ class GraphSearch:
     graph: the graph object that search operations will be performed on
     """
 
-    def __init__(self, graph):
+    def __init__(self, graph: nx.DiGraph):
         """
         Instantiates a GraphSearch object for a graph
         """
-        self.graph: nx.DiGraph = graph  # TODO: Type hint should be in args?
+        self.graph = graph
 
     # FIXME: Already implemented as Graph.get_edge_data
     # Have this because transfer() doesn't actually require a Graph attribute input, it just uses a GraphSearch object which it aleready needs
     # so this function saves one input attribute in transfer()
-    def edge_search(self, source_label: str, target_label: str) -> Dict:
-        """
-        Returns the edge corresponding to the connection from the node with source_label to the node with target_label
-        """
-        for edge in self.graph.edges.data():
-            edge_data = edge[2]
-            if edge_data["source"] == source_label:
-                if edge_data["target"] == target_label:
-                    return edge
+    # def edge_search(self, source_label: str, target_label: str) -> Dict:
+    #     """
+    #     Returns the edge corresponding to the connection from the node with source_label to the node with target_label
+    #     """
+    #     for edge in self.graph.edges.data():
+    #         edge_data = edge[2]
+    #         if edge_data["source"] == source_label:
+    #             if edge_data["target"] == target_label:
+    #                 return edge
 
     # def path_search(self, source_label: str, target_label: str) -> Tuple[List[Dict], List[Dict]]:
     #     """
@@ -123,7 +123,7 @@ class GraphSearch:
         neighbor_ids = list(nx.all_neighbors(self.graph, node_id))
         return [self.get_node_from_id(node_id) for node_id in neighbor_ids]
 
-    def weighted_specific_path_search(self, edge_type: str, source_label: str, target_label) -> tuple[list[dict], list[dict]]:
+    def weighted_specific_path_search(self, edge_type: str, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
         """
         Returns the shortest weighted path from source to target for the subgraph containing only the edges
         of the type edge_type
