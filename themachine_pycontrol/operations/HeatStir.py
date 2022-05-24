@@ -25,7 +25,7 @@ class HeatStir:
     def __init__(self, search: GraphSearch, object_label: str, temp: int, rpm: int):
         # TODO: This will set heat/stir N times for N vials on the same hotplate.
         """
-        Instantiates a HeatStir object.
+        Instantiates a HeatStir object. This will set the heat/stir conditions for all vials on the same hotplate.
         """
         self.search = search
         self.object_label = object_label

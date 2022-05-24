@@ -1,12 +1,20 @@
 import pkg_resources
 from singleton_decorator import singleton
 from typing import List
-from errors import CommunicationError, HardwareError, RangeError
+from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
 import clr
 PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
 clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
+
+
+def check_pump(func):
+    def wrapper(self, pump_number, *args, **kwargs):
+        if not self.pumps[pump_number]:
+            raise HardwareError(f"Requested pump number {pump_number} is not active.")
+        return func(self, *args, **kwargs)
+    return wrapper
 
 
 class Pump:
@@ -92,8 +100,7 @@ class PumpModule(object):
         """
         self.controller = SyringePumpDef()
         if not self.controller.OpenCommunications():
-            # TODO: This error msg should be more specific that comm failed with pump module.
-            raise CommunicationError("Communication failed.")
+            raise CommunicationError("Communication to pump module failed.")
         self.pumps: dict = {i + 1: False for i in range(self.max_num_pumps)}
 
     def initialize_pump(self, pump_number: int) -> None:
@@ -122,29 +129,19 @@ class PumpModule(object):
         Sets the value of self.pump_status to pump_status, where pump_status is True or False.
         """
         self.pumps[pump_number] = new_pump_status
-
+    
+    @check_pump
     def set_port(self, pump_number: int, port_number: int) -> None:
         """
         Sets the port of a given pump to a given position
         """
-        # FIXME: See same comment from hotplate.py
-        try:
-            assert self.pumps[pump_number]
-        except AssertionError:
-            raise HardwareError("Requested pump is not active.")
-            # TODO: Give pump number in error msg.
         self.controller.Port(pump_number, port_number, True)
 
+    @check_pump
     def move_piston(self, pump_number: int, top_speed: float, volume: float, wait_ready: bool = True) -> None:
         """
         Moves the piston of a specific pump to the target position to dispense a given volume.
         """
-        # FIXME: See same comment from hotplate.py
-        try:
-            assert self.pumps[pump_number]
-        except AssertionError:
-            raise HardwareError("Requested pump is not active.")
-            # TODO: Give pump number in error msg.
         self.controller.Speed(pump_number, top_speed)
         position: float = volume * self.steps_per_vol
         self.controller.MoveToPosition(pump_number, position, wait_ready)

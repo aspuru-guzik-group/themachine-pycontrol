@@ -3,7 +3,8 @@ import modbus_tk.defines as cst
 import serial
 from modbus_tk import modbus_rtu
 import serial
-from errors import CommunicationError
+from themachine_pycontrol.drivers.errors import CommunicationError
+from singleton_decorator import singleton
 
 # TODO: Add errors as appropriate
 
@@ -76,7 +77,7 @@ class RelayModule:
 
     @ctrl_decorator
     def relay_control(self, com_num, module_address, channel, bool_status):
-        # NOTE: com_num is unused...
+        # NOTE: com_num is unused -> This is required for the decorator!
         """
         Changes the relay status of the relay corresponding to the channel number to bool_status.
         """
@@ -90,7 +91,7 @@ class RelayModule:
         
     @ctrl_decorator
     def relay_read(self, com_num, channel):
-        # NOTE: com_num is unused...
+        # NOTE: com_num is unused -> Same as above!
         """
         Queries and returns the current relay status of the relay corresponding to channel.
         """

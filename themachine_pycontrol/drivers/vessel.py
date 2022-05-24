@@ -1,4 +1,4 @@
-from errors import CommunicationError
+from themachine_pycontrol.drivers.errors import CommunicationError
 
 #Added errors at graph level (in transfer functions)
 
@@ -40,16 +40,20 @@ class Vessel:
         Sets an updated volume by adding volume_change to old_volume 
         """
         prev_volume: float = self._get_volume()
+        self._check_transfer(vol_change)
         self._set_volume(prev_volume + vol_change)
+        print(f"The volume of this vessel is now {self.current_volume}")
 
-    def check_transfer(self, vol_change: float) -> bool:
+    def _check_transfer(self, vol_change: float) -> bool:
         """
         Returns remaining volume in a container.value
 
         vol_to_add: positive or negative
         """    
         check_vol: float = self.current_volume + vol_change
-        if (check_vol > self.max_volume) or (check_vol < self.min_volume):
-            return False
-        else:
-            return True
+        if check_vol > self.max_volume:
+            raise RangeError(f"The resulting volume {check_vol} from this transfer would exceed"
+                             f" the vessel's max volume of {self.max_volume}")
+        elif check_vol < self.min_volume:
+            raise RangeError(f"The resulting volume {check_vol} from this transfer would be below"
+                             f" the vessel's minimum volume of {self.min_volume}")

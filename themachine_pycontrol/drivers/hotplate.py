@@ -1,6 +1,6 @@
 from pyvisa import ResourceManager
 import time
-from errors import CommunicationError, RangeError
+from themachine_pycontrol.drivers.errors import CommunicationError, RangeError
 
 
 #COM_LIST now deprecated due to JSON
@@ -40,9 +40,7 @@ class Hotplate:
         self._set_temp(20)
         self._set_rpm(0)
 
-    def heat(self, heat_switch_state: bool = False, new_temp: int = 20):
-        # NOTE: I don't understand why heat_switch_state is a kwarg. Would you ever call the method simply as
-        #  Hotplate.heat() or Hotplate.heat(new_temp=100)?
+    def heat(self, heat_switch_state: bool, new_temp: int = 20):
         """
         Sets the temperature the hotplate should heat up to if heat_switch is True (or "on").
         If it is off, the hotplate stops heating.
@@ -70,14 +68,8 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
-        # FIXME: Rather than asserting new_temp in range, and the catching the AssertionError, you should do:
-        #  if variable not in correct range, then raise RangeError
-        try:
-            assert new_temp in range(20, 341)
-            self.temp = new_temp
-        except AssertionError:
-            raise RangeError("New temperature is not within the range of 20-341 degrees Celsius.")
-            # TODO: Here, you could use an f string to also put the value of new_temp in the error msg.
+        if new_temp not in range(20, 341):
+            raise RangeError(f"New temperature of {new_temp} is not within the range of 20-341 degrees Celsius.")
 
     def _get_temp(self) -> int:
         """
@@ -113,12 +105,8 @@ class Hotplate:
         """
         Sets self.rpm to be new_rpm, which must be <1700 rpm
         """
-        # FIXME: See above.
-        try:
-            assert new_rpm in range(0, 1701)
-            self.rpm = new_rpm
-        except AssertionError:
-            raise RangeError("Stir speed must be under 1700 rpm")
+        if new_rpm not in range(0, 1701):
+            raise RangeError(f"Desired stir speed of {new_rpm} is not under 1700 rpm")
 
     def _get_rpm(self) -> int:
         """

@@ -13,9 +13,79 @@ from themachine_pycontrol.drivers.pump import PumpModule, Pump
 from themachine_pycontrol.drivers.relay import RelayModule, Relay
 
 # TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
+# ^ this is used to test the code/to generate the graph
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graph/graph.json"
 )
+
+
+class NodeFactory:
+    """
+
+    """
+    def __init__(self, node: dict):
+        self.node = node
+        self.volume = self.node["volume"]
+        self.max_volume = self.node["max_volume"]
+        self.class_num = self.node["class_num"]
+        self.com_num = self.node["com_num"]
+        self.mod_address = self.node["module_address"]
+        self.node_class = self.node["class"]
+
+    def _make_vessel(self) -> Vessel:
+        # TODO: Type hints!
+        """
+        Returns a vessel object given a vessel node.
+        """
+        return Vessel(float(self.max_volume), self.volume)
+
+    def _make_hotplate(self) -> Hotplate:
+        """
+        Returns a hotplate object given a hotplate node.
+        """
+        return Hotplate(self.com_num)
+
+    def _make_valve(self) -> Valve:
+        # TODO: Type hints!
+        """
+        Returns a valve object given a valve node.
+
+        """
+        return Valve(self.class_num, self.com_num)
+
+    def _make_pump(self) -> Pump:
+        # TODO: Type hints!
+        """
+        Returns a pump object given a pump node.
+        """
+        return Pump(self.class_num)
+
+    def _make_relay(self) -> Relay:
+        """
+        Returns a relay object given a relay node.
+        """
+        return Relay(self.class_num, self.com_num, self.mod_address)
+
+    def factory(self):
+        """
+        Given a node of any type, creates the correct corresponding object and updates the node dictionary
+        to include this object.
+        """
+
+        classes = {
+            "Vessel":  self._make_vessel(),
+            "Hotplate": self._make_hotplate(),
+            "Valve": self._make_valve(),
+            "Pump": self._make_pump(),
+            "Relay": self._make_relay()
+        }
+        # FIXME: This might work (depending on if pointer or mem addr), but only by accident.
+        #  You should return classes[node_class], and then set node["object"] to the class instance outside.
+        return classes[self.node_class]
+
+    @staticmethod
+    def set_object(self, object): #type hint will be union
+        node["object"] = object
 
 
 class Generator:
@@ -27,8 +97,7 @@ class Generator:
 
     """
 
-    # TODO: json_path should be a pathlib.Path type
-    def __init__(self, json_path: str) -> None:
+    def __init__(self, json_path) -> None:
         """
         Initializes Generator class with paths to where data is stored, and where graph is stored.
         """
@@ -40,78 +109,12 @@ class Generator:
         """
         self.generate_graph()
 
-    # TODO: All the _make_x() methods and factory() should be in a separate class, e.g. NodeFactory
-    # TODO: _make_x() methods should be static methods (hint: more decorators!)
-    def _make_vessel(self, node) -> Vessel:
-        # TODO: Type hints!
-        """
-        Returns a vessel object given a vessel node.
-        """
-        volume = node["volume"]
-        max_volume = node["max_volume"]
-        return Vessel(float(max_volume), volume)
-
-    def _make_hotplate(self, node) -> Hotplate:
-        # TODO: Type hints!
-        """
-        Returns a hotplate object given a hotplate node.
-        """
-        com_num = node["com_num"]
-        return Hotplate(com_num)
-
-    def _make_valve(self, node) -> Valve:
-        # TODO: Type hints!
-        """
-        Returns a valve object given a valve node.
-
-        """
-        class_num = node["class_num"]
-        com_num = node["com_num"]
-        return Valve(class_num, com_num)
-
-    def _make_pump(self, node) -> Pump:
-        # TODO: Type hints!
-        """
-        Returns a pump object given a pump node.
-        """
-        class_num = node["class_num"]
-        return Pump(class_num)
-
-    def _make_relay(self, node) -> Relay:
-        # TODO: Type hints!
-        """
-        Returns a relay object given a relay node.
-        """
-        class_num = node["class_num"]
-        com_num = node["com_num"]
-        mod_address = node["module_address"]
-        return Relay(class_num, com_num, mod_address)
-
-    def factory(self, node_class: str, node):
-        # FIXME: You only need to pass node since node_class == node["class"]
-        # TODO: Type hints!
-        """
-        Given a node of any type, creates the correct corresponding object and updates the node dictionary
-        to include this object.
-        """
-
-        classes = {
-            "Vessel":  self._make_vessel(node),
-            "Hotplate": self._make_hotplate(node),
-            "Valve": self._make_valve(node),
-            "Pump": self._make_pump(node),
-            "Relay": self._make_relay(node)
-        }
-        # FIXME: This might work (depending on if pointer or mem addr), but only by accident.
-        #  You should return classes[node_class], and then set node["object"] to the class instance outside.
-        node["object"] = classes[node_class]
-
     def get_data(self):
         # FIXME: This method does nothing because it doesn't return anything! Also, should use context manager...
         """
         Opens file path to where graph data is stored.
         """
-        json.load(open(self.json_path))
+        return json.load(open(self.json_path))
 
     def generate_graph(self) -> nx.Graph:
         """
@@ -121,10 +124,10 @@ class Generator:
         graph = nx.DiGraph()
         json_data = self.get_data()
         for node in json_data["nodes"]:
-            # FIXME: No need to assign node_id and node_class anymore
             node_id = node["id"]
-            node_class = node["class"]
-            self.factory(node_class, node)  # FIXME: See comments in factory()
+            node_factory = NodeFactory(node)
+            new_object = node_factory.factory()
+            node_factory.set_object(new_object)
             graph.add_nodes_from([(node_id, node)])
         for link in json_data["links"]:
             source = link["source"]

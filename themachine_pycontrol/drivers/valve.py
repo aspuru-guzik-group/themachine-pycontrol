@@ -1,20 +1,18 @@
 from pyvisa import ResourceManager
 import time
 from typing import Union
-from errors import CommunicationError, HardwareError
+from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError
 
 COM_LIST = [10, 7, 11, 10, 5, 9, 8]
 rm = ResourceManager()
-
-# TODO: use a decorator to wrap all functions with open and close valve
-# close.controller() still has to be written above all raise Exceptions
 
 
 def close(func):
     def wrapper(self, *args, **kwargs):
         controller = rm.open_resource(self.com_port_cmd)
-        func(self, *args, **kwargs)
+        output = func(self, *args, **kwargs)
         controller.close()
+        return output
     return wrapper
 
 
@@ -87,8 +85,8 @@ class Valve:
 
         Precondition: Valve port is between 1 and 8 inclusive
         """
-        # FIXME: Change from assertion to if check and raising error.
-        assert valve_port in range(1, 9), f"Submitted {valve_port}"
+        if valve_port not in range(1, 9):
+            raise RangeError(f"Valve port number {valve_port} is not within 1-8")
         controller = rm.open_resource(self.com_port_cmd)
         command = f"/{self.valve_num}o{valve_port}R"
         for _ in range(10):
