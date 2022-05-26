@@ -115,6 +115,14 @@ class LiquidTransfer:
         for edge in edges:
             edge["clean"] = int(state)
 
+    def path_dirty_tubes(self):
+        """
+        """
+        edges = [edge for edge in self.draw_path[1] and self.dispense_path[1]]
+        for edge in edges:
+            edge_data = edge[2]
+            return edge_data["clean"]
+
 
 class FlushTubes(LiquidTransfer):
     """
@@ -137,6 +145,12 @@ class FlushTubes(LiquidTransfer):
         self.search = search
         self.flush_volume = flush_volume
         self.dirty_path = self.search.dirtiest_path("volumetric", wash_label, waste_label, self.common)
+
+    def __call__(self):
+        """
+        When a FlushTubes object is called, ex: flushtubes_1(), the flush_dirty_tubes() function is called.
+        """
+        self.flush_dirty_tubes(self.flush_volume)
 
     def check_dirty_tubes(self):
         """

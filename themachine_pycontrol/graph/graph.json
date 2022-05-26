@@ -1231,7 +1231,8 @@
       "source": "valve_2",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0,2)"
+      "port_num": "(0,2)",
+      "clean": 1
     },
     {
       "id": 2,
@@ -1239,7 +1240,8 @@
       "source": "valve_3",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0,3)"
+      "port_num": "(0,3)",
+      "clean": 1
     },
     {
       "id": 3,
@@ -1247,7 +1249,8 @@
       "source": "valve_4",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0,4)"
+      "port_num": "(0,4)",
+      "clean": 1
     },
     {
       "id": 4,
@@ -1255,7 +1258,8 @@
       "source": "pump_1",
       "target": "waste",
       "type": "volumetric",
-      "port_num": 6
+      "port_num": "(0,5)",
+      "clean": 3
     },
     {
       "id": 5,
@@ -1263,7 +1267,8 @@
       "source": "pump_1",
       "target": "N2",
       "type": "volumetric",
-      "port_num": 7
+      "port_num": "(0,6)",
+      "clean": 1
     },
     {
       "id": 6,
@@ -1271,7 +1276,8 @@
       "source": "rxn_1",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,1)"
+      "port_num": "(0,1)",
+      "clean": 1
     },
     {
       "id": 7,
@@ -1279,7 +1285,8 @@
       "source": "rxn_2",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,2)"
+      "port_num": "(0,2)",
+      "clean": 1
     },
     {
       "id": 8,
@@ -1287,7 +1294,8 @@
       "source": "rxn_3",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,3)"
+      "port_num": "(0,3)",
+      "clean": 1
     },
     {
       "id": 9,
@@ -1295,7 +1303,8 @@
       "source": "rxn_4",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,4)"
+      "port_num": "(0,4)",
+      "clean": 1
     },
     {
       "id": 10,
@@ -1303,7 +1312,8 @@
       "source": "rxn_5",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,5)"
+      "port_num": "(0,5)",
+      "clean": 1
     },
     {
       "id": 11,
@@ -1311,7 +1321,8 @@
       "source": "rxn_6",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,6)"
+      "port_num": "(0,6)",
+      "clean": 1
     },
     {
       "id": 12,
@@ -1319,7 +1330,8 @@
       "source": "rxn_7",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,7)"
+      "port_num": "(0,7)",
+      "clean": 1
     },
     {
       "id": 13,
@@ -1327,7 +1339,8 @@
       "source": "waste",
       "target": "valve_1",
       "type": "volumetric",
-      "port_num": "(0,8)"
+      "port_num": "(0,8)",
+      "clean": 1
     },
     {
       "id": 14,
@@ -1335,7 +1348,8 @@
       "source": "rxn_8",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,1)"
+      "port_num": "(0,1)",
+      "clean": 1
     },
     {
       "id": 15,
@@ -1343,7 +1357,8 @@
       "source": "rxn_9",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,2)"
+      "port_num": "(0,2)",
+      "clean": 1
     },
     {
       "id": 16,
@@ -1351,7 +1366,8 @@
       "source": "rxn_10",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,3)"
+      "port_num": "(0,3)",
+      "clean": 1
     },
     {
       "id": 17,
@@ -1359,7 +1375,8 @@
       "source": "rxn_11",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,4)"
+      "port_num": "(0,4)",
+      "clean": 1
     },
     {
       "id": 18,
@@ -1367,7 +1384,8 @@
       "source": "rxn_12",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,5)"
+      "port_num": "(0,5)",
+      "clean": 1
     },
     {
       "id": 19,
@@ -1375,7 +1393,8 @@
       "source": "rxn_13",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,6)"
+      "port_num": "(0,6)",
+      "clean": 1
     },
     {
       "id": 20,
@@ -1383,7 +1402,8 @@
       "source": "rxn_14",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,7)"
+      "port_num": "(0,7)",
+      "clean": 1
     },
     {
       "id": 21,
@@ -1391,7 +1411,8 @@
       "source": "waste",
       "target": "valve_2",
       "type": "volumetric",
-      "port_num": "(0,8)"
+      "port_num": "(0,8)",
+      "clean": 1
     },
     {
       "id": 22,
@@ -1399,7 +1420,8 @@
       "source": "rxn_15",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,1)"
+      "port_num": "(0,1)",
+      "clean": 1
     },
     {
       "id": 23,
@@ -1407,7 +1429,8 @@
       "source": "rxn_16",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,2)"
+      "port_num": "(0,2)",
+      "clean": 1
     },
     {
       "id": 24,
@@ -1415,7 +1438,8 @@
       "source": "rxn_17",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,3)"
+      "port_num": "(0,3)",
+      "clean": 1
     },
     {
       "id": 25,
@@ -1423,7 +1447,8 @@
       "source": "rxn_18",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,4)"
+      "port_num": "(0,4)",
+      "clean": 1
     },
     {
       "id": 26,
@@ -1431,7 +1456,8 @@
       "source": "rxn_19",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,5)"
+      "port_num": "(0,5)",
+      "clean": 1
     },
     {
       "id": 27,
@@ -1439,7 +1465,8 @@
       "source": "rxn_20",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,6)"
+      "port_num": "(0,6)",
+      "clean": 1
     },
     {
       "id": 28,
@@ -1447,7 +1474,8 @@
       "source": "rxn_21",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,7)"
+      "port_num": "(0,7)",
+      "clean": 1
     },
     {
       "id": 29,
@@ -1455,7 +1483,8 @@
       "source": "waste",
       "target": "valve_3",
       "type": "volumetric",
-      "port_num": "(0,8)"
+      "port_num": "(0,8)",
+      "clean": 1
     },
     {
       "id": 30,
@@ -1463,7 +1492,8 @@
       "source": "sln_1",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,1)"
+      "port_num": "(0,1)",
+      "clean": 1
     },
     {
       "id": 31,
@@ -1471,7 +1501,8 @@
       "source": "sln_2",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,2)"
+      "port_num": "(0,2)",
+      "clean": 1
     },
     {
       "id": 32,
@@ -1479,7 +1510,8 @@
       "source": "sln_3",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,3)"
+      "port_num": "(0,3)",
+      "clean": 1
     },
     {
       "id": 33,
@@ -1487,7 +1519,8 @@
       "source": "sln_4",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,4)"
+      "port_num": "(0,4)",
+      "clean": 1
     },
     {
       "id": 34,
@@ -1495,7 +1528,8 @@
       "source": "sln_5",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,5)"
+      "port_num": "(0,5)",
+      "clean": 1
     },
     {
       "id": 35,
@@ -1503,7 +1537,8 @@
       "source": "sln_6",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,6)"
+      "port_num": "(0,6)",
+      "clean": 1
     },
     {
       "id": 36,
@@ -1511,7 +1546,8 @@
       "source": "sln_7",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0, 7)"
+      "port_num": "(0, 7)",
+      "clean": 1
     },
     {
       "id": 37,
@@ -1519,7 +1555,8 @@
       "source": "sln_8",
       "target": "valve_4",
       "type": "volumetric",
-      "port_num": "(0,8)"
+      "port_num": "(0,8)",
+      "clean": 1
     },
     {
       "id": 38,
@@ -1527,7 +1564,8 @@
       "source": "hotplate_1",
       "target": "rxn_1",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 39,
@@ -1535,7 +1573,8 @@
       "source": "hotplate_1",
       "target": "rxn_2",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 40,
@@ -1543,7 +1582,8 @@
       "source": "hotplate_1",
       "target": "rxn_3",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 41,
@@ -1551,7 +1591,8 @@
       "source": "hotplate_1",
       "target": "rxn_4",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 42,
@@ -1559,7 +1600,8 @@
       "source": "hotplate_1",
       "target": "rxn_5",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 43,
@@ -1567,7 +1609,8 @@
       "source": "hotplate_1",
       "target": "rxn_6",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 44,
@@ -1575,7 +1618,8 @@
       "source": "hotplate_1",
       "target": "rxn_7",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 45,
@@ -1583,7 +1627,8 @@
       "source": "hotplate_1",
       "target": "rxn_8",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 46,
@@ -1591,7 +1636,8 @@
       "source": "hotplate_1",
       "target": "rxn_9",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 47,
@@ -1599,7 +1645,8 @@
       "source": "hotplate_1",
       "target": "rxn_10",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 48,
@@ -1607,7 +1654,8 @@
       "source": "hotplate_1",
       "target": "rxn_11",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 49,
@@ -1615,7 +1663,8 @@
       "source": "hotplate_1",
       "target": "rxn_12",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 50,
@@ -1623,7 +1672,8 @@
       "source": "hotplate_1",
       "target": "rxn_13",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 51,
@@ -1631,7 +1681,8 @@
       "source": "hotplate_1",
       "target": "rxn_14",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 52,
@@ -1639,7 +1690,8 @@
       "source": "hotplate_1",
       "target": "rxn_15",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 53,
@@ -1647,7 +1699,8 @@
       "source": "hotplate_1",
       "target": "rxn_16",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 54,
@@ -1655,7 +1708,8 @@
       "source": "hotplate_1",
       "target": "rxn_17",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 55,
@@ -1663,7 +1717,8 @@
       "source": "hotplate_1",
       "target": "rxn_18",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 56,
@@ -1671,7 +1726,8 @@
       "source": "hotplate_1",
       "target": "rxn_19",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 57,
@@ -1679,7 +1735,8 @@
       "source": "hotplate_1",
       "target": "rxn_20",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 58,
@@ -1687,7 +1744,8 @@
       "source": "hotplate_1",
       "target": "rxn_21",
       "type": "thermal",
-      "port_num": "None"
+      "port_num": "None",
+      "clean": "None"
     },
     {
       "id": 59,
@@ -1695,7 +1753,8 @@
       "source": "sol_1",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0,6)"
+      "port_num": "(0,6)",
+      "clean": "None"
     },
     {
       "id": 60,
@@ -1703,7 +1762,8 @@
       "source": "sol_2",
       "target": "pump_1",
       "type": "volumetric",
-      "port_num": "(0,7)"
+      "port_num": "(0,7)",
+      "clean": "None"
     },
     {
       "id": 61,
@@ -1711,7 +1771,8 @@
       "source": "N2",
       "target": "relay_1",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 62,
@@ -1719,7 +1780,8 @@
       "source": "N2",
       "target": "relay_2",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 63,
@@ -1727,7 +1789,8 @@
       "source": "N2",
       "target": "relay_3",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 64,
@@ -1735,7 +1798,8 @@
       "source": "N2",
       "target": "relay_4",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 65,
@@ -1743,7 +1807,8 @@
       "source": "N2",
       "target": "relay_5",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 66,
@@ -1751,7 +1816,8 @@
       "source": "N2",
       "target": "relay_6",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 67,
@@ -1759,7 +1825,8 @@
       "source": "N2",
       "target": "relay_7",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 68,
@@ -1767,7 +1834,8 @@
       "source": "relay_1",
       "target": "rxn_1",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 69,
@@ -1775,7 +1843,8 @@
       "source": "relay_2",
       "target": "rxn_2",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 70,
@@ -1783,7 +1852,8 @@
       "source": "relay_3",
       "target": "rxn_3",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 71,
@@ -1791,7 +1861,8 @@
       "source": "relay_4",
       "target": "rxn_4",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 72,
@@ -1799,7 +1870,8 @@
       "source": "relay_5",
       "target": "rxn_5",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 73,
@@ -1807,7 +1879,8 @@
       "source": "relay_6",
       "target": "rxn_6",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 74,
@@ -1815,7 +1888,8 @@
       "source": "relay_7",
       "target": "rxn_7",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 75,
@@ -1823,7 +1897,8 @@
       "source": "rxn_1",
       "target": "relay_8",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 76,
@@ -1831,7 +1906,8 @@
       "source": "rxn_2",
       "target": "relay_9",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 77,
@@ -1839,7 +1915,8 @@
       "source": "rxn_3",
       "target": "relay_10",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 78,
@@ -1847,7 +1924,8 @@
       "source": "rxn_4",
       "target": "relay_11",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 79,
@@ -1855,7 +1933,8 @@
       "source": "rxn_5",
       "target": "relay_12",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 80,
@@ -1863,7 +1942,8 @@
       "source": "rxn_6",
       "target": "relay_13",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 81,
@@ -1871,7 +1951,8 @@
       "source": "rxn_7",
       "target": "relay_14",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 82,
@@ -1879,7 +1960,8 @@
       "source": "relay_8",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 83,
@@ -1887,7 +1969,8 @@
       "source": "relay_9",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 84,
@@ -1895,7 +1978,8 @@
       "source": "relay_10",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 85,
@@ -1903,7 +1987,8 @@
       "source": "relay_11",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 86,
@@ -1911,7 +1996,8 @@
       "source": "relay_12",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 87,
@@ -1919,7 +2005,8 @@
       "source": "relay_13",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 88,
@@ -1927,7 +2014,8 @@
       "source": "relay_14",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 89,
@@ -1935,7 +2023,8 @@
       "source": "N2",
       "target": "relay_15",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 90,
@@ -1943,7 +2032,8 @@
       "source": "N2",
       "target": "relay_16",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 91,
@@ -1951,7 +2041,8 @@
       "source": "N2",
       "target": "relay_17",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 92,
@@ -1959,7 +2050,8 @@
       "source": "N2",
       "target": "relay_18",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 93,
@@ -1967,7 +2059,8 @@
       "source": "N2",
       "target": "relay_19",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 94,
@@ -1975,7 +2068,8 @@
       "source": "N2",
       "target": "relay_20",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 95,
@@ -1983,7 +2077,8 @@
       "source": "N2",
       "target": "relay_21",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 96,
@@ -1991,7 +2086,8 @@
       "source": "relay_15",
       "target": "rxn_8",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 97,
@@ -1999,7 +2095,8 @@
       "source": "relay_16",
       "target": "rxn_9",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 98,
@@ -2007,7 +2104,8 @@
       "source": "relay_17",
       "target": "rxn_10",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 99,
@@ -2015,7 +2113,8 @@
       "source": "relay_18",
       "target": "rxn_11",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 100,
@@ -2023,7 +2122,8 @@
       "source": "relay_19",
       "target": "rxn_12",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 101,
@@ -2031,7 +2131,8 @@
       "source": "relay_20",
       "target": "rxn_13",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 102,
@@ -2039,7 +2140,8 @@
       "source": "relay_21",
       "target": "rxn_14",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 103,
@@ -2047,7 +2149,8 @@
       "source": "rxn_8",
       "target": "relay_22",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 104,
@@ -2055,7 +2158,8 @@
       "source": "rxn_9",
       "target": "relay_23",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 105,
@@ -2063,7 +2167,8 @@
       "source": "rxn_10",
       "target": "relay_24",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 106,
@@ -2071,7 +2176,8 @@
       "source": "rxn_11",
       "target": "relay_25",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 107,
@@ -2079,7 +2185,8 @@
       "source": "rxn_12",
       "target": "relay_26",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 108,
@@ -2087,7 +2194,8 @@
       "source": "rxn_13",
       "target": "relay_27",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 109,
@@ -2095,7 +2203,8 @@
       "source": "rxn_14",
       "target": "relay_28",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 110,
@@ -2103,7 +2212,8 @@
       "source": "relay_22",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 111,
@@ -2111,7 +2221,8 @@
       "source": "relay_23",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 112,
@@ -2119,7 +2230,8 @@
       "source": "relay_24",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 113,
@@ -2127,7 +2239,8 @@
       "source": "relay_25",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 114,
@@ -2135,7 +2248,8 @@
       "source": "relay_26",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 115,
@@ -2143,7 +2257,8 @@
       "source": "relay_27",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 116,
@@ -2151,7 +2266,8 @@
       "source": "relay_28",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 117,
@@ -2159,7 +2275,8 @@
       "source": "N2",
       "target": "relay_29",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 118,
@@ -2167,7 +2284,8 @@
       "source": "N2",
       "target": "relay_30",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 119,
@@ -2175,7 +2293,8 @@
       "source": "N2",
       "target": "relay_31",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 120,
@@ -2183,7 +2302,8 @@
       "source": "N2",
       "target": "relay_32",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 121,
@@ -2191,7 +2311,8 @@
       "source": "N2",
       "target": "relay_33",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 122,
@@ -2199,7 +2320,8 @@
       "source": "N2",
       "target": "relay_34",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 123,
@@ -2207,7 +2329,8 @@
       "source": "N2",
       "target": "relay_35",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 124,
@@ -2215,7 +2338,8 @@
       "source": "relay_29",
       "target": "rxn_15",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 125,
@@ -2223,7 +2347,8 @@
       "source": "relay_30",
       "target": "rxn_16",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 126,
@@ -2231,7 +2356,8 @@
       "source": "relay_31",
       "target": "rxn_17",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 127,
@@ -2239,7 +2365,8 @@
       "source": "relay_32",
       "target": "rxn_18",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 128,
@@ -2247,7 +2374,8 @@
       "source": "relay_33",
       "target": "rxn_19",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 129,
@@ -2255,7 +2383,8 @@
       "source": "relay_34",
       "target": "rxn_20",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 130,
@@ -2263,7 +2392,8 @@
       "source": "relay_35",
       "target": "rxn_21",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 131,
@@ -2271,7 +2401,8 @@
       "source": "rxn_15",
       "target": "relay_36",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 132,
@@ -2279,7 +2410,8 @@
       "source": "rxn_16",
       "target": "relay_37",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 133,
@@ -2287,7 +2419,8 @@
       "source": "rxn_17",
       "target": "relay_38",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 134,
@@ -2295,7 +2428,8 @@
       "source": "rxn_18",
       "target": "relay_39",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 135,
@@ -2303,7 +2437,8 @@
       "source": "rxn_19",
       "target": "relay_40",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 136,
@@ -2311,7 +2446,8 @@
       "source": "rxn_20",
       "target": "relay_41",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 137,
@@ -2319,7 +2455,8 @@
       "source": "rxn_21",
       "target": "relay_42",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 138,
@@ -2327,7 +2464,8 @@
       "source": "relay_36",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 139,
@@ -2335,7 +2473,8 @@
       "source": "relay_37",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 140,
@@ -2343,7 +2482,8 @@
       "source": "relay_38",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 141,
@@ -2351,7 +2491,8 @@
       "source": "relay_39",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 142,
@@ -2359,7 +2500,8 @@
       "source": "relay_40",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 143,
@@ -2367,7 +2509,8 @@
       "source": "relay_41",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     },
     {
       "id": 144,
@@ -2375,7 +2518,8 @@
       "source": "relay_42",
       "target": "waste",
       "type": "electric",
-      "port_num": "(0,0)"
+      "port_num": "(0,0)",
+      "clean": "None"
     }
   ]
 }
