@@ -160,18 +160,18 @@ class Generator:
         for node in graph_json["nodes"]:
             node["id"] = id
             id += 1
-
         with open(self.json_path, "w") as f:
             json.dump(graph_json, f)
 
 
 def main():
     generator = Generator(GRAPH_JSON)
-    new_graph = generator.generate_graph()
-    for edge_id in new_graph.edges:  # FIXME: Huh? I actually have no idea but im scared to delete it
-        new_graph.edges[edge_id]
-    nx.draw_planar(new_graph, with_labels=True)
-    plt.show()
+    #new_graph = generator.generate_graph()
+    # for edge_id in new_graph.edges:  # FIXME: Huh? I actually have no idea but im scared to delete it
+    #     new_graph.edges[edge_id]
+    # nx.draw_planar(new_graph, with_labels=True)
+    # plt.show()
+    generator.index_nodes()
 
 
 if __name__ == "__main__":

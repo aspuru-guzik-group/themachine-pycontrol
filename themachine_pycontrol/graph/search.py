@@ -109,20 +109,19 @@ class GraphSearch:
     #     target_to_common = self.weighted_specific_path_search(edge_type, target_label, pump_label)
     #     return source_to_common, target_to_common
 
-    def dirtiest_path(self, edge_type: str, wash_label: str, waste_label: str = "waste", pump_label: str = "pump_1")\
-            -> tuple[tuple[list[dict], list[dict]], tuple[list[dict], list[dict]]]:
-        """
-        Returns the path involving the most dirty tubes between a source wash solution and a target waste.
-        """
-        return self.specific_multistep_search(edge_type, wash_label, waste_label, True, pump_label)
-
     def get_all_edge_data(self) -> list[dict]:
         """
         Returns a list of all edges in a graph
         """
         return [edge for edge in self.graph.edges.data()]
 
-    def specific_path_search(self, edge_type: str, source_label: str, target_label: str, weighted: bool) -> \
+    def weighted_shortest_path(self, subgraph, source_id, target_id):
+        """
+        Performs the Bellman Ford shortest path search for a weighted subgraph.
+        """
+        return nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
+
+    def specific_path_search(self, edge_type: str, source_label: str, target_label: str, nx_search_method: callable) -> \
             tuple[list[dict], list[dict]]:
         """
         Returns the shortest weighted or unweighted path from source to target for the subgraph containing only the
@@ -131,14 +130,11 @@ class GraphSearch:
         source_id = self.get_node_id_from_label(source_label)
         target_id = self.get_node_id_from_label(target_label)
         subgraph = self.edge_type_subgraph(edge_type)
-        if weighted:
-            traversed_node_ids = nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
-        else:
-            traversed_node_ids = nx.shortest_path(subgraph, source_id, target_id)
+        traversed_node_ids = nx_search_method(subgraph, source_id, target_id)
         traversed_edges = self.path_edges(traversed_node_ids)
         return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
-    def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, weighted: bool,
+    def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str,  nx_search_method: callable,
                                   common_node_label: str = "pump_1") -> tuple[tuple[list[dict], list[dict]],
                                                                               tuple[list[dict], list[dict]]]:
         """
@@ -146,9 +142,17 @@ class GraphSearch:
         common_node_label, and the shortest path from the node of target_label to the node of common_node_label,
         using edges only of the type edge_type.
         """
-        source_to_common = self.specific_path_search(edge_type, source_label, common_node_label, weighted)
-        target_to_common = self.specific_path_search(edge_type, target_label, common_node_label, weighted)
+        source_to_common = self.specific_path_search(edge_type, source_label, common_node_label, nx_search_method)
+        target_to_common = self.specific_path_search(edge_type, target_label, common_node_label, nx_search_method)
         return source_to_common, target_to_common
+
+    def dirtiest_path(self, edge_type: str, wash_label: str, waste_label: str = "waste", pump_label: str = "pump_1")\
+            -> tuple[tuple[list[dict], list[dict]], tuple[list[dict], list[dict]]]:
+        """
+        Returns the path involving the most dirty tubes between a source wash solution and a target waste.
+        """
+        return self.specific_multistep_search(edge_type, wash_label, waste_label, self.weighted_shortest_path, pump_label,)
+
 
     # def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, common_node_label: str = "pump_1"):
     #     """

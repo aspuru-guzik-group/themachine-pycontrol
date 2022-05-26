@@ -1,4 +1,5 @@
 import pkg_resources
+import networkx as nx
 from themachine_pycontrol.graph import Generator, GraphSearch
 
 GRAPH_JSON = pkg_resources.resource_filename(
@@ -26,8 +27,7 @@ class LiquidTransfer:
         """
         self.common = "pump_1"  # Hard-coded for now...
         self.search = search
-        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target, False,
-                                                                                   self.common)
+        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target, nx.shortest_path, self.common)
         self.volume = volume
 
     def __call__(self):
