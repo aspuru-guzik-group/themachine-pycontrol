@@ -1,7 +1,8 @@
 import pkg_resources
 
-from themachine_pycontrol.graph.generator import Generator
-from themachine_pycontrol.graph.search import GraphSearch
+from themachine_pycontrol.drivers import Relay
+from themachine_pycontrol.graph import Generator, GraphSearch
+
 
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graph/graph.json"
@@ -28,8 +29,8 @@ class AtmosphereController:
         Instantiates a Transfer object.
         """
         self.search = search
-        self.gas_path = self.search.path_search("N2", vessel)
-        self.waste_path = self.search.path_search(vessel, "waste")
+        self.gas_path = self.search.specific_path_search("electric", "N2", vessel, False)
+        self.waste_path = self.search.specific_path_search("electric", vessel, "waste", False)
         self.gas_relay = self._find_gas_relay()
         self.waste_relay = self._find_waste_relay()
 

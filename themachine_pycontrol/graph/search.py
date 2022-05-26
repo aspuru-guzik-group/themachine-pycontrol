@@ -4,6 +4,7 @@ import networkx as nx
 from typing import Dict, List, Tuple
 
 # TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
+#ask about this
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graph/graph.json"
 )
@@ -22,19 +23,6 @@ class GraphSearch:
         """
         self.graph = graph
 
-    # FIXME: Already implemented as Graph.get_edge_data
-    # Have this because transfer() doesn't actually require a Graph attribute input, it just uses a GraphSearch object which it aleready needs
-    # so this function saves one input attribute in transfer()
-    # def edge_search(self, source_label: str, target_label: str) -> Dict:
-    #     """
-    #     Returns the edge corresponding to the connection from the node with source_label to the node with target_label
-    #     """
-    #     for edge in self.graph.edges.data():
-    #         edge_data = edge[2]
-    #         if edge_data["source"] == source_label:
-    #             if edge_data["target"] == target_label:
-    #                 return edge
-
     # def path_search(self, source_label: str, target_label: str) -> Tuple[List[Dict], List[Dict]]:
     #     """
     #     Returns the shortest path from the node corresponding to source_label to the node corresponding to target_label
@@ -45,20 +33,6 @@ class GraphSearch:
     #     traversed_node_ids = nx.shortest_path(self.graph, source_id, target_id)
     #     traversed_edges = self.path_edges(traversed_node_ids)
     #     return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
-
-    def specific_path_search(self, edge_type: str, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
-        """
-        Returns the shortest path from source to target for the subgraph containing only the edges
-        of the type edge_type
-        """
-        # TODO: Lines 55-56 and 64-65 are in path_search(), specific_path_search() and dirtiest_path().
-        #  Should also be refactored to be a single method and called in all 3.
-        source_id = self.get_node_id_from_label(source_label)
-        target_id = self.get_node_id_from_label(target_label)
-        subgraph = self.edge_type_subgraph(edge_type)
-        traversed_node_ids = nx.shortest_path(subgraph, source_id, target_id)
-        traversed_edges = self.path_edges(traversed_node_ids)
-        return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
     def edge_type_subgraph(self, edge_type: str) -> graph:
         """
@@ -80,17 +54,6 @@ class GraphSearch:
     #     source_to_common = self.path_search(source_label, common_node_label)
     #     target_to_common = self.path_search(target_label, common_node_label)
     #     return source_to_common, target_to_common
-
-    def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, common_node_label: str = "pump_1"):
-        """
-        Returns a tuple featuring the shortest path from the node of source_label to the node of common_node_label, and
-        the shortest path from the node of target_label to the node of common_node_label, using edges only of the type
-        edge_type.
-        """
-        # TODO: Doc (and type) me!
-        source_to_common = self.specific_path_search(edge_type, source_label, common_node_label)
-        target_to_common = self.specific_path_search(edge_type, target_label, common_node_label)
-        return source_to_common, target_to_common
 
     def path_edges(self, traversed_node_ids: List[int]) -> List[Dict]:
         """
@@ -123,35 +86,35 @@ class GraphSearch:
         neighbor_ids = list(nx.all_neighbors(self.graph, node_id))
         return [self.get_node_from_id(node_id) for node_id in neighbor_ids]
 
-    def weighted_specific_path_search(self, edge_type: str, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
-        """
-        Returns the shortest weighted path from source to target for the subgraph containing only the edges
-        of the type edge_type
-        """
-        source_id = self.get_node_id_from_label(source_label)
-        target_id = self.get_node_id_from_label(target_label)
-        subgraph = self.edge_type_subgraph(edge_type)
-        traversed_node_ids = nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
-        traversed_edges = self.path_edges(traversed_node_ids)
-        return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
-
-    def weighted_multistep_search(self,  edge_type: str, source_label: str, target_label: str, pump_label: str = "pump_1") \
-            -> Tuple[Tuple[Dict, List[Dict]], Tuple[Dict, List[Dict]]]:
-        """
-        Returns a tuple featuring the shortest weighted path from the node of source_label to the node of common_node_label, and
-        the shortest path from the node of target_label to the node of common_node_label, using edges only of the type
-        edge_type.
-        """
-        source_to_common = self.weighted_specific_path_search(edge_type, source_label, pump_label)
-        target_to_common = self.weighted_specific_path_search(edge_type, target_label, common_node_label)
-        return source_to_common, target_to_common
+    # def weighted_specific_path_search(self, edge_type: str, source_label: str, target_label: str) -> tuple[list[dict], list[dict]]:
+    #     """
+    #     Returns the shortest weighted path from source to target for the subgraph containing only the edges
+    #     of the type edge_type
+    #     """
+    #     source_id = self.get_node_id_from_label(source_label)
+    #     target_id = self.get_node_id_from_label(target_label)
+    #     subgraph = self.edge_type_subgraph(edge_type)
+    #     traversed_node_ids = nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
+    #     traversed_edges = self.path_edges(traversed_node_ids)
+    #     return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
+    #
+    # def weighted_multistep_search(self,  edge_type: str, source_label: str, target_label: str, pump_label: str = "pump_1") \
+    #         -> tuple[tuple[list[dict], list[dict]], tuple[list[dict], list[dict]]]:
+    #     """
+    #     Returns a tuple featuring the shortest weighted path from the node of source_label to the node of common_node_label, and
+    #     the shortest path from the node of target_label to the node of common_node_label, using edges only of the type
+    #     edge_type.
+    #     """
+    #     source_to_common = self.weighted_specific_path_search(edge_type, source_label, pump_label)
+    #     target_to_common = self.weighted_specific_path_search(edge_type, target_label, pump_label)
+    #     return source_to_common, target_to_common
 
     def dirtiest_path(self, edge_type: str, wash_label: str, waste_label: str = "waste", pump_label: str = "pump_1")\
-            -> Tuple[Tuple[Dict, List[Dict]], Tuple[Dict, List[Dict]]]:
+            -> tuple[tuple[list[dict], list[dict]], tuple[list[dict], list[dict]]]:
         """
         Returns the path involving the most dirty tubes between a source wash solution and a target waste.
         """
-        return self.weighted_multistep_search(edge_type, wash_label, waste_label, pump_label)
+        return self.specific_multistep_search(edge_type, wash_label, waste_label, True, pump_label)
 
     def get_all_edge_data(self) -> list[dict]:
         """
@@ -159,12 +122,63 @@ class GraphSearch:
         """
         return [edge for edge in self.graph.edges.data()]
 
+    def specific_path_search(self, edge_type: str, source_label: str, target_label: str, weighted: bool) -> \
+            tuple[list[dict], list[dict]]:
+        """
+        Returns the shortest weighted or unweighted path from source to target for the subgraph containing only the
+        edges of the type edge_type
+        """
+        source_id = self.get_node_id_from_label(source_label)
+        target_id = self.get_node_id_from_label(target_label)
+        subgraph = self.edge_type_subgraph(edge_type)
+        if weighted:
+            traversed_node_ids = nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
+        else:
+            traversed_node_ids = nx.shortest_path(subgraph, source_id, target_id)
+        traversed_edges = self.path_edges(traversed_node_ids)
+        return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
+
+    def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, weighted: bool,
+                                  common_node_label: str = "pump_1") -> tuple[tuple[list[dict], list[dict]],
+                                                                              tuple[list[dict], list[dict]]]:
+        """
+        Returns a tuple featuring the shortest weighted or unweighted path from the node of source_label to the node of
+        common_node_label, and the shortest path from the node of target_label to the node of common_node_label,
+        using edges only of the type edge_type.
+        """
+        source_to_common = self.specific_path_search(edge_type, source_label, common_node_label, weighted)
+        target_to_common = self.specific_path_search(edge_type, target_label, common_node_label, weighted)
+        return source_to_common, target_to_common
+
+    # def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, common_node_label: str = "pump_1"):
+    #     """
+    #     Returns a tuple featuring the shortest path from the node of source_label to the node of common_node_label, and
+    #     the shortest path from the node of target_label to the node of common_node_label, using edges only of the type
+    #     edge_type.
+    #     """
+    #     source_to_common = self.specific_path_search(edge_type, source_label, common_node_label)
+    #     target_to_common = self.specific_path_search(edge_type, target_label, common_node_label)
+    #     return source_to_common, target_to_common
+
+##
+    # def specific_path_search(self, edge_type: str, source_label: str, target_label: str) -> tuple[
+    #     list[dict], list[dict]]:
+    #     """
+    #     Returns the shortest path from source to target for the subgraph containing only the edges
+    #     of the type edge_type
+    #     """
+
+    #     source_id = self.get_node_id_from_label(source_label)
+    #     target_id = self.get_node_id_from_label(target_label)
+    #     subgraph = self.edge_type_subgraph(edge_type)
+    #     traversed_node_ids = nx.shortest_path(subgraph, source_id, target_id)
+    #     traversed_edges = self.path_edges(traversed_node_ids)
+    #     return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
+
 
 def main():
     search = GraphSearch(GRAPH_JSON)
 
-    b = search.path_search("rxn_1", "pump_1")
-    print(b)
 
     #
     # next_node = search.single_search("rxn_1", True)

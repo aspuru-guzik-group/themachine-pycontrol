@@ -1,4 +1,4 @@
-from themachine_pycontrol.drivers.errors import CommunicationError
+from themachine_pycontrol.drivers.errors import CommunicationError, RangeError, HardwareError
 
 #Added errors at graph level (in transfer functions)
 
@@ -15,13 +15,15 @@ class Vessel:
 
     """
 
-    def __init__(self, max_volume: float, current_volume: float):
+    def __init__(self, max_volume: float, current_volume: float, addable: bool, removable: bool):
         """
         Initializes a container object
         """
         self.max_volume = max_volume
         self.min_volume = self.max_volume * 0.1
         self._set_volume(current_volume)
+        self.addable = addable
+        self.removable = removable
 
     def _get_volume(self) -> float:
         """
@@ -35,16 +37,17 @@ class Vessel:
         """
         self.current_volume = new_volume
 
-    def update_volume(self, vol_change: float):
+    def update_volume(self, vol_change: float, direction: bool):
         """
         Sets an updated volume by adding volume_change to old_volume 
         """
         prev_volume: float = self._get_volume()
-        self._check_transfer(vol_change)
+        self._check_transfer_volume(vol_change)
+        self._check_transfer_possible(direction)
         self._set_volume(prev_volume + vol_change)
         print(f"The volume of this vessel is now {self.current_volume}")
 
-    def _check_transfer(self, vol_change: float) -> bool:
+    def _check_transfer_volume(self, vol_change: float) -> bool:
         """
         Returns remaining volume in a container.value
 
@@ -57,3 +60,22 @@ class Vessel:
         elif check_vol < self.min_volume:
             raise RangeError(f"The resulting volume {check_vol} from this transfer would be below"
                              f" the vessel's minimum volume of {self.min_volume}")
+        else:
+            return True
+
+    def _check_transfer_possible(self, direction: bool) -> bool:
+        """
+
+
+        """
+        if direction:
+            if self.removable:
+                return True
+            else:
+                raise HardwareError("This vessel cannot be drawn from.")
+        else:
+            if self.addable:
+                return True
+            else:
+                raise HardwareError("This vessel cannot be added to.")
+

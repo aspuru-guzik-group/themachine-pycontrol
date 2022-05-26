@@ -1,6 +1,5 @@
 import pkg_resources
-from themachine_pycontrol.graph.search import GraphSearch
-from themachine_pycontrol.graph.generator import Generator
+from themachine_pycontrol.graph import Generator, GraphSearch
 
 
 GRAPH_JSON = pkg_resources.resource_filename(

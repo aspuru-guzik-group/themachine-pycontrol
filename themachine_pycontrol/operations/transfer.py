@@ -1,9 +1,6 @@
 import pkg_resources
-from themachine_pycontrol.graph.generator import Generator
-from themachine_pycontrol.graph.search import GraphSearch
-from themachine_pycontrol.drivers.errors import HardwareError, RangeError
+from themachine_pycontrol.graph import Generator, GraphSearch
 
-# TODO: .
 GRAPH_JSON = pkg_resources.resource_filename(
     "themachine_pycontrol", "graph/graph.json"
 )
@@ -29,7 +26,8 @@ class LiquidTransfer:
         """
         self.common = "pump_1"  # Hard-coded for now...
         self.search = search
-        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target, self.common)
+        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target, False,
+                                                                                   self.common)
         self.volume = volume
 
     def __call__(self):
@@ -59,12 +57,10 @@ class LiquidTransfer:
                 if any([incontaminable_edges]):
                     pass
                 else:
-                    edge = self.search.edge_search(node["name"], next_node["name"])
+                    edge = self.search.graph.get_edge_data(node["name"], next_node["name"])
                     self._update_clean_state(False, edge)
 
     def move_liquid(self, path: tuple, direction: bool, volume=self.volume):
-        # FIXME: volume shouldn't be an arg because it's always related to the LiquidTransfer instance.
-        #^^^ This is used to flush 0.5 mL to clean tubes, not just the self.volume amount for a transfer function
         """
         Draws or dispenses liquid of specified volume from an object using the pump,
         setting intermediary valves to the correct positions to facilitate this transfer
@@ -86,8 +82,6 @@ class LiquidTransfer:
                         node["object"].move(valve_port)
 
     def _pump_liquid(self, nodes: list, edges: list, direction: bool, volume):
-        # FIXME: volume shouldn't be an arg because it's always related to the LiquidTransfer instance.
-        #see above
         """
         Draws (if direction is True) or dispenses (if direction is False) liquid of quantity volume via the path
         corresponding to the specified nodes and edges.
@@ -111,17 +105,38 @@ class LiquidTransfer:
         """
         for node in nodes:
             if node["class"] == "Vessel":
-                if direction:  # TODO: I have so many questions about this...
-                    if node["Removable"]:
-                        node["object"].update_volume(self.volume) #update_volume now raises RangeError as needed
-                    else:
-                        raise Exception("This vessel cannot be drawn from.")
+                if direction:
+                    node["object"].update_volume(self.volume)
                 else:
-                    if node["Addable"]:
-                        node["object"].update_volume(-self.volume)
-                    else:
-                        raise HardwareError("This vessel cannot be drawn from")  # FIXME: These errors should be in Vessel (and more specific)
-        #don't think I can refer to graph attribute removable/attribute in vessel class (to add hardware error)
+                    node["object"].update_volume(-self.volume)
+
+    @staticmethod
+    def _update_clean_state(state: bool, *edges):
+        for edge in edges:
+            edge["clean"] = int(state)
+
+
+class FlushTubes(LiquidTransfer):
+    """
+    Class that contains the functions for transferring liquids across the graph representing the Machine.
+
+    === Public Attributes ==
+    search: the GraphSearch object that will be used to perform graph search operations
+    source: the label corresponding to the source node for the transfer
+    target: the label corresponding to the target node for the transfer
+    volume: the volume of liquid to be transferred
+
+    === Representation Invariants ===
+    - source and target must correspond to nodes featuring objects of the vessel class
+
+    """
+    def __init__(self, search: GraphSearch, wash_label: str, waste_label: str, flush_volume: float):
+        super().__init__(search, wash_label, waste_label, flush_volume)
+        self.wash_label = wash_label
+        self.common = "pump_1"
+        self.search = search
+        self.flush_volume = flush_volume
+        self.dirty_path = self.search.dirtiest_path("volumetric", wash_label, waste_label, self.common)
 
     def check_dirty_tubes(self):
         """
@@ -132,26 +147,20 @@ class LiquidTransfer:
         for edge in all_edges:  # FIXME: edges won't be updated when you clean the tubes! ??see below??
             edge_data = edge[2]
             return edge_data["clean"]
-            
-    def flush_dirty_tubes(self, wash_label: str, waste_label: str = "waste", flush_vol: float = 0.5):
+
+    def flush_dirty_tubes(self, flush_vol: float = 0.5):
         """
         Cleans all contaminated tubes with 2.0 mL of wash solvent.
         """
         while self.check_dirty_tubes():
             # FIXME: dirty_path doesn't necessarily pass through edge!
             # ^ Is this a problem? Purpose is to re-do the search as long as any edge is dirty
-            dirty_path = self.search.dirtiest_path("volumetric", wash_label, waste_label, self.common)
-            self.move_liquid(dirty_path[0], direction=True, volume=flush_vol)  
-            self.move_liquid(dirty_path[1], direction=False, volume=flush_vol) 
-            self._update_clean_state(True, *dirty_path[0][1])
-            self._update_clean_state(True, *dirty_path[1][1]) #this is below
+            self.move_liquid(self.dirty_path[0], direction=True, volume=flush_vol)
+            self.move_liquid(self.dirty_path[1], direction=False, volume=flush_vol)
+            self._update_clean_state(True, *self.dirty_path[0][1])
+            self._update_clean_state(True, *self.dirty_path[1][1])
         print("All tubes are clean")
 
-    @staticmethod
-    def _update_clean_state(state: bool, *edges):
-        for edge in edges:
-            edge["clean"] = int(state)
-    #input is one edge though? not edges? used in transfer to make edges dirty too
 
 
 def main():

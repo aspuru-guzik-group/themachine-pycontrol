@@ -35,12 +35,14 @@ class NodeFactory:
         self.com_num = self.node["com_num"]
         self.mod_address = self.node["module_address"]
         self.node_class = self.node["class"]
+        self.addable = self.node["addable"]
+        self.removable = self.node["removable"]
 
     def _make_vessel(self) -> Vessel:
         """
         Returns a vessel object given a vessel node.
         """
-        return Vessel(float(self.max_volume), self.volume)
+        return Vessel(float(self.max_volume), self.volume, self.addable, self.removable)
 
     def _make_hotplate(self) -> Hotplate:
         """
@@ -166,7 +168,7 @@ class Generator:
 def main():
     generator = Generator(GRAPH_JSON)
     new_graph = generator.generate_graph()
-    for edge_id in new_graph.edges:  # FIXME: Huh?
+    for edge_id in new_graph.edges:  # FIXME: Huh? I actually have no idea but im scared to delete it
         new_graph.edges[edge_id]
     nx.draw_planar(new_graph, with_labels=True)
     plt.show()
