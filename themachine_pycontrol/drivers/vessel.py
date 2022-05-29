@@ -1,7 +1,5 @@
+from typing import Union
 from themachine_pycontrol.drivers.errors import CommunicationError, RangeError, HardwareError
-
-#Added errors at graph level (in transfer functions)
-
 
 
 class Vessel:
@@ -15,7 +13,7 @@ class Vessel:
 
     """
 
-    def __init__(self, max_volume: float, current_volume: float, addable: bool, removable: bool):
+    def __init__(self, max_volume: Union[float, int], current_volume: Union[float, int], addable: bool, removable: bool):
         """
         Initializes a container object
         """
@@ -79,3 +77,11 @@ class Vessel:
             else:
                 raise HardwareError("This vessel cannot be added to.")
 
+
+def main():
+    sln1 = Vessel(200, 150, False, True)
+    sln1.update_volume(-20, True)
+
+
+if __name__ == "__main__":
+    main()

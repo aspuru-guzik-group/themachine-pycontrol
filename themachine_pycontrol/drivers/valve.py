@@ -1,18 +1,27 @@
 from pyvisa import ResourceManager
+from pyvisa.resources import Resource
 import time
 from typing import Union
-from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError
+from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
-COM_LIST = [10, 7, 11, 10, 5, 9, 8]
-rm = ResourceManager()
+RM = ResourceManager()
 
 
-def close(func):
+def open_close_controller(func):
     def wrapper(self, *args, **kwargs):
-        controller = rm.open_resource(self.com_port_cmd)
-        output = func(self, *args, **kwargs)
+        controller: Resource = RM.open_resource(self.com_port_cmd)
+        output = func(self, *args, controller=controller, **kwargs)
         controller.close()
         return output
+    return wrapper
+
+
+def timing(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        function = func(*args, **kwargs)
+        print(f"{func.__name__}: {time.time() - start} seconds")
+        return function
     return wrapper
 
 
@@ -36,16 +45,14 @@ class Valve:
     num_ports = 8
 
     # NOTE: The Valve class doesn't support multiple valve modules anymore. Should we add that capability?
-    def __init__(
-        self, valve_num: int, com_num: int
-    ):  # Should we allow init w/ current_port != 8?
+    def __init__(self, valve_num: int, com_num: int):
+        # Should we allow init w/ current_port != 8?
         """
         Initialize a new controller. Default port is port 8.
         """
         self.valve_num = valve_num
-        # self.module_num = module_num
+        # TODO: Move to port 8 instead of just setting value.
         self.current_port: int = 8
-        # com_num = COM_LIST[module_num - 1]
         self.com_num = com_num
         self.com_port_cmd = f"ASRL{self.com_num}::INSTR"
 
@@ -55,30 +62,32 @@ class Valve:
         """
         self.current_port: int = new_port
 
-    @close
     def get_current_port(self) -> int:
         """
         Returns the current valve position or port number.
         """
-        controller = rm.open_resource(self.com_port_cmd)
+        command = f"/{self.valve_num}?8"
         for _ in range(10):
-            command = f"/{self.valve_num}?8"
-            controller.write(command)
-            time.sleep(1)
-            returned_bytes: bytes = controller.read_bytes(4)
+            returned_bytes: bytes = self._write_read(command)
+            # print(returned_bytes, end='  ')
             try:
                 last_byte: str = returned_bytes.decode()[-1]
                 returned_port: int = int(last_byte)
                 if returned_port in range(1, self.num_ports+1):
                     self._set_current_port(returned_port)
-                    #controller.close()
                     return returned_port
             except ValueError:
                 continue
-        controller.close()
+
         raise CommunicationError("Querying port failed.")
 
-    @close
+    @open_close_controller
+    def _write_read(self, command, controller: Resource = None) -> bytes:
+        controller.write(command)
+        time.sleep(1)
+        read = controller.read_bytes(4)
+        return read
+
     def move(self, valve_port: int):
         """
         Moves a given valve to a selected port.
@@ -87,57 +96,32 @@ class Valve:
         """
         if valve_port not in range(1, 9):
             raise RangeError(f"Valve port number {valve_port} is not within 1-8")
-        controller = rm.open_resource(self.com_port_cmd)
         command = f"/{self.valve_num}o{valve_port}R"
         for _ in range(10):
-            controller.write(command)
-            time.sleep(2)
+            self._write(command)
             if self.get_current_port() == valve_port:
                 print(
-                    # f"Valve {self.valve_num} of module {self.module_num} has been moved to port {self.current_port}."
                     f"Valve {self.valve_num} has been moved to port {self.current_port}."
                 )
-                #controller.close()
-                return
-        controller.close()
+                return True
+            else:
+                print(f"Move to port {valve_port} failed.")
         raise HardwareError(f"Moving valve {self.valve_num} to port {valve_port} failed.")
 
+    @open_close_controller
+    def _write(self, command, controller: Resource = None) -> None:
+        controller.write("Fuck")  # Blank command to wake up the valve module.
+        time.sleep(0.01)  # Some minimal time is needed between writes to work correctly. Determined empirically.
+        controller.write(command)
 
 
-
-# class ValveModule:
-#     """
-#     Describes a module, each of which contains four valves.
-#
-#     === Public Attributes ===
-#     module_num: Identifies the given module by a number 1-6
-#     valves:
-#
-#     === Private Attributes ===
-#
-#     === Representation Invariants ===
-#     - module_num is between 1 and 6 inclusive
-#
-#
-#     """
-#     def __init__(self, module_num: int):
-#         """
-#         Initialize a valve module.
-#
-#         """
-#         self.module_num = module_num - 1
-#         #com_num = COM_LIST[module_num]
-#         #self.com_port = f'ASRL{com_num}::INSTR' #are this and valves private?
-#         self.valves: list[Valve] = [Valve(i, self.module_num) for i in range(1, 5)]
-#
-#     def valve(self, valve_num: int) -> Valve:
-#         """function that returns valve instance"""
-#         return self.valves[valve_num - 1]
-
-
-def cli_main():
+def main():
+    v1 = Valve(1, 9)
+    current = v1.get_current_port()
+    moved = v1.move(5)
+    current = v1.current_port
     pass
 
 
 if __name__ == "__main__":
-    cli_main()
+    main()

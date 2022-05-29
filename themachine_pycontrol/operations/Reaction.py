@@ -1,11 +1,10 @@
-import pkg_resources
+from pathlib import Path
+
 import networkx as nx
 from themachine_pycontrol.graph import Generator, GraphSearch
 from themachine_pycontrol.operations import LiquidTransfer, FlushTubes, HeatStir, AtmosphereController
 
-GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graph/graph.json"
-)
+
 class Reaction:
     """
     Defines a Reaction class that pertains to running a series of transfers for a set of reactions
@@ -84,14 +83,11 @@ class Reaction:
         self.set_all_hotplates()
 
 
-
 def main():
-
-
-    graph_1_gen = Generator(GRAPH_JSON)
+    repo_dir = Path.cwd().parent.parent
+    graph_json = repo_dir / 'graph.json'
+    graph_1_gen = Generator(graph_json)
     graph_1 = graph_1_gen.generate_graph()
-
-
 
     #without reaction class:
     search = GraphSearch(graph_1)
@@ -104,7 +100,6 @@ def main():
     transfer_2 = LiquidTransfer(search, "sln_2", "rxn_1", 2.0)
     transfer_3 = LiquidTransfer(search, "sln_3", "rxn_1", 5.0)
 
-
     atmosphere_1.timed_purge(10)
 
     transfer_1()
@@ -115,10 +110,7 @@ def main():
 
     heatstir_1()
 
-
     #with reaction class:
-
-
     test_rxn_transfers = [
         {
             "source": "sln_1",
@@ -134,8 +126,6 @@ def main():
 
     test_reaction = Reaction(graph_1, test_rxn_transfers, 40, 120, "sln_3")
     test_reaction()
-
-
 
 
 if __name__ == "__main__":

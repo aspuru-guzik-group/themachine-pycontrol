@@ -7,13 +7,13 @@
       "class": "Valve",
       "name": "valve_1",
       "class_num": 1,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 9,
-      "module_address": "None",
-      "addable": "None",
-      "removable": "None"
+      "module_address": null,
+      "addable": null,
+      "removable": null
     },
     {
       "type": "valve",
@@ -22,13 +22,13 @@
       "class": "Valve",
       "name": "valve_2",
       "class_num": 2,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 9,
-      "module_address": "None",
-      "addable": "None",
-      "removable": "None"
+      "module_address": null,
+      "addable": null,
+      "removable": null
     },
     {
       "type": "valve",
@@ -37,12 +37,12 @@
       "class": "Valve",
       "name": "valve_3",
       "class_num": 3,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 9,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "valve",
@@ -51,13 +51,13 @@
       "class": "Valve",
       "name": "valve_4",
       "class_num": 4,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 9,
-      "module_address": "None",
-      "addable": "None",
-      "removable": "None"
+      "module_address": null,
+      "addable": null,
+      "removable": null
     },
     {
       "type": "pump",
@@ -66,13 +66,13 @@
       "class": "Pump",
       "name": "pump_1",
       "class_num": 1,
-      "volume": "None",
-      "max_volume": "None",
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": "None",
-      "removable": "None"
+      "current_volume": null,
+      "max_volume": null,
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": null,
+      "removable": null
     },
     {
       "type": "hotplate",
@@ -81,13 +81,13 @@
       "class": "Hotplate",
       "name": "hotplate_1",
       "class_num": 1,
-      "volume": "None",
-      "max_volume": "None",
-      "module_num": "None",
+      "current_volume": null,
+      "max_volume": null,
+      "module_num": null,
       "com_num": 4,
-      "module_address": "None",
-      "addable": "None",
-      "removable": "None"
+      "module_address": null,
+      "addable": null,
+      "removable": null
     },
     {
       "type": "stock_vial",
@@ -96,13 +96,13 @@
       "class": "Vessel",
       "name": "vessel_1",
       "class_num": 1,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -111,13 +111,13 @@
       "class": "Vessel",
       "name": "vessel_2",
       "class_num": 2,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -126,13 +126,13 @@
       "class": "Vessel",
       "name": "vessel_3",
       "class_num": 3,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -141,13 +141,13 @@
       "class": "Vessel",
       "name": "vessel_4",
       "class_num": 4,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -156,13 +156,13 @@
       "class": "Vessel",
       "name": "vessel_5",
       "class_num": 5,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -171,13 +171,13 @@
       "class": "Vessel",
       "name": "vessel_6",
       "class_num": 6,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -186,13 +186,13 @@
       "class": "Vessel",
       "name": "vessel_7",
       "class_num": 7,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "stock_vial",
@@ -201,13 +201,13 @@
       "class": "Vessel",
       "name": "vessel_8",
       "class_num": 8,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "rxn_vial",
@@ -216,13 +216,13 @@
       "class": "Vessel",
       "name": "vessel_9",
       "class_num": 9,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -231,13 +231,13 @@
       "class": "Vessel",
       "name": "vessel_10",
       "class_num": 10,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -246,13 +246,13 @@
       "class": "Vessel",
       "name": "vessel_11",
       "class_num": 11,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -261,13 +261,13 @@
       "class": "Vessel",
       "name": "vessel_12",
       "class_num": 12,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -276,13 +276,13 @@
       "class": "Vessel",
       "name": "vessel_13",
       "class_num": 13,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -291,13 +291,13 @@
       "class": "Vessel",
       "name": "vessel_14",
       "class_num": 14,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -306,13 +306,13 @@
       "class": "Vessel",
       "name": "vessel_15",
       "class_num": 15,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -321,13 +321,13 @@
       "class": "Vessel",
       "name": "vessel_16",
       "class_num": 16,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -336,13 +336,13 @@
       "class": "Vessel",
       "name": "vessel_17",
       "class_num": 17,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -351,13 +351,13 @@
       "class": "Vessel",
       "name": "vessel_18",
       "class_num": 18,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -366,13 +366,13 @@
       "class": "Vessel",
       "name": "vessel_19",
       "class_num": 19,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -381,13 +381,13 @@
       "class": "Vessel",
       "name": "vessel_20",
       "class_num": 20,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -396,13 +396,13 @@
       "class": "Vessel",
       "name": "vessel_21",
       "class_num": 21,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -411,13 +411,13 @@
       "class": "Vessel",
       "name": "vessel_22",
       "class_num": 22,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -426,13 +426,13 @@
       "class": "Vessel",
       "name": "vessel_23",
       "class_num": 23,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -441,13 +441,13 @@
       "class": "Vessel",
       "name": "vessel_24",
       "class_num": 24,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -456,13 +456,13 @@
       "class": "Vessel",
       "name": "vessel_25",
       "class_num": 25,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -471,13 +471,13 @@
       "class": "Vessel",
       "name": "vessel_26",
       "class_num": 26,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -486,13 +486,13 @@
       "class": "Vessel",
       "name": "vessel_27",
       "class_num": 27,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -501,13 +501,13 @@
       "class": "Vessel",
       "name": "vessel_28",
       "class_num": 28,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "rxn_vial",
@@ -516,13 +516,13 @@
       "class": "Vessel",
       "name": "vessel_29",
       "class_num": 29,
-      "volume": 8,
+      "current_volume": 8,
       "max_volume": 8,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "waste",
@@ -531,13 +531,13 @@
       "class": "Vessel",
       "name": "vessel_3",
       "class_num": 1,
-      "volume": 500,
+      "current_volume": 500,
       "max_volume": 500,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 1,
-      "removable": 0
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": true,
+      "removable": false
     },
     {
       "type": "N2",
@@ -546,13 +546,13 @@
       "class": "Container",
       "name": "N2",
       "class_num": 1,
-      "volume": 1000,
+      "current_volume": 1000,
       "max_volume": 1000,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "solvent",
@@ -561,13 +561,13 @@
       "class": "Container",
       "name": "sol_1",
       "class_num": 1,
-      "volume": 1000,
+      "current_volume": 1000,
       "max_volume": 1000,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "solvent",
@@ -576,13 +576,13 @@
       "class": "Container",
       "name": "sol_2",
       "class_num": 2,
-      "volume": 1000,
+      "current_volume": 1000,
       "max_volume": 1000,
-      "module_num": "None",
-      "com_num": "None",
-      "module_address": "None",
-      "addable": 0,
-      "removable": 1
+      "module_num": null,
+      "com_num": null,
+      "module_address": null,
+      "addable": false,
+      "removable": true
     },
     {
       "type": "relay",
@@ -591,13 +591,13 @@
       "class": "Relay",
       "name": "relay_1",
       "class_num": 1,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -606,13 +606,13 @@
       "class": "Relay",
       "name": "relay_2",
       "class_num": 2,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -621,13 +621,13 @@
       "class": "Relay",
       "name": "relay_3",
       "class_num": 3,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -636,13 +636,13 @@
       "class": "Relay",
       "name": "relay_4",
       "class_num": 4,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -651,13 +651,13 @@
       "class": "Relay",
       "name": "relay_5",
       "class_num": 5,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -666,13 +666,13 @@
       "class": "Relay",
       "name": "relay_6",
       "class_num": 6,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -681,13 +681,13 @@
       "class": "Relay",
       "name": "relay_7",
       "class_num": 7,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 1,
       "com_num": 4,
       "module_address": 3,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -696,13 +696,13 @@
       "class": "Relay",
       "name": "relay_8",
       "class_num": 8,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -711,13 +711,13 @@
       "class": "Relay",
       "name": "relay_9",
       "class_num": 9,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -726,13 +726,13 @@
       "class": "Relay",
       "name": "relay_10",
       "class_num": 10,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -741,13 +741,13 @@
       "class": "Relay",
       "name": "relay_11",
       "class_num": 11,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -756,13 +756,13 @@
       "class": "Relay",
       "name": "relay_12",
       "class_num": 12,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -771,13 +771,13 @@
       "class": "Relay",
       "name": "relay_13",
       "class_num": 13,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -786,13 +786,13 @@
       "class": "Relay",
       "name": "relay_14",
       "class_num": 14,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 2,
       "com_num": 5,
       "module_address": 4,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -801,13 +801,13 @@
       "class": "Relay",
       "name": "relay_15",
       "class_num": 15,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -816,13 +816,13 @@
       "class": "Relay",
       "name": "relay_16",
       "class_num": 16,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -831,13 +831,13 @@
       "class": "Relay",
       "name": "relay_17",
       "class_num": 17,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -846,13 +846,13 @@
       "class": "Relay",
       "name": "relay_18",
       "class_num": 18,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -861,13 +861,13 @@
       "class": "Relay",
       "name": "relay_19",
       "class_num": 19,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -876,13 +876,13 @@
       "class": "Relay",
       "name": "relay_2-",
       "class_num": 20,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -891,13 +891,13 @@
       "class": "Relay",
       "name": "relay_21",
       "class_num": 21,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 3,
       "com_num": 6,
       "module_address": 5,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -906,13 +906,13 @@
       "class": "Relay",
       "name": "relay_22",
       "class_num": 22,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -921,13 +921,13 @@
       "class": "Relay",
       "name": "relay_23",
       "class_num": 23,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -936,13 +936,13 @@
       "class": "Relay",
       "name": "relay_24",
       "class_num": 24,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -951,13 +951,13 @@
       "class": "Relay",
       "name": "relay_25",
       "class_num": 25,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -966,13 +966,13 @@
       "class": "Relay",
       "name": "relay_26",
       "class_num": 26,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -981,13 +981,13 @@
       "class": "Relay",
       "name": "relay_27",
       "class_num": 27,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -996,13 +996,13 @@
       "class": "Relay",
       "name": "relay_28",
       "class_num": 28,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 4,
       "com_num": 7,
       "module_address": 6,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1011,13 +1011,13 @@
       "class": "Relay",
       "name": "relay_29",
       "class_num": 29,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1026,13 +1026,13 @@
       "class": "Relay",
       "name": "relay_30",
       "class_num": 30,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1041,13 +1041,13 @@
       "class": "Relay",
       "name": "relay_31",
       "class_num": 31,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1056,13 +1056,13 @@
       "class": "Relay",
       "name": "relay_32",
       "class_num": 32,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1071,13 +1071,13 @@
       "class": "Relay",
       "name": "relay_33",
       "class_num": 33,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1086,13 +1086,13 @@
       "class": "Relay",
       "name": "relay_34",
       "class_num": 34,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1101,13 +1101,13 @@
       "class": "Relay",
       "name": "relay_35",
       "class_num": 35,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 5,
       "com_num": 8,
       "module_address": 7,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1116,13 +1116,13 @@
       "class": "Relay",
       "name": "relay_36",
       "class_num": 36,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1131,13 +1131,13 @@
       "class": "Relay",
       "name": "relay_37",
       "class_num": 37,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1146,13 +1146,13 @@
       "class": "Relay",
       "name": "relay_38",
       "class_num": 38,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1161,13 +1161,13 @@
       "class": "Relay",
       "name": "relay_39",
       "class_num": 39,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1176,13 +1176,13 @@
       "class": "Relay",
       "name": "relay_33",
       "class_num": 40,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1191,13 +1191,13 @@
       "class": "Relay",
       "name": "relay_41",
       "class_num": 41,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     },
     {
       "type": "relay",
@@ -1206,13 +1206,13 @@
       "class": "Relay",
       "name": "relay_42",
       "class_num": 42,
-      "volume": "None",
-      "max_volume": "None",
+      "current_volume": null,
+      "max_volume": null,
       "module_num": 6,
       "com_num": 9,
       "module_address": 8,
-      "addable": "None",
-      "removable": "None"
+      "addable": null,
+      "removable": null
     }
   ],
   "links": [
@@ -1564,8 +1564,8 @@
       "source": "hotplate_1",
       "target": "rxn_1",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 39,
@@ -1573,8 +1573,8 @@
       "source": "hotplate_1",
       "target": "rxn_2",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 40,
@@ -1582,8 +1582,8 @@
       "source": "hotplate_1",
       "target": "rxn_3",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 41,
@@ -1591,8 +1591,8 @@
       "source": "hotplate_1",
       "target": "rxn_4",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 42,
@@ -1600,8 +1600,8 @@
       "source": "hotplate_1",
       "target": "rxn_5",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 43,
@@ -1609,8 +1609,8 @@
       "source": "hotplate_1",
       "target": "rxn_6",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 44,
@@ -1618,8 +1618,8 @@
       "source": "hotplate_1",
       "target": "rxn_7",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 45,
@@ -1627,8 +1627,8 @@
       "source": "hotplate_1",
       "target": "rxn_8",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 46,
@@ -1636,8 +1636,8 @@
       "source": "hotplate_1",
       "target": "rxn_9",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 47,
@@ -1645,8 +1645,8 @@
       "source": "hotplate_1",
       "target": "rxn_10",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 48,
@@ -1654,8 +1654,8 @@
       "source": "hotplate_1",
       "target": "rxn_11",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 49,
@@ -1663,8 +1663,8 @@
       "source": "hotplate_1",
       "target": "rxn_12",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 50,
@@ -1672,8 +1672,8 @@
       "source": "hotplate_1",
       "target": "rxn_13",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 51,
@@ -1681,8 +1681,8 @@
       "source": "hotplate_1",
       "target": "rxn_14",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 52,
@@ -1690,8 +1690,8 @@
       "source": "hotplate_1",
       "target": "rxn_15",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 53,
@@ -1699,8 +1699,8 @@
       "source": "hotplate_1",
       "target": "rxn_16",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 54,
@@ -1708,8 +1708,8 @@
       "source": "hotplate_1",
       "target": "rxn_17",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 55,
@@ -1717,8 +1717,8 @@
       "source": "hotplate_1",
       "target": "rxn_18",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 56,
@@ -1726,8 +1726,8 @@
       "source": "hotplate_1",
       "target": "rxn_19",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 57,
@@ -1735,8 +1735,8 @@
       "source": "hotplate_1",
       "target": "rxn_20",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 58,
@@ -1744,8 +1744,8 @@
       "source": "hotplate_1",
       "target": "rxn_21",
       "type": "thermal",
-      "port_num": "None",
-      "clean": "None"
+      "port_num": null,
+      "clean": null
     },
     {
       "id": 59,
@@ -1754,7 +1754,7 @@
       "target": "pump_1",
       "type": "volumetric",
       "port_num": "(0,6)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 60,
@@ -1763,7 +1763,7 @@
       "target": "pump_1",
       "type": "volumetric",
       "port_num": "(0,7)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 61,
@@ -1772,7 +1772,7 @@
       "target": "relay_1",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 62,
@@ -1781,7 +1781,7 @@
       "target": "relay_2",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 63,
@@ -1790,7 +1790,7 @@
       "target": "relay_3",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 64,
@@ -1799,7 +1799,7 @@
       "target": "relay_4",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 65,
@@ -1808,7 +1808,7 @@
       "target": "relay_5",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 66,
@@ -1817,7 +1817,7 @@
       "target": "relay_6",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 67,
@@ -1826,7 +1826,7 @@
       "target": "relay_7",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 68,
@@ -1835,7 +1835,7 @@
       "target": "rxn_1",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 69,
@@ -1844,7 +1844,7 @@
       "target": "rxn_2",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 70,
@@ -1853,7 +1853,7 @@
       "target": "rxn_3",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 71,
@@ -1862,7 +1862,7 @@
       "target": "rxn_4",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 72,
@@ -1871,7 +1871,7 @@
       "target": "rxn_5",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 73,
@@ -1880,7 +1880,7 @@
       "target": "rxn_6",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 74,
@@ -1889,7 +1889,7 @@
       "target": "rxn_7",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 75,
@@ -1898,7 +1898,7 @@
       "target": "relay_8",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 76,
@@ -1907,7 +1907,7 @@
       "target": "relay_9",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 77,
@@ -1916,7 +1916,7 @@
       "target": "relay_10",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 78,
@@ -1925,7 +1925,7 @@
       "target": "relay_11",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 79,
@@ -1934,7 +1934,7 @@
       "target": "relay_12",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 80,
@@ -1943,7 +1943,7 @@
       "target": "relay_13",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 81,
@@ -1952,7 +1952,7 @@
       "target": "relay_14",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 82,
@@ -1961,7 +1961,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 83,
@@ -1970,7 +1970,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 84,
@@ -1979,7 +1979,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 85,
@@ -1988,7 +1988,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 86,
@@ -1997,7 +1997,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 87,
@@ -2006,7 +2006,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 88,
@@ -2015,7 +2015,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 89,
@@ -2024,7 +2024,7 @@
       "target": "relay_15",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 90,
@@ -2033,7 +2033,7 @@
       "target": "relay_16",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 91,
@@ -2042,7 +2042,7 @@
       "target": "relay_17",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 92,
@@ -2051,7 +2051,7 @@
       "target": "relay_18",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 93,
@@ -2060,7 +2060,7 @@
       "target": "relay_19",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 94,
@@ -2069,7 +2069,7 @@
       "target": "relay_20",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 95,
@@ -2078,7 +2078,7 @@
       "target": "relay_21",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 96,
@@ -2087,7 +2087,7 @@
       "target": "rxn_8",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 97,
@@ -2096,7 +2096,7 @@
       "target": "rxn_9",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 98,
@@ -2105,7 +2105,7 @@
       "target": "rxn_10",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 99,
@@ -2114,7 +2114,7 @@
       "target": "rxn_11",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 100,
@@ -2123,7 +2123,7 @@
       "target": "rxn_12",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 101,
@@ -2132,7 +2132,7 @@
       "target": "rxn_13",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 102,
@@ -2141,7 +2141,7 @@
       "target": "rxn_14",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 103,
@@ -2150,7 +2150,7 @@
       "target": "relay_22",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 104,
@@ -2159,7 +2159,7 @@
       "target": "relay_23",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 105,
@@ -2168,7 +2168,7 @@
       "target": "relay_24",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 106,
@@ -2177,7 +2177,7 @@
       "target": "relay_25",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 107,
@@ -2186,7 +2186,7 @@
       "target": "relay_26",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 108,
@@ -2195,7 +2195,7 @@
       "target": "relay_27",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 109,
@@ -2204,7 +2204,7 @@
       "target": "relay_28",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 110,
@@ -2213,7 +2213,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 111,
@@ -2222,7 +2222,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 112,
@@ -2231,7 +2231,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 113,
@@ -2240,7 +2240,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 114,
@@ -2249,7 +2249,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 115,
@@ -2258,7 +2258,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 116,
@@ -2267,7 +2267,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 117,
@@ -2276,7 +2276,7 @@
       "target": "relay_29",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 118,
@@ -2285,7 +2285,7 @@
       "target": "relay_30",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 119,
@@ -2294,7 +2294,7 @@
       "target": "relay_31",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 120,
@@ -2303,7 +2303,7 @@
       "target": "relay_32",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 121,
@@ -2312,7 +2312,7 @@
       "target": "relay_33",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 122,
@@ -2321,7 +2321,7 @@
       "target": "relay_34",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 123,
@@ -2330,7 +2330,7 @@
       "target": "relay_35",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 124,
@@ -2339,7 +2339,7 @@
       "target": "rxn_15",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 125,
@@ -2348,7 +2348,7 @@
       "target": "rxn_16",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 126,
@@ -2357,7 +2357,7 @@
       "target": "rxn_17",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 127,
@@ -2366,7 +2366,7 @@
       "target": "rxn_18",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 128,
@@ -2375,7 +2375,7 @@
       "target": "rxn_19",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 129,
@@ -2384,7 +2384,7 @@
       "target": "rxn_20",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 130,
@@ -2393,7 +2393,7 @@
       "target": "rxn_21",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 131,
@@ -2402,7 +2402,7 @@
       "target": "relay_36",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 132,
@@ -2411,7 +2411,7 @@
       "target": "relay_37",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 133,
@@ -2420,7 +2420,7 @@
       "target": "relay_38",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 134,
@@ -2429,7 +2429,7 @@
       "target": "relay_39",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 135,
@@ -2438,7 +2438,7 @@
       "target": "relay_40",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 136,
@@ -2447,7 +2447,7 @@
       "target": "relay_41",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 137,
@@ -2456,7 +2456,7 @@
       "target": "relay_42",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 138,
@@ -2465,7 +2465,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 139,
@@ -2474,7 +2474,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 140,
@@ -2483,7 +2483,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 141,
@@ -2492,7 +2492,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 142,
@@ -2501,7 +2501,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 143,
@@ -2510,7 +2510,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     },
     {
       "id": 144,
@@ -2519,7 +2519,7 @@
       "target": "waste",
       "type": "electric",
       "port_num": "(0,0)",
-      "clean": "None"
+      "clean": null
     }
   ]
 }

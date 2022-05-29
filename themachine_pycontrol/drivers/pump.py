@@ -1,11 +1,11 @@
-import pkg_resources
 from singleton_decorator import singleton
 from typing import List
 from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
 import clr
-PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
-clr.AddReference(PUMP_DLL)
+# PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
+# clr.AddReference(PUMP_DLL)
+clr.AddReference("KEMPumpDLL")
 from KEMPumpDLL import SyringePumpDef
 
 
@@ -13,7 +13,7 @@ def check_pump(func):
     def wrapper(self, pump_number, *args, **kwargs):
         if not self.pumps[pump_number]:
             raise HardwareError(f"Requested pump number {pump_number} is not active.")
-        return func(self, *args, **kwargs)
+        return func(self, pump_number, *args, **kwargs)
     return wrapper
 
 
@@ -34,7 +34,7 @@ class Pump:
     def __init__(self, pump_num: int):
         self.pump_num = pump_num
         self.controller = PumpModule()  # Singleton Object
-        self.controller.initialize(pump_num)
+        self.controller.initialize_pump(pump_num)
         self.pump_port: int = self.waste_port
 
     def _set_current_port(self, new_pump_port: int):
@@ -151,3 +151,9 @@ class PumpModule(object):
         Closes communication to the pump module. Only close at the end of a reaction, never during.
         """
         self.controller.CloseCommPort()
+
+
+if __name__ == "__main__":
+    pump = Pump(1)
+    p4 = Pump(4)
+    p4.dispense(0,8,20,6)

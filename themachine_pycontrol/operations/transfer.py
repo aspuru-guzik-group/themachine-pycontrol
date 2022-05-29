@@ -1,10 +1,6 @@
-import pkg_resources
+from pathlib import Path
 import networkx as nx
 from themachine_pycontrol.graph import Generator, GraphSearch
-
-GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graph/graph.json"
-)
 
 
 class LiquidTransfer:
@@ -176,9 +172,10 @@ class FlushTubes(LiquidTransfer):
         print("All tubes are clean")
 
 
-
 def main():
-    graph_1_gen = Generator(GRAPH_JSON)
+    repo_dir = Path.cwd().parent.parent
+    graph_json = repo_dir / 'graph.json'
+    graph_1_gen = Generator(graph_json)
     graph_1 = graph_1_gen.generate_graph()
     search = GraphSearch(graph_1)
 

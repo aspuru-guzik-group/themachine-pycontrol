@@ -1,13 +1,6 @@
-import pkg_resources
-import pickle
 import networkx as nx
+from pathlib import Path
 from typing import Dict, List, Tuple
-
-# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
-#ask about this
-GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graph/graph.json"
-)
 
 
 class GraphSearch:
@@ -34,7 +27,7 @@ class GraphSearch:
     #     traversed_edges = self.path_edges(traversed_node_ids)
     #     return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
-    def edge_type_subgraph(self, edge_type: str) -> graph:
+    def edge_type_subgraph(self, edge_type: str) -> nx.Graph:
         """
         Returns a subgraph containing only edges of the type edge_type.
         """
@@ -181,7 +174,9 @@ class GraphSearch:
 
 
 def main():
-    search = GraphSearch(GRAPH_JSON)
+    repo_dir = Path.cwd().parent.parent
+    graph_json = repo_dir / 'graph.json'
+    search = GraphSearch(graph_json)
 
 
     #

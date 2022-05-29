@@ -1,10 +1,8 @@
 from pyvisa import ResourceManager
+from pyvisa.resources import Resource
 import time
 from themachine_pycontrol.drivers.errors import CommunicationError, RangeError
 
-
-#COM_LIST now deprecated due to JSON
-# COM_LIST = [4, 6]
 rm = ResourceManager()
 
 
@@ -34,7 +32,7 @@ class Hotplate:
         try:
             self.controller: Resource = rm.open_resource(com_port)
         except MissingManifestResourceException:
-            raise CommunicationError("Resource not found")
+            raise CommunicationError(f"Hotplate at COM {com_num} not found.")
         self._set_heat_switch(False)
         self._set_stir_switch(False)
         self._set_temp(20)
@@ -68,6 +66,7 @@ class Hotplate:
         """
         Sets self.temp to new_temp
         """
+        # TODO: This does nothing!
         if new_temp not in range(20, 341):
             raise RangeError(f"New temperature of {new_temp} is not within the range of 20-341 degrees Celsius.")
 
@@ -178,8 +177,9 @@ class Hotplate:
 
 
 def main():
-    hp = Hotplate(1, 2)
+    hp = Hotplate(4)
     hp.heat(True, 25)
+    hp.stir(True, 100)
 
 
 if __name__ == "__main__":

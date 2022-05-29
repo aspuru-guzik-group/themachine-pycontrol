@@ -1,35 +1,20 @@
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Callable
 
 import networkx as nx
 import json
-import pkg_resources
 import pickle
 import matplotlib.pyplot as plt
-# TODO: Look in __all__ attribute of __init__.py files so that you can do this:
-#  from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Vessel
-#  instead of needing individual lines for each module.
-# from themachine_pycontrol.drivers.vessel import Vessel
-# from themachine_pycontrol.drivers.hotplate import Hotplate
-# from themachine_pycontrol.drivers.valve import Valve
-# from themachine_pycontrol.drivers.pump import Pump
-# from themachine_pycontrol.drivers.relay import Relay
 from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Valve, Vessel
-
-# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
-# ^ this is used to test the code/to generate the graph
-GRAPH_JSON = pkg_resources.resource_filename(
-    "themachine_pycontrol", "graph/graph.json"
-)
 
 
 class NodeFactory:
     """
-
+    Factory for creating objects in the Machine graph.
     """
     def __init__(self, node: dict):
         self.node = node
-        self.volume = self.node["volume"]
+        self.current_volume = self.node["current_volume"]
         self.max_volume = self.node["max_volume"]
         self.class_num = self.node["class_num"]
         self.com_num = self.node["com_num"]
@@ -42,7 +27,7 @@ class NodeFactory:
         """
         Returns a vessel object given a vessel node.
         """
-        return Vessel(float(self.max_volume), self.volume, self.addable, self.removable)
+        return Vessel(self.max_volume, self.current_volume, self.addable, self.removable)
 
     def _make_hotplate(self) -> Hotplate:
         """
@@ -74,15 +59,15 @@ class NodeFactory:
         Given a node of any type, creates the correct corresponding object and updates the node dictionary
         to include this object.
         """
-
-        classes = {
-            "Vessel":  self._make_vessel(),
-            "Hotplate": self._make_hotplate(),
-            "Valve": self._make_valve(),
-            "Pump": self._make_pump(),
-            "Relay": self._make_relay()
+        objects = {
+            "Hotplate": self._make_hotplate,
+            "Pump": self._make_pump,
+            "Relay": self._make_relay,
+            "Valve": self._make_valve,
+            "Vessel": self._make_vessel,
         }
-        return classes[self.node_class]
+        creation_function: Callable = objects[self.node_class]
+        return creation_function()
 
 
 class Generator:
@@ -110,8 +95,8 @@ class Generator:
         """
         Opens file path to where graph data is stored.
         """
-        with open(self.json_path, 'r') as f:
-            data = json.load(f)
+        with self.json_path.open(mode='r') as f:
+            data: Dict = json.load(f)
         return data
 
     def generate_graph(self) -> nx.Graph:
@@ -155,23 +140,25 @@ class Generator:
         """
         Renumbers the node ids in the JSON automatically. This allows you to more easily update the graph JSON.
         """
-        graph_json = json.load(open(self.json_path))
+        # TODO: Why does this read the graph from the hard drive rather than using the instance's graph?
+        with self.json_path.open(mode='r') as f:
+            graph_json: Dict = json.load(f)
         id = 0
         for node in graph_json["nodes"]:
             node["id"] = id
             id += 1
-        with open(self.json_path, "w") as f:
+        with self.json_path.open(mode='w') as f:
             json.dump(graph_json, f)
 
 
 def main():
-    generator = Generator(GRAPH_JSON)
-    #new_graph = generator.generate_graph()
-    # for edge_id in new_graph.edges:  # FIXME: Huh? I actually have no idea but im scared to delete it
-    #     new_graph.edges[edge_id]
+    repo_dir = Path.cwd().parent.parent
+    graph_json = repo_dir / 'graph.json'
+    generator = Generator(graph_json)
+    new_graph = generator.generate_graph()
     # nx.draw_planar(new_graph, with_labels=True)
     # plt.show()
-    generator.index_nodes()
+    # generator.index_nodes()
 
 
 if __name__ == "__main__":
