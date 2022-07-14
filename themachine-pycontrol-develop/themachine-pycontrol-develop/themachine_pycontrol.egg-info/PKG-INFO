@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: themachine-pycontrol
+Version: 0.0.5
+Summary: "Object-oriented Python Code for The Machine"
+Home-page: https://github.com/aspuru-guzik-group/themachine-pycontrol
+Author: "Anji Zhang"
+Author-email: ""
+License: Apache License 2.0
+Keywords: chemistry,synthesis
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.9
+License-File: LICENSE
+
+# themachine-pycontrol
+[![GitHub license](https://img.shields.io/github/license/aspuru-guzik-group/themachine-pycontrol.svg)](https://github.com/aspuru-guzik-group/themachine-pycontrol/blob/main/LICENSE)
+[![GitHub version](https://img.shields.io/github/v/tag/aspuru-guzik-group/themachine-pycontrol)](https://github.com/spuru-guzik-group/themachine-pycontrol/releases/)
+![Windows](https://svgshare.com/i/ZhY.svg)
+
+Repository for Python control of The Machine synthesis robot
+
+
