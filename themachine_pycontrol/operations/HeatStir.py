@@ -1,6 +1,11 @@
-from pathlib import Path
-
+import pkg_resources
 from themachine_pycontrol.graph import Generator, GraphSearch
+from themachine_pycontrol.drivers import Hotplate
+
+
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graph/graph.json"
+)
 
 
 class HeatStir:
@@ -66,13 +71,13 @@ class HeatStir:
 
 
 def main():
-    repo_dir = Path.cwd().parent.parent
-    graph_json = repo_dir / 'graph.json'
-    graph_1_gen = Generator(graph_json)
+    graph_1_gen = Generator(GRAPH_JSON)
     graph_1 = graph_1_gen.generate_graph()
     search = GraphSearch(graph_1)
-    try_1 = HeatStir(search, "rxn_1", 30, 120)
-    try_1()
+    # try_1 = HeatStir(search, "rxn_1", 30, 120)
+    # try_1()
+    hs1 = HeatStir(search, "rxn_18", 20, 0)
+    hs1()
 
 
 if __name__ == "__main__":

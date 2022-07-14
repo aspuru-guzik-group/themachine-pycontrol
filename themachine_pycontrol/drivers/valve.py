@@ -4,6 +4,7 @@ import time
 from typing import Union
 from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
+# COM_LIST = [10, 7, 11, 10, 5, 9, 8]
 RM = ResourceManager()
 
 
@@ -53,8 +54,10 @@ class Valve:
         self.valve_num = valve_num
         # TODO: Move to port 8 instead of just setting value.
         self.current_port: int = 8
+
         self.com_num = com_num
         self.com_port_cmd = f"ASRL{self.com_num}::INSTR"
+        #self.move(self.current_port)
 
     def _set_current_port(self, new_port: int):
         """
@@ -111,14 +114,14 @@ class Valve:
     @open_close_controller
     def _write(self, command, controller: Resource = None) -> None:
         controller.write("Fuck")  # Blank command to wake up the valve module.
-        time.sleep(0.01)  # Some minimal time is needed between writes to work correctly. Determined empirically.
+        time.sleep(.01)  # Some minimal time is needed between writes to work correctly. Determined empirically.
         controller.write(command)
 
 
 def main():
     v1 = Valve(1, 9)
     current = v1.get_current_port()
-    moved = v1.move(5)
+    moved = v1.move(1)
     current = v1.current_port
     pass
 

@@ -1,6 +1,10 @@
-from pathlib import Path
+import pkg_resources
 import networkx as nx
 from themachine_pycontrol.graph import Generator, GraphSearch
+
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graph/graph.json"
+)
 
 
 class LiquidTransfer:
@@ -17,13 +21,15 @@ class LiquidTransfer:
     - source and target must correspond to nodes featuring objects of the vessel class
 
     """
+
     def __init__(self, search: GraphSearch, source: str, target: str, volume: float):
         """
         Instantiates a Transfer object.
         """
         self.common = "pump_1"  # Hard-coded for now...
         self.search = search
-        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target, nx.shortest_path, self.common)
+        self.draw_path, self.dispense_path = self.search.specific_multistep_search("volumetric", source, target,
+                                                                                   nx.shortest_path, self.common)
         self.volume = volume
 
     def __call__(self):
@@ -36,31 +42,33 @@ class LiquidTransfer:
         """
         Draws liquid corresponding to volume from the source node object and dispenses it into the target node object.
         """
-        draw_nodes, draw_edges = self.draw_path  
+        draw_nodes, draw_edges = self.draw_path
         dispense_nodes, dispense_edges = self.dispense_path
         paths = [draw_nodes, dispense_nodes]
-        self.move_liquid(self.draw_path, direction=True)
-        self.move_liquid(self.dispense_path, direction=False)
+        self.move_liquid(self.draw_path, direction=True, volume=self.volume)
+        self.move_liquid(self.dispense_path, direction=False, volume=self.volume)
         for nodes in paths:
             for node, next_node in zip(nodes[0:], nodes[1:]):
                 incontaminable_edges = [
-                    node["type"] == "stock_vial", 
+                    node["type"] == "stock_vial",
                     node["type"] == "rxn_vial",
                     next_node["type"] == "stock_vial",
                     next_node["type"] == "rxn_vial",
                     next_node["type"] == "waste"
                 ]
-                if any([incontaminable_edges]):
-                    pass
+                incontaminable = any(incontaminable_edges)
+                if incontaminable:
+                    continue
                 else:
-                    edge = self.search.graph.get_edge_data(node["name"], next_node["name"])
+                    edge = self.search.graph.get_edge_data(node["id"], next_node["id"])
                     self._update_clean_state(False, edge)
 
-    def move_liquid(self, path: tuple, direction: bool, volume=self.volume):
+    def move_liquid(self, path: tuple, direction: bool, volume: float):
         """
         Draws or dispenses liquid of specified volume from an object using the pump,
         setting intermediary valves to the correct positions to facilitate this transfer
         """
+        # self.volume wouldnt work as argument? couldnt find self
         nodes, edges = path
         self._set_valves(nodes, edges)
         self._pump_liquid(nodes, edges, direction, volume)
@@ -87,7 +95,9 @@ class LiquidTransfer:
             if node["class"] == "Pump":
                 for edge in edges:  # can be improved with Path class
                     if edge["target"] == node["label"]:
-                        pump_port = edge["port_num"][1]
+                        port_num = eval(edge["port_num"])
+                        pump_port = port_num[1]
+                        # pump_port = eval(edge["port_num"][1]))
                         if direction:
                             node["object"].move(pump_port, 25, volume)
                         else:
@@ -102,14 +112,15 @@ class LiquidTransfer:
         for node in nodes:
             if node["class"] == "Vessel":
                 if direction:
-                    node["object"].update_volume(self.volume)
+                    node["object"].update_volume(self.volume, direction)
                 else:
-                    node["object"].update_volume(-self.volume)
+                    node["object"].update_volume(self.volume, direction)
 
     @staticmethod
     def _update_clean_state(state: bool, *edges):
         for edge in edges:
             edge["clean"] = int(state)
+            #print(edge["clean"])
 
     def path_dirty_tubes(self):
         """
@@ -134,6 +145,7 @@ class FlushTubes(LiquidTransfer):
     - source and target must correspond to nodes featuring objects of the vessel class
 
     """
+
     def __init__(self, search: GraphSearch, wash_label: str, waste_label: str, flush_volume: float):
         super().__init__(search, wash_label, waste_label, flush_volume)
         self.wash_label = wash_label
@@ -154,33 +166,46 @@ class FlushTubes(LiquidTransfer):
         if the edge is dirty.
         """
         all_edges = self.search.get_all_edge_data()
-        for edge in all_edges:  # FIXME: edges won't be updated when you clean the tubes! ??see below??
+        for edge in all_edges:  # FIXME: edges won't be updated when you clean the tubes!
             edge_data = edge[2]
-            return edge_data["clean"]
+            clean = edge_data["clean"]
+            try:
+                if clean >= 1:
+                    continue
+                else:
+                    return False
+            except TypeError:
+                continue
+        return True
 
     def flush_dirty_tubes(self, flush_vol: float = 0.5):
         """
         Cleans all contaminated tubes with 2.0 mL of wash solvent.
         """
-        while self.check_dirty_tubes():
+        while not self.check_dirty_tubes():
             # FIXME: dirty_path doesn't necessarily pass through edge!
+            new_dirty_path = self.search.dirtiest_path("volumetric", self.wash_label, "waste")
             # ^ Is this a problem? Purpose is to re-do the search as long as any edge is dirty
-            self.move_liquid(self.dirty_path[0], direction=True, volume=flush_vol)
-            self.move_liquid(self.dirty_path[1], direction=False, volume=flush_vol)
-            self._update_clean_state(True, *self.dirty_path[0][1])
-            self._update_clean_state(True, *self.dirty_path[1][1])
+            self.move_liquid(new_dirty_path[0], direction=True, volume=flush_vol)
+            self.move_liquid(new_dirty_path[1], direction=False, volume=flush_vol)
+            self._update_clean_state(True, *new_dirty_path[0][1])
+            self._update_clean_state(True, *new_dirty_path[1][1])
         print("All tubes are clean")
 
 
 def main():
-    repo_dir = Path.cwd().parent.parent
-    graph_json = repo_dir / 'graph.json'
-    graph_1_gen = Generator(graph_json)
+    graph_1_gen = Generator(GRAPH_JSON)
     graph_1 = graph_1_gen.generate_graph()
     search = GraphSearch(graph_1)
 
     transfer = LiquidTransfer(search, "sln_1", "rxn_1", 1.0)
-    # transfer()
+    transfer1 = LiquidTransfer(search, "sln_3", "rxn_20", 1.0)
+    flush = FlushTubes(search, "sln_2", "waste", 0.5)
+    transfer1()
+    transfer()
+
+    #print(flush.check_dirty_tubes())
+    flush.flush_dirty_tubes()
 
 
 if __name__ == "__main__":

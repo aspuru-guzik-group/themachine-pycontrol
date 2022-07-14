@@ -3,9 +3,24 @@ from typing import Dict, Callable
 
 import networkx as nx
 import json
+import pkg_resources
 import pickle
 import matplotlib.pyplot as plt
+# TODO: Look in __all__ attribute of __init__.py files so that you can do this:
+#  from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Vessel
+#  instead of needing individual lines for each module.
+# from themachine_pycontrol.drivers.vessel import Vessel
+# from themachine_pycontrol.drivers.hotplate import Hotplate
+# from themachine_pycontrol.drivers.valve import Valve
+# from themachine_pycontrol.drivers.pump import Pump
+# from themachine_pycontrol.drivers.relay import Relay
 from themachine_pycontrol.drivers import Hotplate, Pump, Relay, Valve, Vessel
+
+# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
+# ^ this is used to test the code/to generate the graph
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graph/graph.json"
+)
 
 
 class NodeFactory:
@@ -48,11 +63,13 @@ class NodeFactory:
         """
         return Pump(self.class_num)
 
-    def _make_relay(self) -> Relay:
+    def _make_relay(self):
         """
         Returns a relay object given a relay node.
         """
-        return Relay(self.class_num, self.com_num, self.mod_address)
+        #return Relay(self.class_num, self.com_num, self.mod_address)
+        print(f"relay {self.class_num}")
+        return f"relay {self.class_num}"
 
     def make_object(self):
         """
@@ -63,6 +80,7 @@ class NodeFactory:
             "Hotplate": self._make_hotplate,
             "Pump": self._make_pump,
             "Relay": self._make_relay,
+            #"Relay": print(f"Relay {self.class_num}"),
             "Valve": self._make_valve,
             "Vessel": self._make_vessel,
         }
@@ -95,11 +113,11 @@ class Generator:
         """
         Opens file path to where graph data is stored.
         """
-        with self.json_path.open(mode='r') as f:
-            data: Dict = json.load(f)
+        with open(self.json_path, 'r') as f:
+            data = json.load(f)
         return data
 
-    def generate_graph(self) -> nx.Graph:
+    def generate_graph(self) -> nx.DiGraph:
         """
         Reads the .json data which is used to generate the graph with nodes and edges that access classes in ~/drivers.
         Creates a directed graph object.
@@ -140,22 +158,20 @@ class Generator:
         """
         Renumbers the node ids in the JSON automatically. This allows you to more easily update the graph JSON.
         """
-        # TODO: Why does this read the graph from the hard drive rather than using the instance's graph?
-        with self.json_path.open(mode='r') as f:
-            graph_json: Dict = json.load(f)
+        graph_json = json.load(open(self.json_path))
         id = 0
         for node in graph_json["nodes"]:
             node["id"] = id
             id += 1
-        with self.json_path.open(mode='w') as f:
+        with open(self.json_path, "w") as f:
             json.dump(graph_json, f)
 
 
 def main():
-    repo_dir = Path.cwd().parent.parent
-    graph_json = repo_dir / 'graph.json'
-    generator = Generator(graph_json)
+    generator = Generator(GRAPH_JSON)
     new_graph = generator.generate_graph()
+    # for edge_id in new_graph.edges:  # FIXME: Huh? I actually have no idea but im scared to delete it
+    #     new_graph.edges[edge_id]
     # nx.draw_planar(new_graph, with_labels=True)
     # plt.show()
     # generator.index_nodes()

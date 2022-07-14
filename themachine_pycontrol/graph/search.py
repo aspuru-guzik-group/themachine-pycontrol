@@ -1,6 +1,14 @@
+import pkg_resources
+import pickle
 import networkx as nx
-from pathlib import Path
 from typing import Dict, List, Tuple
+from themachine_pycontrol.graph import Generator
+
+# TODO: I think we can remove this line now that the JSON path is passed in the Generator init.
+#ask about this
+GRAPH_JSON = pkg_resources.resource_filename(
+    "themachine_pycontrol", "graph/graph.json"
+)
 
 
 class GraphSearch:
@@ -27,15 +35,17 @@ class GraphSearch:
     #     traversed_edges = self.path_edges(traversed_node_ids)
     #     return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
-    def edge_type_subgraph(self, edge_type: str) -> nx.Graph:
+    def edge_type_subgraph(self, edge_type: str) -> nx.DiGraph:
         """
         Returns a subgraph containing only edges of the type edge_type.
         """
         edges = []
         for edge in self.graph.edges.data():
+            #all_data = edge
             edge_data = edge[2]
+            edge_nodes = (edge[0], edge[1])
             if edge_data["type"] == edge_type:
-                edges.append(edge)
+                edges.append(edge_nodes)
         subgraph = self.graph.edge_subgraph(edges)
         return subgraph
 
@@ -102,7 +112,7 @@ class GraphSearch:
     #     target_to_common = self.weighted_specific_path_search(edge_type, target_label, pump_label)
     #     return source_to_common, target_to_common
 
-    def get_all_edge_data(self) -> list[dict]:
+    def get_all_edge_data(self) -> List[dict]:
         """
         Returns a list of all edges in a graph
         """
@@ -112,10 +122,10 @@ class GraphSearch:
         """
         Performs the Bellman Ford shortest path search for a weighted subgraph.
         """
-        return nx.bellman_ford_path(subgraph, source_id, target_id, "clean")
+        return nx.dijkstra_path(subgraph, source_id, target_id, "clean")
 
     def specific_path_search(self, edge_type: str, source_label: str, target_label: str, nx_search_method: callable) -> \
-            tuple[list[dict], list[dict]]:
+            Tuple[List[dict], List[dict]]:
         """
         Returns the shortest weighted or unweighted path from source to target for the subgraph containing only the
         edges of the type edge_type
@@ -128,8 +138,8 @@ class GraphSearch:
         return [self.get_node_from_id(node_id) for node_id in traversed_node_ids], traversed_edges
 
     def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str,  nx_search_method: callable,
-                                  common_node_label: str = "pump_1") -> tuple[tuple[list[dict], list[dict]],
-                                                                              tuple[list[dict], list[dict]]]:
+                                  common_node_label: str = "pump_1") -> Tuple[Tuple[List[dict], List[dict]],
+                                                                              Tuple[List[dict], List[dict]]]:
         """
         Returns a tuple featuring the shortest weighted or unweighted path from the node of source_label to the node of
         common_node_label, and the shortest path from the node of target_label to the node of common_node_label,
@@ -140,11 +150,11 @@ class GraphSearch:
         return source_to_common, target_to_common
 
     def dirtiest_path(self, edge_type: str, wash_label: str, waste_label: str = "waste", pump_label: str = "pump_1")\
-            -> tuple[tuple[list[dict], list[dict]], tuple[list[dict], list[dict]]]:
+            -> Tuple[Tuple[List[dict], List[dict]], Tuple[List[dict], List[dict]]]:
         """
         Returns the path involving the most dirty tubes between a source wash solution and a target waste.
         """
-        return self.specific_multistep_search(edge_type, wash_label, waste_label, self.weighted_shortest_path, pump_label,)
+        return self.specific_multistep_search(edge_type, wash_label, waste_label, self.weighted_shortest_path, pump_label)
 
 
     # def specific_multistep_search(self, edge_type: str, source_label: str, target_label: str, common_node_label: str = "pump_1"):
@@ -174,10 +184,13 @@ class GraphSearch:
 
 
 def main():
-    repo_dir = Path.cwd().parent.parent
-    graph_json = repo_dir / 'graph.json'
-    search = GraphSearch(graph_json)
-
+    generator = Generator(GRAPH_JSON)
+    g1 = generator.generate_graph()
+    search = GraphSearch(g1)
+    spath1 = search.specific_multistep_search("volumetric", "sln_1", "rxn_1", nx.shortest_path)
+    print(spath1)
+    dpath1 = search.dirtiest_path("volumetric", "sln_1")
+    print(dpath1)
 
     #
     # next_node = search.single_search("rxn_1", True)

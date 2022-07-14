@@ -1,11 +1,11 @@
+import pkg_resources
 from singleton_decorator import singleton
 from typing import List
 from themachine_pycontrol.drivers.errors import CommunicationError, HardwareError, RangeError
 
 import clr
-# PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
-# clr.AddReference(PUMP_DLL)
-clr.AddReference("KEMPumpDLL")
+PUMP_DLL = pkg_resources.resource_filename("themachine_pycontrol", "drivers/KEMPumpDLL")
+clr.AddReference(PUMP_DLL)
 from KEMPumpDLL import SyringePumpDef
 
 
@@ -50,7 +50,7 @@ class Pump:
         """
         self._move_port(new_port)
         self._move_piston(top_speed, volume, wait_ready)
-        print(f"Pump is ready to dispense {volume} mL to port {new_port}.")
+        print(f"Pump is ready to move to {volume} mL while in port {new_port}.")
 
     def _move_port(self, new_port: int):
         """
