@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Han"
+  given-names: "Hao"
+  orcid: "https://orcid.org/0000-0002-0176-3929"
+- family-names: "Felix"
+  given-names: "Strieth-Kalthoff"
+  orcid: "https://orcid.org/0000-0003-1357-5500"
+- family-names: "Martin"
+  given-names: "Seifrid"
+  orcid: "https://orcid.org/0000-0001-5238-0058"
+- family-names: "Anji"
+  given-names: "Zhang"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "themachine-pycontrol"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2023-02-20
+url: "https://github.com/aspuru-guzik-group/themachine-pycontrol"
